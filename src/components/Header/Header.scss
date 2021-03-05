@@ -1,0 +1,52 @@
+.appbar {
+  background-color: #05125b !important;
+  .toolbar {
+    justify-content: space-between;
+    .logo {
+      max-height: 56px;
+      filter: brightness(0) invert(1);
+    }
+    .client {
+      text-transform: none;
+      border-radius: 0;
+      border-left: 1px solid white;
+      padding-left: 10px;
+      span {
+        font-weight: normal;
+        color: white;
+        line-height: 16px;
+        text-align: left;
+      }
+    }
+    .account {
+      border-left: 1px solid #ccc;
+      padding-left: 10px;
+      svg {
+        margin-right: 7px;
+        font-size: 30px;
+      }
+    }
+    span {
+      font-size: 12px;
+      margin-left: 1px;
+      color: #b2b2b2;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .appbar .toolbar {
+    .logo {
+      max-height: 48px;
+    }
+    .client {
+      display: none;
+    }
+    p {
+      font-size: 12px;
+    }
+    span {
+      font-size: 10px;
+    }
+  }
+}

@@ -6,19 +6,17 @@ import { theme } from './malerialUI/theme.js';
 
 import Auth from './pages/Auth';
 import Clients from './pages/Clients';
+import Estimates from './pages/Estimates/Estimates';
 
 function App() {
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                <div className="App">
-                    <div className="wrapper">
-                        <Switch>
-                            <Route exact path="/" component={Auth} />
-                            <Route exact path="/clients" component={Clients} />
-                        </Switch>
-                    </div>
-                </div>
+                <Switch>
+                    <Route exact path="/" component={Auth} />
+                    <Route exact path="/clients" component={Clients} />
+                    <Route exact path="/estimates/:id" component={Estimates} />
+                </Switch>
             </Router>
         </ThemeProvider>
     );

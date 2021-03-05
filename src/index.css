@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     border: 0;
+    font-family: Roboto, sans-serif;
 }
 *,
 *:before,
@@ -76,4 +77,14 @@ h5,
 h6 {
     font-size: inherit;
     font-weight: 400;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
