@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { Update, Edit, ArrowBack } from '@material-ui/icons';
 import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Button, Tooltip, IconButton } from '@material-ui/core';
-import ShowButton from '../../components/ShowHideButton/ShowHideButton';
+import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
 import './Estimate.scss';
 
 const rows = [
@@ -45,9 +45,9 @@ const Estimate = () => {
       <Typography variant="h6">Результат расчета стен</Typography>
       <EstimateTable />
 
-      <ShowButton title="Результат расчета каркаса" className="mb-30">
+      <CustomAccordion title="Результат расчета каркаса" className="mb-30">
         <EstimateTable />
-      </ShowButton>
+      </CustomAccordion>
 
       <div className="right">
         <Button className="green">Добавить расчет</Button>

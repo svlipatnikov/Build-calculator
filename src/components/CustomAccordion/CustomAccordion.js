@@ -2,9 +2,9 @@ import React from 'react';
 import { withTheme } from '@material-ui/core/styles';
 import { Accordion, AccordionDetails, AccordionSummary, Button } from '@material-ui/core';
 import { AddCircleOutline } from '@material-ui/icons';
-import './ShowHideButton.scss';
+import './CustomAccordion.scss';
 
-const ShowButton = props => (
+const CustomAccordion = props => (
   <Accordion className={`accordion ${props.className}`}>
     <AccordionSummary>
       <Button startIcon={<AddCircleOutline color="primary" />} className="accordion-button">
@@ -17,4 +17,4 @@ const ShowButton = props => (
   </Accordion>
 );
 
-export default withTheme(ShowButton);
+export default withTheme(CustomAccordion);
