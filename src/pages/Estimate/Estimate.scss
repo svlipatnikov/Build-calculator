@@ -1,0 +1,45 @@
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.right {
+  text-align: right;
+  .green {
+    color: white;
+    border: 1px solid transparent;
+    background-color: #146c43;
+    transition: 0.5s;
+    &:hover {
+      background-color: #0e5333;
+    }
+  }
+}
+
+.es {
+  &-button {
+    min-width: unset !important;
+    padding: 6px !important;
+    margin-right: 5px !important;
+  }
+  &-row {
+    td:not(:first-child) {
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .es-row td {
+    padding: 16px 7px;
+  }
+}
+
+@media (max-width: 375px) {
+  .es-row td {
+    font-size: 11px;
+    padding: 12px 3px;
+  }
+  .arrow-back {
+    display: none !important;
+  }
+}

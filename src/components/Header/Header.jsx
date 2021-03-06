@@ -1,18 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Toolbar } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import Logo from '../../assets/logo.svg'
 import './Header.scss'
 
 const Header = () => {
+  const location = useLocation()
+
   const name = 'Клиент'
   const lastName = 'Клиентовый'
   const patronymic = 'Клиентович'
 
-  const openModal = () => {
+  const openModal = () => {}
 
-  }
+  if (location.pathname === '/') return null
 
   return (
     <AppBar className="appbar" position="static">

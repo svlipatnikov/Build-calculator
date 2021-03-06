@@ -5,7 +5,7 @@ import Header from '../components/Header/Header'
 const Page = props => (
   <>
     <Header />
-    <Container className="container">
+    <Container className="container" maxWidth="lg">
       {props.children}
     </Container>
   </>
