@@ -6,7 +6,7 @@ import { theme } from './malerialUI/theme.js';
 
 import Auth from './pages/Auth';
 import Clients from './pages/Clients';
-import Estimates from './pages/Estimates/Estimates';
+import Estimate from './pages/Estimate/Estimate';
 
 function App() {
     return (
@@ -15,7 +15,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={Auth} />
                     <Route exact path="/clients" component={Clients} />
-                    <Route exact path="/estimates/:id" component={Estimates} />
+                    <Route exact path="/estimates/:id" component={Estimate} />
                 </Switch>
             </Router>
         </ThemeProvider>

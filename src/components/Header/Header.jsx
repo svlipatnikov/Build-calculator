@@ -1,36 +1,44 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { AppBar, Button, Toolbar } from '@material-ui/core'
+import { AppBar, Avatar, Toolbar } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import Logo from '../../assets/logo.svg'
 import './Header.scss'
 
-const Header = () => (
-  <AppBar className="appbar" position="static">
-    <Toolbar className="toolbar">
-      <div className="d-flex">
-        <Link to="/">
-          <img src={Logo} alt="logo" className="logo" />
-        </Link>
+const Header = () => {
+  const name = 'Клиент'
+  const lastName = 'Клиентовый'
+  const patronymic = 'Клиентович'
 
-        <Button color="inherit" size="small" className="client">
-          Клиент:<br />
-          Тестовый Тест Тестович<br />
-          г. Ульяновск, ул. Тестовая, д. 35<br />
-          Тел: 8-900-000-00-00
-        </Button>
-      </div>
+  const openModal = () => {
 
-      <div className="d-flex account">
-        <AccountCircle />
+  }
 
-        <div>
-          <p>Тест Тестовый</p>
-          <span>Тестировщик</span>
+  return (
+    <AppBar className="appbar" position="static">
+      <Toolbar className="toolbar">
+        <div className="d-flex">
+          <Link to="/">
+            <img src={Logo} alt="logo" className="logo" />
+          </Link>
+
+          <div className="d-flex client" onClick={openModal}>
+            <Avatar sizes="20">{name.charAt(0) + lastName.charAt(0)}</Avatar>
+            <p>{lastName} {name} {patronymic}</p>
+          </div>
         </div>
-      </div>
-    </Toolbar>
-  </AppBar>
-)
+
+        <div className="d-flex account">
+          <AccountCircle />
+
+          <div>
+            <p>Тест Тестовый</p>
+            <span>Тестировщик</span>
+          </div>
+        </div>
+      </Toolbar>
+    </AppBar>
+  )
+}
 
 export default Header

@@ -7,20 +7,24 @@
       filter: brightness(0) invert(1);
     }
     .client {
-      text-transform: none;
-      border-radius: 0;
-      border-left: 1px solid white;
+      cursor: pointer;
+      border-left: 1px solid #ccc;
       padding-left: 10px;
-      span {
-        font-weight: normal;
-        color: white;
-        line-height: 16px;
-        text-align: left;
+      .MuiAvatar-root {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        margin-right: 7px;
+        background-color: #b08989;
+      }
+      p:hover {
+        text-decoration: underline;
       }
     }
     .account {
       border-left: 1px solid #ccc;
       padding-left: 10px;
+      margin-left: 10px;
       svg {
         margin-right: 7px;
         font-size: 30px;
@@ -34,13 +38,10 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 670px) {
   .appbar .toolbar {
     .logo {
       max-height: 48px;
-    }
-    .client {
-      display: none;
     }
     p {
       font-size: 12px;
@@ -48,5 +49,11 @@
     span {
       font-size: 10px;
     }
+  }
+}
+
+@media (max-width: 490px) {
+  .client {
+    display: none;
   }
 }
