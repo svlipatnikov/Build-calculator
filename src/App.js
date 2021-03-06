@@ -12,7 +12,7 @@ function App() {
             <Router>
                 <PageLayout>
                     <Switch>
-                        {routes.map(props => <Route {...props} exact />)}
+                        {routes.map(props => <Route key={props.path} {...props} exact />)}
                     </Switch>
                 </PageLayout>
             </Router>
