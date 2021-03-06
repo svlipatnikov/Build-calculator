@@ -31,7 +31,12 @@ const Estimate = () => {
           </Button>
         </Tooltip>
         <Tooltip title="Редактировать">
-          <Button variant="outlined" color="primary" className="es-button">
+          <Button 
+            color="primary" 
+            variant="outlined" 
+            className="es-button" 
+            onClick={() => history.push('/')}
+          >
             <Edit />
           </Button>
         </Tooltip>
