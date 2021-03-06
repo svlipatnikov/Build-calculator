@@ -1,0 +1,10 @@
+.accordion {
+  &:before {
+    content: none !important;
+  }
+  &-button {
+    svg {
+      font-size: 30px !important;
+    }
+  }
+}
