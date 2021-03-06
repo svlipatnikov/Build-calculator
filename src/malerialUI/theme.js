@@ -65,6 +65,6 @@ theme = createMuiTheme(theme, {
       },
     }
   },
-})
+});
 
-export default theme
+export default theme;

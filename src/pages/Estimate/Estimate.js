@@ -54,7 +54,7 @@ const Estimate = () => {
       </div>
     </>
   );
-}
+};
 
 const EstimateTable = () => (
   <TableContainer className="mb-30">
