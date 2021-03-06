@@ -15,6 +15,6 @@ const routes = [
     path: '/estimate/:id',
     component: Estimate
   },
-]
+];
 
-export default routes
+export default routes;

@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { useHistory } from 'react-router';
 import { Update, Edit, ArrowBack } from '@material-ui/icons';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Button, Tooltip, IconButton } from '@material-ui/core'
-import ShowButton from '../../components/ShowButton/ShowButton'
-import './Estimate.scss'
+import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Button, Tooltip, IconButton } from '@material-ui/core';
+import ShowButton from '../../components/ShowHideButton/ShowHideButton';
+import './Estimate.scss';
 
 const rows = [
   { param: 'Доска на стойки внутренние', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
@@ -11,7 +11,7 @@ const rows = [
   { param: 'Количество досок на внешние стойки', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
   { param: 'Количество досок на внутренние стойки', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
   { param: <b>Общий объем пиломатериала для основных элементов каркаса</b>, size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
-]
+];
 
 const Estimate = () => {
   const history = useHistory();
@@ -53,7 +53,7 @@ const Estimate = () => {
         <Button className="green">Добавить расчет</Button>
       </div>
     </>
-  )
+  );
 }
 
 const EstimateTable = () => (
@@ -71,6 +71,6 @@ const EstimateTable = () => (
       </TableBody>
     </Table>
   </TableContainer>
-)
+);
 
 export default Estimate;
