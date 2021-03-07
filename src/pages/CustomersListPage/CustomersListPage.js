@@ -12,7 +12,7 @@ const clients = [
   { id: 7, name: 'Клиентов Клиент Клиентович', info: 'Инфо о клиенте' },
 ];
 
-const CustomerListPage = () => {
+const CustomersListPage = () => {
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" color="textPrimary" align="center">
@@ -30,4 +30,4 @@ const CustomerListPage = () => {
   );
 };
 
-export default CustomerListPage;
+export default CustomersListPage;
