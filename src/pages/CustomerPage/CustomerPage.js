@@ -9,28 +9,26 @@ const CustomerPage = () => {
     const classes = useStyles();
 
     return (
-        <>
-            <main>
-                <Container maxWidth="lg">
-                    <div className={classes.mainNav}>
-                        <Typography variant="h3" color="textPrimary" align="center">
-                            <Button className={classes.btnArrow}>
-                                <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
-                            </Button>
-                            Карточка клиента
-                        </Typography>
-                    </div>
-                    <div className={classes.mainCanculation}>
-                        <Button variant="contained" color="primary">
-                            Создать расчет
+        <main>
+            <Container maxWidth="lg">
+                <div className={classes.mainNav}>
+                    <Typography variant="h3" color="textPrimary" align="center">
+                        <Button className={classes.btnArrow}>
+                            <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
                         </Button>
-                    </div>
-                    <div className={classes.mainTable}>
-                        <TableCustomers />
-                    </div>
-                </Container>
-            </main>
-        </>
+                        Карточка клиента
+                    </Typography>
+                </div>
+                <div className={classes.mainCanculation}>
+                    <Button variant="contained" color="primary">
+                        Создать расчет
+                    </Button>
+                </div>
+                <div className={classes.mainTable}>
+                    <TableCustomers />
+                </div>
+            </Container>
+        </main>
     );
 };
 
