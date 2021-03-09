@@ -1,7 +1,7 @@
-import AuthPage from './AuthPage';
-import CustomerPage from './CustomerPage';
-import Estimate from './Estimate/Estimate';
-import CustomersListPage from './CustomersListPage';
+import AuthPage from '../pages/AuthPage';
+import CustomerPage from '../pages/CustomerPage';
+import Estimate from '../pages/Estimate';
+import CustomersListPage from '../pages/CustomersListPage';
 
 const routes = [
   {

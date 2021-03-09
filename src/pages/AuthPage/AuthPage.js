@@ -1,6 +1,6 @@
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import React, { useState } from 'react';
-import logo from '../../img/calc_logo.svg';
+import logo from '../../assets/calc_logo.svg';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');

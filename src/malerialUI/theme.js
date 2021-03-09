@@ -19,10 +19,18 @@ let theme = createMuiTheme({
     },
   },
   overrides: {
+    MuiToolbar: {
+      root: {
+        justifyContent: 'space-between',
+      } 
+    },
     MuiAccordion: {
       root: {
         backgroundColor: 'transparent',
         boxShadow: 'none',
+        '&:before': {
+          content: 'none'
+        }
       }
     },
     MuiAccordionSummary: {
