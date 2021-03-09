@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from '@material-ui/core'
-import Header from '../components/Header/Header'
+import Header from '../components/Header'
 
 const Page = props => (
   <>
