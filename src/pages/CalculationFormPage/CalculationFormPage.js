@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,9 +19,11 @@ const CalculationFormPage = () => {
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
           <Typography variant="h3" color="textPrimary" align="center">
-            <Button className={classes.btnArrow}>
-              <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
-            </Button>
+            <Link to="/customers/:id">
+              <Button className={classes.btnArrow}>
+                <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
+              </Button>
+            </Link>
             Каркас
           </Typography>
         </div>
