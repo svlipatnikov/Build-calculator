@@ -4,14 +4,19 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { Typography, CardContent, Card, CardActionArea } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { setCurentCustomerAction } from '../../../redux/actions/curentCustomer';
 
 const CustomerCard = ({ id, name, info }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   if (!id || !name) return null;
 
   const handleClick = () => {
     history.push(`/customers/${id}`);
+    // запоминаем в store текущего заказчика
+    dispatch(setCurentCustomerAction({ id, name, info }));
   };
 
   return (

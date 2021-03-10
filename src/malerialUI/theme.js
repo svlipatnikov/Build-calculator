@@ -40,6 +40,7 @@ let theme = createMuiTheme({
     },
     MuiAccordionDetails: {
       root: {
+        display: 'block',
         padding: 16,
       },
     },

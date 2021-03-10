@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,28 +11,30 @@ const CustomerPage = () => {
   const classes = useStyles();
 
   return (
-    <>
-      <main>
-        <Container maxWidth="lg">
-          <div className={classes.mainNav}>
-            <Typography variant="h3" color="textPrimary" align="center">
+    <main>
+      <Container maxWidth="lg">
+        <div className={classes.mainNav}>
+          <Typography variant="h3" color="textPrimary" align="center">
+            <Link to="/customers">
               <Button className={classes.btnArrow}>
                 <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
               </Button>
-              Карточка клиента
-            </Typography>
-          </div>
-          <div className={classes.mainCanculation}>
+            </Link>
+            Карточка клиента
+          </Typography>
+        </div>
+        <div className={classes.mainCanculation}>
+          <Link to="/calculation/new">
             <Button variant="contained" color="primary">
               Создать расчет
             </Button>
-          </div>
-          <div className={classes.mainTable}>
-            <TableCustomers />
-          </div>
-        </Container>
-      </main>
-    </>
+          </Link>
+        </div>
+        <div className={classes.mainTable}>
+          <TableCustomers />
+        </div>
+      </Container>
+    </main>
   );
 };
 

@@ -1,17 +1,19 @@
-/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable no-use-before-define */
 /* eslint-disable object-curly-newline */
-import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Grid, Typography, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import logo from '../../img/calc_logo.svg';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
   const [pass, setPass] = useState('');
+  const classes = useStyles();
 
   const submit = () => {
     setLogin('');
     setPass('');
-    // здесь нужно оправть логин и пароль на бэк
+    // здесь нужно отправть логин и пароль на бэк
   };
 
   const handleLoginChange = (event) => {
@@ -23,17 +25,11 @@ const AuthPage = () => {
   };
 
   return (
-    <form style={{ overflow: 'hidden' }}>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        spacing={4}
-        style={{ minHeight: '100vh' }}>
+    <form className={classes.form}>
+      <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
         <Grid item container direction="row" justify="center" alignItems="center">
-          <img alt="Logo" src={logo} style={{ height: '150px', marginRight: '16px' }} />
-          <Typography variant="h4" color="primary" style={{ textTransform: 'uppercase' }}>
+          <img className={classes.logoImg} alt="Logo" src={logo} />
+          <Typography className={classes.logoText} variant="h4" color="primary">
             строительный
             <br />
             калькулятор
@@ -42,10 +38,7 @@ const AuthPage = () => {
 
         <Grid item>
           <TextField
-            style={{
-              width: '450px',
-              backgroundColor: '#ffffff',
-            }}
+            className={classes.formInput}
             id="login"
             label="Введите логин"
             variant="outlined"
@@ -57,10 +50,7 @@ const AuthPage = () => {
 
         <Grid item>
           <TextField
-            style={{
-              width: '450px',
-              backgroundColor: '#ffffff',
-            }}
+            className={classes.formInput}
             id="pass"
             label="Введите пароль"
             variant="outlined"
@@ -71,15 +61,7 @@ const AuthPage = () => {
         </Grid>
 
         <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{
-              width: '285px',
-              height: '59px',
-              fontSize: '18px',
-            }}
-            onClick={submit}>
+          <Button className={classes.formBtn} variant="contained" color="primary" onClick={submit}>
             Войти
           </Button>
         </Grid>
@@ -89,3 +71,30 @@ const AuthPage = () => {
 };
 
 export default AuthPage;
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    minHeight: '100vh',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoImg: {
+    height: '150px',
+  },
+  logoText: {
+    textTransform: 'uppercase',
+    margin: theme.spacing(3),
+  },
+  formInput: {
+    width: '450px',
+    backgroundColor: '#ffffff',
+  },
+  formBtn: {
+    width: '285px',
+    height: '59px',
+    fontSize: '18px',
+  },
+}));
