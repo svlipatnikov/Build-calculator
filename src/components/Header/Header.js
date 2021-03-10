@@ -14,7 +14,7 @@ const Header = () => {
 
   const openModal = () => {};
 
-  if (location.pathname === '/') return null;
+  if (location.pathname === '/login') return null;
 
   return (
     <AppBar className="appbar" position="static">
@@ -26,7 +26,9 @@ const Header = () => {
 
           <div className="d-flex client" onClick={openModal}>
             <Avatar sizes="20">{name.charAt(0) + lastName.charAt(0)}</Avatar>
-            <p>{lastName} {name} {patronymic}</p>
+            <p>
+              {lastName} {name} {patronymic}
+            </p>
           </div>
         </div>
 
