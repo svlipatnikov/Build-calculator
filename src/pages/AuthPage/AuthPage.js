@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable object-curly-newline */
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import React, { useState } from 'react';
 import logo from '../../img/calc_logo.svg';
@@ -28,8 +30,7 @@ const AuthPage = () => {
         justify="center"
         alignItems="center"
         spacing={4}
-        style={{ minHeight: '100vh' }}
-      >
+        style={{ minHeight: '100vh' }}>
         <Grid item container direction="row" justify="center" alignItems="center">
           <img alt="Logo" src={logo} style={{ height: '150px', marginRight: '16px' }} />
           <Typography variant="h4" color="primary" style={{ textTransform: 'uppercase' }}>
@@ -78,8 +79,7 @@ const AuthPage = () => {
               height: '59px',
               fontSize: '18px',
             }}
-            onClick={submit}
-          >
+            onClick={submit}>
             Войти
           </Button>
         </Grid>

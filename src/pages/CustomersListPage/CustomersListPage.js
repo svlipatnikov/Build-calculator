@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import React from 'react';
 import { Container, Typography, Grid } from '@material-ui/core';
 import CustomerCard from './CustomerCard';
