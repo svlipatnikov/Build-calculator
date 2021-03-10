@@ -1,6 +1,6 @@
-import React from 'react'
-import { Container } from '@material-ui/core'
-import Header from '../components/Header'
+import React from 'react';
+import { Container } from '@material-ui/core';
+import Header from '../components/Header';
 
 const Page = props => (
   <>
@@ -9,6 +9,6 @@ const Page = props => (
       {props.children}
     </Container>
   </>
-)
+);
 
-export default Page
+export default Page;
