@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import BoxForm from './BoxForm';
 import BoxFormSelect from './BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
-import CalculationOutWall from './CalculationOutWall';
 import CalculationImbrication from './CalculationImbrication';
 import DoorAndWindow from './DoorAndWindow';
 
@@ -67,7 +66,7 @@ const CalculationFormPage = () => {
             <BoxFormSelect name={'Ветрозащита'} />
             <BoxFormSelect name={'Утеплитель'} />
             <CustomAccordion title="Добавить расчет обшивки внутренних стен" className="mb-30">
-              <CalculationOutWall />
+              <BoxFormSelect name={'ОСБ'} />
             </CustomAccordion>
             <CustomAccordion title="Учесть двери и окна" className="mb-30">
               <DoorAndWindow />

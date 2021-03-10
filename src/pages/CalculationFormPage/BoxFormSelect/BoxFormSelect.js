@@ -1,51 +1,41 @@
 import React from 'react';
 import { Box, TextField } from '@material-ui/core';
 
-const currencies = [
-    {
-        value: 'мм',
-    },
-    {
-        value: 'см',
-    },
-    {
-        value: 'м',
-    },
-];
+import { currencies } from './const';
 
 const BoxFormSelect = ({ name }) => {
-    const [currency, setCurrency] = React.useState('мм');
+  const [currency, setCurrency] = React.useState('мм');
 
-    const handleChange = (event) => {
-        setCurrency(event.target.value);
-    };
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
+  };
 
-    return (
-        <Box display="flex" alignItems="center" justifyContent="space-between" m={1}>
-            <Box css={{ fontSize: 16 }}>{name}</Box>
-            <Box>
-                <TextField
-                    style={{
-                        width: '100px',
-                        backgroundColor: '#ffffff',
-                    }}
-                    variant="standard"
-                    color="secondary"
-                    value={currency}
-                    onChange={handleChange}
-                    SelectProps={{
-                        native: true,
-                    }}
-                    select>
-                    {currencies.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.value}
-                        </option>
-                    ))}
-                </TextField>
-            </Box>
-        </Box>
-    );
+  return (
+    <Box display="flex" alignItems="center" justifyContent="space-between" m={1}>
+      <Box css={{ fontSize: 16 }}>{name}</Box>
+      <Box>
+        <TextField
+          style={{
+            width: '100px',
+            backgroundColor: '#ffffff',
+          }}
+          variant="standard"
+          color="secondary"
+          value={currency}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          select>
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.value}
+            </option>
+          ))}
+        </TextField>
+      </Box>
+    </Box>
+  );
 };
 
 export default BoxFormSelect;
