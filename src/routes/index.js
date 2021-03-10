@@ -2,6 +2,7 @@ import AuthPage from '../pages/AuthPage';
 import CustomerPage from '../pages/CustomerPage';
 import Estimate from '../pages/Estimate';
 import CustomersListPage from '../pages/CustomersListPage';
+import CalculationFormPage from '../pages/CalculationFormPage';
 
 const routes = [
   {
@@ -15,6 +16,10 @@ const routes = [
   {
     path: '/customers/:id',
     component: CustomerPage,
+  },
+  {
+    path: '/calculation/new',
+    component: CalculationFormPage,
   },
   {
     path: '/estimate/:id',
