@@ -1,15 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { curentCustomerSelector } from 'redux/selectors';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
 const Client = () => {
   const classes = useStyles();
+  const client = useSelector(curentCustomerSelector);
 
-  const name = 'Клиент';
-  const lastName = 'Клиентов';
-  const patronymic = 'Клиентович';
   // TODO: create open modal function
-  const openModal = () => { };
+  const openModal = () => {};
+
+  if (!client.name) return null;
+  
+  const [lastName, name, patronymic] = client.name.split(' ');
 
   return (
     <div className={classes.client} onClick={openModal}>

@@ -1,17 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { userSelector } from 'redux/selectors';
 import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
 
 const User = () => {
   const classes = useStyles();
+  const user = useSelector(userSelector);
 
   return (
     <div className={classes.account}>
       <AccountCircle className={classes.accountAvatar} />
 
       <div>
-        <p className={classes.text}>Тест Тестовый</p>
-        <span className={classes.span}>Тестировщик</span>
+        <p className={classes.text}>{user.name}</p>
+        <span className={classes.span}>{user.position}</span>
       </div>
     </div>
   )

@@ -1,22 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { estimateListSelector } from 'redux/selectors';
 import { makeStyles, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
-
-const rows = [
-  { param: 'Доска на стойки внутренние', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
-  { param: 'Количество стоек на внутренние стены', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
-  { param: 'Количество досок на внешние стойки', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
-  { param: 'Количество досок на внутренние стойки', size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
-  { param: <b>Общий объем пиломатериала для основных элементов каркаса</b>, size: '40/250', dimensions: '1,8 куб м', sum: '30 тыс руб' },
-];
 
 const EstimateTable = () => {
   const classes = useStyles();
+  const estimateList = useSelector(estimateListSelector);
 
   return (
     <TableContainer className={classes.mb30}>
       <Table>
         <TableBody>
-          {rows.map((row, id) => (
+          {estimateList.map((row, id) => (
             <TableRow key={id}>
               <TableCell className={classes.td}>{row.param}</TableCell>
               <TableCell align="right" className={classes.td}>{row.size}</TableCell>
