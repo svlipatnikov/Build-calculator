@@ -23,7 +23,7 @@ let theme = createMuiTheme({
       root: {
         backgroundColor: 'transparent',
         boxShadow: 'none',
-      }
+      },
     },
     MuiAccordionSummary: {
       root: {
@@ -34,13 +34,14 @@ let theme = createMuiTheme({
       content: {
         alignItems: 'center',
         flexGrow: 0,
-        margin: '0 !important'
+        margin: '0 !important',
       },
     },
     MuiAccordionDetails: {
       root: {
-        padding: 16
-      }
+        display: 'block',
+        padding: 16,
+      },
     },
     MuiTypography: {
       h4: {
@@ -49,8 +50,8 @@ let theme = createMuiTheme({
       h6: {
         fontSize: 18,
         marginBottom: 12,
-      }
-    }
+      },
+    },
   },
 });
 
@@ -61,9 +62,9 @@ theme = createMuiTheme(theme, {
         [theme.breakpoints.down(400)]: {
           fontSize: 24,
           marginBottom: 15,
-        }
+        },
       },
-    }
+    },
   },
 });
 
