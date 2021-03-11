@@ -1,7 +1,7 @@
 import { SET_AUTH_FLAG } from 'redux/actions/types';
 
 const authInfoInitialState = {
-  isAuth: false,
+  isAuthenticated: false,
 };
 
 export default function authInfoReducer(state = authInfoInitialState, action) {
@@ -9,7 +9,7 @@ export default function authInfoReducer(state = authInfoInitialState, action) {
     case SET_AUTH_FLAG:
       return {
         ...state,
-        isAuth: action.isAuth,
+        isAuthenticated: action.isAuthenticated,
       };
 
     default:

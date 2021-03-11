@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthFlagAction } from 'redux/actions/authInfoAction';
-import { authFlagSelector } from 'redux/selectors/authInfoSelector';
+import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
 import { useHistory } from 'react-router-dom';
 
 const AuthPage = () => {
@@ -13,9 +13,9 @@ const AuthPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const isAuth = useSelector(authFlagSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
-  if (isAuth) history.push('/customers');
+  if (isAuthenticated) history.push('/customers');
 
   const submit = () => {
     setLogin('');
