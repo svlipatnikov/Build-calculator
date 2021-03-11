@@ -15,11 +15,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <PageLayout>
+          {isAuth ? null : <Redirect to="/login" />}
           <Switch>
             {routes.map((props) => (
               <Route key={props.path} {...props} exact />
             ))}
-            <Redirect to="/customers" />
           </Switch>
         </PageLayout>
       </Router>

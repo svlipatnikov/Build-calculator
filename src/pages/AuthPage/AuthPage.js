@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuthFlagAction } from 'redux/actions/auth';
+import { authSelector } from 'redux/selectors';
+import { useHistory } from 'react-router-dom';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
   const [psw, setPsw] = useState('');
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const isAuth = useSelector(authSelector);
+
+  if (isAuth) history.push('/customers');
 
   const submit = () => {
     setLogin('');
