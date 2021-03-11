@@ -11,7 +11,7 @@ plugins:
   - react
 rules:
   {
-    linebreak-style: ['error', 'windows'],
+    linebreak-style: 'off',
     no-console: 'warn',
     react/jsx-filename-extension: [1, { 'extensions': ['.js', '.jsx'] }],
     no-plusplus: 'off',
