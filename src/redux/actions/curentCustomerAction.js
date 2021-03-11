@@ -1,8 +1,8 @@
-import { SET_CURENT_CUSTOMER_INFO } from '../actions/types';
+import { SET_CURENT_CUSTOMER_INFO } from './types';
 
 export const setCurentCustomerAction = (curentCustomerObj) => {
   return {
     type: SET_CURENT_CUSTOMER_INFO,
-    payload: curentCustomerObj,
+    customer: curentCustomerObj,
   };
 };

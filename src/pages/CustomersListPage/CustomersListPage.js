@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Container, Typography, Grid, Button } from '@material-ui/core';
 import CustomerCard from './CustomerCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { customersListSelector } from '../../redux/selectors';
-import { setCustomersListAction } from '../../redux/actions/customersList';
+import { customersListSelector } from 'redux/selectors/customersListSelector';
+import { setCustomersListAction } from 'redux/actions/customersListAction';
 import { makeStyles } from '@material-ui/core/styles';
 
 // TODO: тестовые данные, удалить после подключения сервера

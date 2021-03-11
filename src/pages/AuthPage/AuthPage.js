@@ -3,33 +3,33 @@ import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthFlagAction } from 'redux/actions/auth';
-import { authSelector } from 'redux/selectors';
+import { setAuthFlagAction } from 'redux/actions/authInfoAction';
+import { authFlagSelector } from 'redux/selectors/authInfoSelector';
 import { useHistory } from 'react-router-dom';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
-  const [psw, setPsw] = useState('');
+  const [password, setPassword] = useState('');
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const isAuth = useSelector(authSelector);
+  const isAuth = useSelector(authFlagSelector);
 
   if (isAuth) history.push('/customers');
 
   const submit = () => {
     setLogin('');
-    setPsw('');
+    setPassword('');
     // здесь нужно отправть логин и пароль на бэк
-    if (login === 'admin' || psw === 'admin') dispatch(setAuthFlagAction(true));
+    if (login === 'admin' || password === 'admin') dispatch(setAuthFlagAction(true));
   };
 
   const handleLoginChange = (event) => {
     setLogin(event.target.value);
   };
 
-  const handlePswChange = (event) => {
-    setPsw(event.target.value);
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   return (
@@ -58,8 +58,8 @@ const AuthPage = () => {
             label="Введите пароль"
             variant="outlined"
             color="secondary"
-            onChange={handlePswChange}
-            value={psw}
+            onChange={handlePasswordChange}
+            value={password}
             type="password"
           />
         </Grid>
