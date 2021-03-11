@@ -1,8 +1,7 @@
-import { SET_CURENT_CUSTOMER_INFO } from '../actions/types';
+/* eslint-disable import/prefer-default-export */
+import { SET_CURENT_CUSTOMER_INFO } from './types';
 
-export const setCurentCustomerAction = (curentCustomerObj) => {
-  return {
-    type: SET_CURENT_CUSTOMER_INFO,
-    payload: curentCustomerObj,
-  };
-};
+export const setCurentCustomerAction = (curentCustomerObj) => ({
+  type: SET_CURENT_CUSTOMER_INFO,
+  payload: curentCustomerObj,
+});

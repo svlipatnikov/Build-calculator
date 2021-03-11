@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Toolbar } from '@material-ui/core';
@@ -26,7 +29,9 @@ const Header = () => {
 
           <div className="d-flex client" onClick={openModal}>
             <Avatar sizes="20">{name.charAt(0) + lastName.charAt(0)}</Avatar>
-            <p>{lastName} {name} {patronymic}</p>
+            <p>
+              {lastName} {name} {patronymic}
+            </p>
           </div>
         </div>
 

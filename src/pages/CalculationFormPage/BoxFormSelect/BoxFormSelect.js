@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Box, TextField } from '@material-ui/core';
 

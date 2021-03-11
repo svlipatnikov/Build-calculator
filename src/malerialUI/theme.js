@@ -1,3 +1,4 @@
+/* eslint-disable import/no-mutable-exports */
 import { createMuiTheme } from '@material-ui/core/styles';
 
 let theme = createMuiTheme({
