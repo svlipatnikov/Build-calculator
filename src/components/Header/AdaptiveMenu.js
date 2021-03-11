@@ -9,15 +9,15 @@ const AdaptiveHeader = () => {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
-  const toggleMenu = () => setOpen(!open);
+  const handleClick = () => setOpen(!open);
 
   return (
     <>
-      <IconButton color="inherit" onClick={toggleMenu}>
+      <IconButton color="inherit" onClick={handleClick}>
         <Menu />
       </IconButton>
-      <Drawer anchor="right" open={open} onClose={toggleMenu} className={classes.drawer}>
-        <IconButton color="inherit" onClick={toggleMenu} className={classes.close}>
+      <Drawer anchor="right" open={open} onClose={handleClick} className={classes.drawer}>
+        <IconButton color="inherit" onClick={handleClick} className={classes.close}>
           <Close />
         </IconButton>
         <div className={classes.content}>

@@ -10,12 +10,12 @@ const Estimate = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const goBack = () => history.push('/calculation/new')
+  const handleBackClick = () => history.push('/calculation/new')
 
   return (
     <>
       <Button>
-        <ArrowBack fontSize="large" onClick={goBack} />
+        <ArrowBack fontSize="large" onClick={handleBackClick} />
       </Button>
 
       <Typography variant="h4" align="center">Расчет</Typography>
@@ -31,7 +31,7 @@ const Estimate = () => {
             color="primary"
             variant="outlined"
             className={classes.button}
-            onClick={goBack}
+            onClick={handleBackClick}
           >
             <Edit />
           </Button>
@@ -52,7 +52,7 @@ const Estimate = () => {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   mb30: {
     marginBottom: 30,
   },
