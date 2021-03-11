@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { estimateListSelector } from 'redux/selectors';
+import { estimateListSelector } from 'redux/selectors/estimate';
 import { makeStyles, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
 
 const EstimateTable = () => {

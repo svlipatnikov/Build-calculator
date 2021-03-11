@@ -1,0 +1,1 @@
+export const estimateListSelector = state => state.estimate.list;
