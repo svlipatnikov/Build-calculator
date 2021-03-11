@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AddCircleOutline, RemoveCircleOutlineRounded } from '@material-ui/icons';

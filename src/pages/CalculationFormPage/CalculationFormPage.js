@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable no-use-before-define */
+/* eslint-disable object-curly-newline */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';

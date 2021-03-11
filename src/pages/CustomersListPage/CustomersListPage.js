@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container, Typography, Grid } from '@material-ui/core';
-import CustomerCard from './CustomerCard';
 import { useDispatch, useSelector } from 'react-redux';
+import CustomerCard from './CustomerCard';
 import { customersListSelector } from '../../redux/selectors';
 import { setCustomersListAction } from '../../redux/actions/customersList';
 
@@ -25,7 +25,7 @@ const CustomersListPage = () => {
       // TODO: заменить на получение массива clients с сервера
       dispatch(setCustomersListAction(clients));
     }
-  }, []);
+  }, [dispatch, storeClients.length]);
 
   return (
     <Container maxWidth="lg">

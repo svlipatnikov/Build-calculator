@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,7 +20,9 @@ const Estimate = () => {
         <ArrowBack fontSize="large" onClick={handleBackClick} />
       </Button>
 
-      <Typography variant="h4" align="center">Расчет</Typography>
+      <Typography variant="h4" align="center">
+        Расчет
+      </Typography>
 
       <div className={classes.right}>
         <Tooltip title="Сменить статус">

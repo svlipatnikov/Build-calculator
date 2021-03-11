@@ -1,3 +1,5 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable react/jsx-curly-brace-presence */
 import React from 'react';
 
 import BoxForm from '../BoxForm';

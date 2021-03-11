@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { ThemeProvider } from '@material-ui/core';
-import theme from './malerialUI/theme.js';
+import theme from './malerialUI/theme';
 import PageLayout from './layouts/page';
 import routes from './routes';
 
@@ -12,7 +14,9 @@ function App() {
       <Router>
         <PageLayout>
           <Switch>
-            {routes.map(route => <Route key={route.path} {...route} exact />)}
+            {routes.map((props) => (
+              <Route key={props.path} {...props} exact />
+            ))}
           </Switch>
         </PageLayout>
       </Router>

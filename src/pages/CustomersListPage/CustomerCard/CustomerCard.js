@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable object-curly-newline */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { useHistory } from 'react-router';
 import { Typography, CardContent, Card, CardActionArea } from '@material-ui/core';

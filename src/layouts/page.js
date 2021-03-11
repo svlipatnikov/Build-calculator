@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Container } from '@material-ui/core';
 import Header from '../components/Header';
 
-const Page = props => (
+const Page = ({ children }) => (
   <>
     <Header />
     <Container className="container" maxWidth="lg">
-      {props.children}
+      {children}
     </Container>
   </>
 );
