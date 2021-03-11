@@ -27,7 +27,7 @@ const CustomersListPage = () => {
       // TODO: заменить на получение массива clients с сервера
       dispatch(setCustomersListAction(clients));
     }
-  }, []);
+  }, [dispatch, storeClients.length]);
 
   return (
     <Container maxWidth="lg">

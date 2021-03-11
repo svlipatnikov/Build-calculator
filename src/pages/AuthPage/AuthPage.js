@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
