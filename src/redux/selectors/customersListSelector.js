@@ -1,1 +1,2 @@
-export const customersListSelector = (state) => state.customersList;
+const customersListSelector = (state) => state.customersList;
+export default customersListSelector;

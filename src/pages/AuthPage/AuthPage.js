@@ -1,11 +1,9 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthFlagAction } from 'redux/actions/authInfoAction';
+import setAuthFlagAction from 'redux/actions/authInfoAction';
 import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
 import { useHistory } from 'react-router-dom';
 

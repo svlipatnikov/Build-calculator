@@ -1,1 +1,2 @@
-export const curentCustomerSelector = (state) => state.curentCustomer;
+const curentCustomerSelector = (state) => state.curentCustomer;
+export default curentCustomerSelector;
