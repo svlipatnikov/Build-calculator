@@ -1,6 +1,5 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, TextField } from '@material-ui/core';
 
 const BoxForm = ({ name }) => {
@@ -19,6 +18,14 @@ const BoxForm = ({ name }) => {
       </Box>
     </Box>
   );
+};
+
+BoxForm.propTypes = {
+  name: PropTypes.string,
+};
+
+BoxForm.defaultProps = {
+  name: '',
 };
 
 export default BoxForm;
