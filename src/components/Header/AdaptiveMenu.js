@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
       backgroundColor: '#0A2973',
       position: 'relative',
       color: 'white',
-    }
+    },
   },
   close: {
     position: 'absolute',
@@ -49,8 +49,8 @@ const useStyles = makeStyles(() => ({
   content: {
     '& > div': {
       margin: '0 0 30px 0',
-    }
-  }
+    },
+  },
 }));
 
 export default AdaptiveHeader;

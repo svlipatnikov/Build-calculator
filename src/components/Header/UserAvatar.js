@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { userSelector } from 'redux/selectors/user';
+import { userSelector } from 'redux/selectors/userSelector';
 import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
 
@@ -17,8 +17,8 @@ const User = () => {
         <span className={classes.span}>{user.position}</span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const useStyles = makeStyles(() => ({
   account: {

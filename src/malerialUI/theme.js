@@ -23,16 +23,16 @@ let theme = createMuiTheme({
     MuiToolbar: {
       root: {
         justifyContent: 'space-between',
-      } 
+      },
     },
     MuiAccordion: {
       root: {
         backgroundColor: 'transparent',
         boxShadow: 'none',
         '&:before': {
-          content: 'none'
-        }
-      }
+          content: 'none',
+        },
+      },
     },
     MuiAccordionSummary: {
       root: {

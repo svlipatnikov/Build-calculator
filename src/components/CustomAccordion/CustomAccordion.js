@@ -7,18 +7,18 @@ import { Accordion, AccordionDetails, AccordionSummary, Button } from '@material
 
 const CustomAccordion = ({ title, children, className }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
+  const [isAccordionExpanded, setIsAccordionExpanded] = useState(false);
 
-  const handleAccordionChange = (e, expanded) => setExpanded(expanded);
+  const handleAccordionChange = (e, expanded) => setIsAccordionExpanded(expanded);
 
   return (
     <Accordion onChange={handleAccordionChange} className={className}>
       <AccordionSummary>
-        <Button 
-          startIcon={expanded
+        <Button
+          startIcon={isAccordionExpanded
             ? <RemoveCircleOutlineRounded color="primary" className={classes.accordionButton} />
-            : <AddCircleOutline color="primary" className={classes.accordionButton} />
-          }>
+            : <AddCircleOutline color="primary" className={classes.accordionButton} />}
+        >
           {title}
         </Button>
       </AccordionSummary>
@@ -32,7 +32,7 @@ const CustomAccordion = ({ title, children, className }) => {
 const useStyles = makeStyles(() => ({
   accordionButton: {
     fontSize: '30px !important',
-  }
-}))
+  },
+}));
 
 export default CustomAccordion;

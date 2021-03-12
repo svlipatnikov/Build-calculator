@@ -1,39 +1,42 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
-import { Grid, Typography, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import logo from '../../assets/calc_logo.svg';
+import logo from 'assets/logo.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import setAuthFlagAction from 'redux/actions/authInfoAction';
+import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
+import { useHistory } from 'react-router-dom';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
-  const [pass, setPass] = useState('');
+  const [password, setPassword] = useState('');
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  if (isAuthenticated) history.push('/customers');
 
   const submit = () => {
     setLogin('');
-    setPass('');
+    setPassword('');
     // здесь нужно отправть логин и пароль на бэк
+    if (login === 'admin' || password === 'admin') dispatch(setAuthFlagAction(true));
   };
 
   const handleLoginChange = (event) => {
     setLogin(event.target.value);
   };
 
-  const handlePassChange = (event) => {
-    setPass(event.target.value);
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   return (
     <form className={classes.form}>
       <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
-        <Grid item container direction="row" justify="center" alignItems="center">
-          <img className={classes.logoImg} alt="Logo" src={logo} />
-          <Typography className={classes.logoText} variant="h4" color="primary">
-            строительный
-            <br />
-            калькулятор
-          </Typography>
+        <Grid item>
+          <img className={classes.logo} alt="Logo" src={logo} />
         </Grid>
 
         <Grid item>
@@ -55,8 +58,9 @@ const AuthPage = () => {
             label="Введите пароль"
             variant="outlined"
             color="secondary"
-            onChange={handlePassChange}
-            value={pass}
+            onChange={handlePasswordChange}
+            value={password}
+            type="password"
           />
         </Grid>
 
@@ -72,7 +76,7 @@ const AuthPage = () => {
 
 export default AuthPage;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   form: {
     minHeight: '100vh',
     overflow: 'hidden',
@@ -81,12 +85,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logoImg: {
+  logo: {
     height: '150px',
-  },
-  logoText: {
-    textTransform: 'uppercase',
-    margin: theme.spacing(3),
   },
   formInput: {
     width: '450px',

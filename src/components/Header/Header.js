@@ -17,7 +17,7 @@ const Header = () => {
   const mobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
-  if (location.pathname === '/') return null;
+  if (location.pathname === '/login') return null;
 
   return (
     <AppBar position="static">

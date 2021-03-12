@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-closing-bracket-location */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, TextField } from '@material-ui/core';
 
 import { currencies } from './const';
@@ -38,6 +37,14 @@ const BoxFormSelect = ({ name }) => {
       </Box>
     </Box>
   );
+};
+
+BoxFormSelect.propTypes = {
+  name: PropTypes.string,
+};
+
+BoxFormSelect.defaultProps = {
+  name: '',
 };
 
 export default BoxFormSelect;

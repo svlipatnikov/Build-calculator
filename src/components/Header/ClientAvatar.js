@@ -20,8 +20,8 @@ const Client = () => {
       <Avatar sizes="20" className={classes.clientAvatar}>{name.charAt(0) + lastName.charAt(0)}</Avatar>
       <p className={classes.text}>{lastName} {name}<br />{patronymic}</p>
     </div>
-  )
-}
+  );
+};
 
 const useStyles = makeStyles(() => ({
   client: {
@@ -34,8 +34,8 @@ const useStyles = makeStyles(() => ({
       fontSize: 13,
       '&:hover': {
         textDecoration: 'underline',
-      }
-    }
+      },
+    },
   },
   clientAvatar: {
     width: 30,

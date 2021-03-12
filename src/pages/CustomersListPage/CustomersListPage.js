@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Container, Typography, Grid } from '@material-ui/core';
+import { Container, Typography, Grid, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import customersListSelector from 'redux/selectors/customersListSelector';
+import setCustomersListAction from 'redux/actions/customersListAction';
+import { makeStyles } from '@material-ui/core/styles';
 import CustomerCard from './CustomerCard';
-import { customersListSelector } from '../../redux/selectors';
-import { setCustomersListAction } from '../../redux/actions/customersList';
 
 // TODO: тестовые данные, удалить после подключения сервера
 const clients = [
@@ -19,6 +20,7 @@ const clients = [
 const CustomersListPage = () => {
   const dispatch = useDispatch();
   const storeClients = useSelector(customersListSelector);
+  const classes = useStyles();
 
   useEffect(() => {
     if (!storeClients.length) {
@@ -33,6 +35,10 @@ const CustomersListPage = () => {
         Клиенты
       </Typography>
 
+      <Button variant="contained" color="primary" className={classes.btn}>
+        Создать клиента
+      </Button>
+
       <Grid container spacing={3}>
         {storeClients.map(({ id, name, info }) => (
           <Grid key={id} item xs={12} sm={6} md={4} lg={3}>
@@ -45,3 +51,9 @@ const CustomersListPage = () => {
 };
 
 export default CustomersListPage;
+
+const useStyles = makeStyles((theme) => ({
+  btn: {
+    marginBottom: theme.spacing(5),
+  },
+}));

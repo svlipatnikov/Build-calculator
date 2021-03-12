@@ -1,7 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { estimateListSelector } from 'redux/selectors/estimate';
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
+import { estimateListSelector } from 'redux/selectors/estimateSelector';
+import {
+  makeStyles,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from '@material-ui/core';
 
 const EstimateTable = () => {
   const classes = useStyles();
@@ -11,8 +18,8 @@ const EstimateTable = () => {
     <TableContainer className={classes.mb30}>
       <Table>
         <TableBody>
-          {estimateList.map((row, id) => (
-            <TableRow key={id}>
+          {estimateList.map((row) => (
+            <TableRow key={row.param}>
               <TableCell className={classes.td}>{row.param}</TableCell>
               <TableCell align="right" className={classes.td}>{row.size}</TableCell>
               <TableCell align="right" className={classes.td}>{row.dimensions}</TableCell>
@@ -23,9 +30,9 @@ const EstimateTable = () => {
       </Table>
     </TableContainer>
   );
-}
+};
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   mb30: {
     marginBottom: 30,
   },
@@ -39,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down(375)]: {
       fontSize: 11,
       padding: '12px 3px',
-    }
+    },
   },
 }));
 

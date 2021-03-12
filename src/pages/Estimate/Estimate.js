@@ -12,7 +12,7 @@ const Estimate = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const handleBackClick = () => history.push('/calculation/new')
+  const handleBackClick = () => history.push('/calculation/new');
 
   return (
     <>
@@ -70,7 +70,7 @@ const useStyles = makeStyles(() => ({
     transition: '0.5s',
     '&:hover': {
       backgroundColor: '#0e5333',
-    }
+    },
   },
   button: {
     minWidth: 'unset',

@@ -1,6 +1,5 @@
-/* eslint-disable object-curly-newline */
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,28 +11,10 @@ import { Button } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
-function createData(name, date, status, address) {
-  return { name, date, status, address };
-}
-
-const rows = [
-  createData(1, '03-03-2021', 'Актуален', 'г. Ульяновск, и тд'),
-  createData(2, '03-03-2021', 'Не актуален', 'г. Ульяновск, и тд'),
-  createData(3, '03-03-2021', 'Заключен договор', 'г. Ульяновск, и тд'),
-];
-
-const DenseTable = () => {
-  const classes = useStyles();
-
+const DenseTable = ({ rows }) => {
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Номер расчета</TableCell>
@@ -69,6 +50,14 @@ const DenseTable = () => {
       </Table>
     </TableContainer>
   );
+};
+
+DenseTable.propTypes = {
+  rows: PropTypes.shape,
+};
+
+DenseTable.defaultProps = {
+  rows: {},
 };
 
 export default DenseTable;
