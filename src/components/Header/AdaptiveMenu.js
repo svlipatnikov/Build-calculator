@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, IconButton } from '@material-ui/core';
+import { Drawer, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Close } from '@material-ui/icons';
 import Client from './ClientAvatar';
@@ -10,6 +10,11 @@ const AdaptiveHeader = () => {
   const classes = useStyles();
 
   const handleClick = () => setOpen(!open);
+
+  const handleLogout = () => {
+    // TODO: logout function
+    handleClick();
+  };
 
   return (
     <>
@@ -23,6 +28,7 @@ const AdaptiveHeader = () => {
         <div className={classes.content}>
           <Client />
           <User />
+          <Button color="inherit" variant="outlined" onClick={handleLogout}>Выйти</Button>
         </div>
       </Drawer>
     </>
@@ -47,6 +53,7 @@ const useStyles = makeStyles(() => ({
     right: 25,
   },
   content: {
+    textAlign: 'center',
     '& > div': {
       margin: '0 0 30px 0',
     },
