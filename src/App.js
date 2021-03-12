@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { ThemeProvider } from '@material-ui/core';
 import theme from 'malerialUI/theme';
 import PageLayout from 'layouts/page';
-import routes from 'pages';
+import routes from 'routes';
 import { useSelector } from 'react-redux';
 import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
 

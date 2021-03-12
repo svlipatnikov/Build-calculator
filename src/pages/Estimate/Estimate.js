@@ -2,75 +2,31 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { useHistory } from 'react-router';
+import { makeStyles } from '@material-ui/core/styles';
 import { Update, Edit, ArrowBack } from '@material-ui/icons';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-  Button,
-  Tooltip,
-  IconButton,
-} from '@material-ui/core';
-import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
-import './Estimate.scss';
-
-const rows = [
-  {
-    id: 1,
-    param: 'Доска на стойки внутренние',
-    size: '40/250',
-    dimensions: '1,8 куб м',
-    sum: '30 тыс руб',
-  },
-  {
-    id: 2,
-    param: 'Количество стоек на внутренние стены',
-    size: '40/250',
-    dimensions: '1,8 куб м',
-    sum: '30 тыс руб',
-  },
-  {
-    id: 3,
-    param: 'Количество досок на внешние стойки',
-    size: '40/250',
-    dimensions: '1,8 куб м',
-    sum: '30 тыс руб',
-  },
-  {
-    id: 4,
-    param: 'Количество досок на внутренние стойки',
-    size: '40/250',
-    dimensions: '1,8 куб м',
-    sum: '30 тыс руб',
-  },
-  {
-    id: 5,
-    param: <b>Общий объем пиломатериала для основных элементов каркаса</b>,
-    size: '40/250',
-    dimensions: '1,8 куб м',
-    sum: '30 тыс руб',
-  },
-];
+import { Typography, Button, Tooltip } from '@material-ui/core';
+import CustomAccordion from '../../components/CustomAccordion';
+import EstimateTable from './EstimateTable';
 
 const Estimate = () => {
   const history = useHistory();
+  const classes = useStyles();
+
+  const handleBackClick = () => history.push('/calculation/new');
 
   return (
     <>
-      <IconButton onClick={() => history.push('/')} className="arrow-back">
-        <ArrowBack />
-      </IconButton>
+      <Button>
+        <ArrowBack fontSize="large" onClick={handleBackClick} />
+      </Button>
 
       <Typography variant="h4" align="center">
         Расчет
       </Typography>
 
-      <div className="right">
+      <div className={classes.right}>
         <Tooltip title="Сменить статус">
-          <Button variant="outlined" color="primary" className="es-button">
+          <Button variant="outlined" color="primary" className={classes.button}>
             <Update />
           </Button>
         </Tooltip>
@@ -78,8 +34,9 @@ const Estimate = () => {
           <Button
             color="primary"
             variant="outlined"
-            className="es-button"
-            onClick={() => history.push('/')}>
+            className={classes.button}
+            onClick={handleBackClick}
+          >
             <Edit />
           </Button>
         </Tooltip>
@@ -88,32 +45,38 @@ const Estimate = () => {
       <Typography variant="h6">Результат расчета стен</Typography>
       <EstimateTable />
 
-      <CustomAccordion title="Результат расчета каркаса" className="mb-30">
+      <CustomAccordion title="Результат расчета каркаса" className={classes.mb30}>
         <EstimateTable />
       </CustomAccordion>
 
-      <div className="right">
-        <Button className="green">Добавить расчет</Button>
+      <div className={classes.right}>
+        <Button className={classes.green}>Добавить расчет</Button>
       </div>
     </>
   );
 };
 
-const EstimateTable = () => (
-  <TableContainer className="mb-30">
-    <Table>
-      <TableBody>
-        {rows.map((row) => (
-          <TableRow key={row.id} className="es-row">
-            <TableCell>{row.param}</TableCell>
-            <TableCell align="right">{row.size}</TableCell>
-            <TableCell align="right">{row.dimensions}</TableCell>
-            <TableCell align="right">{row.sum}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-);
+const useStyles = makeStyles(() => ({
+  mb30: {
+    marginBottom: 30,
+  },
+  right: {
+    textAlign: 'right',
+  },
+  green: {
+    color: 'white',
+    border: '1px solid transparent',
+    backgroundColor: '#146c43',
+    transition: '0.5s',
+    '&:hover': {
+      backgroundColor: '#0e5333',
+    },
+  },
+  button: {
+    minWidth: 'unset',
+    padding: 6,
+    marginRight: 5,
+  },
+}));
 
 export default Estimate;

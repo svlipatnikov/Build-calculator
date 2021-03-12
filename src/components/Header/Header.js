@@ -3,49 +3,53 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppBar, Avatar, Toolbar } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
+import User from './UserAvatar';
+import Client from './ClientAvatar';
+import AdaptiveMenu from './AdaptiveMenu';
 import Logo from '../../assets/logo.svg';
-import './Header.scss';
 
 const Header = () => {
   const location = useLocation();
-
-  const name = 'Клиент';
-  const lastName = 'Клиентовый';
-  const patronymic = 'Клиентович';
-
-  const openModal = () => {};
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const classes = useStyles();
 
   if (location.pathname === '/login') return null;
 
   return (
-    <AppBar className="appbar" position="static">
-      <Toolbar className="toolbar">
-        <div className="d-flex">
-          <Link to="/">
-            <img src={Logo} alt="logo" className="logo" />
-          </Link>
+    <AppBar position="static">
+      <Toolbar>
+        <Link to="/">
+          <img src={Logo} alt="logo" className={classes.logo} />
+        </Link>
 
-          <div className="d-flex client" onClick={openModal}>
-            <Avatar sizes="20">{name.charAt(0) + lastName.charAt(0)}</Avatar>
-            <p>
-              {lastName} {name} {patronymic}
-            </p>
-          </div>
-        </div>
-
-        <div className="d-flex account">
-          <AccountCircle />
-
-          <div>
-            <p>Тест Тестовый</p>
-            <span>Тестировщик</span>
-          </div>
-        </div>
+        {mobile
+          ? <AdaptiveMenu />
+          : (
+            <div className={classes.flex}>
+              <Client />
+              <User />
+            </div>
+          )}
       </Toolbar>
     </AppBar>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  flex: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logo: {
+    maxHeight: 56,
+    filter: 'brightness(0) invert(1)',
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: 48,
+    },
+  },
+}));
 
 export default Header;
