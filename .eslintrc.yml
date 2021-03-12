@@ -21,4 +21,6 @@ rules:
     arrow-body-style: 'off',
     object-curly-newline: 'off',
     react/jsx-closing-bracket-location: 'off',
+    import/no-unresolved: 'off',
+    react/jsx-props-no-spreading: 'off',
   }

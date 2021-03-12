@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
@@ -36,9 +36,9 @@ const CustomerPage = () => {
   const classes = useStyles();
   const rows = useSelector(customersListCalc);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(setListCalc(calc));
-  });
+  }, [dispatch]);
 
   return (
     <main>

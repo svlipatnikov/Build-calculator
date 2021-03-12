@@ -1,4 +1,4 @@
-import { SET_CUSTOMERS_LIST_DATA } from '../actions/types';
+import { SET_CUSTOMERS_LIST_DATA } from 'redux/actions/types';
 
 const customersListInitialState = [];
 

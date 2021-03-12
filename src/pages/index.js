@@ -6,7 +6,7 @@ import CalculationFormPage from './CalculationFormPage';
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     component: AuthPage,
   },
   {

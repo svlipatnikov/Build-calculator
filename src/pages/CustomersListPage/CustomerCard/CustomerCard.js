@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable object-curly-newline */
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { Typography, CardContent, Card, CardActionArea } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { setCurentCustomerAction } from '../../../redux/actions/curentCustomer';
+import setCurentCustomerAction from 'redux/actions/curentCustomerAction';
 
 const CustomerCard = ({ id, name, info }) => {
   const history = useHistory();

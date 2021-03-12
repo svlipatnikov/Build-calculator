@@ -17,7 +17,7 @@ const Header = () => {
 
   const openModal = () => {};
 
-  if (location.pathname === '/') return null;
+  if (location.pathname === '/login') return null;
 
   return (
     <AppBar className="appbar" position="static">
