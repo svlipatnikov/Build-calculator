@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* eslint-disable no-use-before-define */
-/* eslint-disable object-curly-newline */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
@@ -56,21 +52,21 @@ const CalculationFormPage = () => {
         </div>
         <div className={classes.mainSourceData}>
           <Box css={{ fontSize: 16, fontWeight: 700 }}>Исходные данные</Box>
-          <BoxForm name={'Количество этажей'} />
+          <BoxForm name="Количество этажей" />
           <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
-          <BoxForm name={'Высота этажа'} />
-          <BoxForm name={'Периметр внешних стен'} />
-          <BoxForm name={'Площадь основания'} />
-          <BoxFormSelect name={'Толщина внешних стен'} />
-          <BoxForm name={'Длина внутренних стен'} />
+          <BoxForm name="Высота этажа" />
+          <BoxForm name="Периметр внешних стен" />
+          <BoxForm name="Площадь основания" />
+          <BoxFormSelect name="Толщина внешних стен" />
+          <BoxForm name="Длина внутренних стен" />
           <div className={classes.outWall}>
             <Box css={{ fontSize: 16, fontWeight: 700 }}>Обшивка внешних стен</Box>
-            <BoxFormSelect name={'ОСБ'} />
-            <BoxFormSelect name={'Парогидроизоляция'} />
-            <BoxFormSelect name={'Ветрозащита'} />
-            <BoxFormSelect name={'Утеплитель'} />
+            <BoxFormSelect name="ОСБ" />
+            <BoxFormSelect name="Парогидроизоляция" />
+            <BoxFormSelect name="Ветрозащита" />
+            <BoxFormSelect name="Утеплитель" />
             <CustomAccordion title="Добавить расчет обшивки внутренних стен" className="mb-30">
-              <BoxFormSelect name={'ОСБ'} />
+              <BoxFormSelect name="ОСБ" />
             </CustomAccordion>
             <CustomAccordion title="Учесть двери и окна" className="mb-30">
               <DoorAndWindow />

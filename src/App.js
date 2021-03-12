@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import theme from 'malerialUI/theme';
@@ -28,5 +27,13 @@ function App() {
     </ThemeProvider>
   );
 }
+
+App.propTypes = {
+  path: PropTypes.string,
+};
+
+App.defaultProps = {
+  path: '/',
+};
 
 export default App;

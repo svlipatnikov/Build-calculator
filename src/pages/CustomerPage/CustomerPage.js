@@ -1,14 +1,44 @@
-/* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import customersListCalc from '../../redux/selectors/customer-calc';
+import setListCalc from '../../redux/actions/customer-calc';
 
 import TableCustomers from './TableCustomers';
 
+// Этот массив тестовый, будем получать с сервера в redux
+const calc = [
+  {
+    name: 678678,
+    date: '03-03-2021',
+    status: 'Актуален',
+    address: 'г. Ульяновск, и тд',
+  },
+  {
+    name: 25435435,
+    date: '03-03-2021',
+    status: 'Не актуален',
+    address: 'г. Ульяновск, и тд',
+  },
+  {
+    name: 17567657,
+    date: '03-03-2021',
+    status: 'Заключен договор',
+    address: 'г. Ульяновск, и тд',
+  },
+];
+
 const CustomerPage = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const rows = useSelector(customersListCalc);
+
+  useEffect(() => {
+    dispatch(setListCalc(calc));
+  }, [dispatch]);
 
   return (
     <main>
@@ -31,7 +61,7 @@ const CustomerPage = () => {
           </Link>
         </div>
         <div className={classes.mainTable}>
-          <TableCustomers />
+          <TableCustomers rows={rows} />
         </div>
       </Container>
     </main>
