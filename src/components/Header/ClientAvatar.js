@@ -12,13 +12,23 @@ const Client = () => {
   const handleClick = () => {};
 
   if (!client.name) return null;
-  
   const [lastName, name, patronymic] = client.name.split(' ');
 
   return (
-    <div className={classes.client} onClick={handleClick}>
+    <div
+      className={classes.client}
+      onClick={handleClick}
+      onKeyDown={handleClick}
+      role="button"
+      tabIndex="0"
+    >
       <Avatar sizes="20" className={classes.clientAvatar}>{name.charAt(0) + lastName.charAt(0)}</Avatar>
-      <p className={classes.text}>{lastName} {name}<br />{patronymic}</p>
+      <p className={classes.text}>
+        {lastName}
+        {name}
+        <br />
+        {patronymic}
+      </p>
     </div>
   );
 };

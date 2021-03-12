@@ -12,7 +12,6 @@ import Logo from '../../assets/logo.svg';
 
 const Header = () => {
   const location = useLocation();
-  
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
@@ -29,18 +28,17 @@ const Header = () => {
         {mobile
           ? <AdaptiveMenu />
           : (
-              <div className={classes.flex}>
-                <Client />
-                <User />
-              </div>
-            )
-        }
+            <div className={classes.flex}>
+              <Client />
+              <User />
+            </div>
+          )}
       </Toolbar>
     </AppBar>
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   flex: {
     display: 'flex',
     alignItems: 'center',
@@ -50,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     filter: 'brightness(0) invert(1)',
     [theme.breakpoints.down('xs')]: {
       maxHeight: 48,
-    }
+    },
   },
 }));
 
