@@ -1,24 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
-/* eslint-disable no-console */
 import React, { useEffect } from 'react';
-import { Container, Typography, Grid, Button } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import customersListSelector from 'redux/selectors/customersListSelector';
 import setCustomersListAction from 'redux/actions/customersListAction';
-import { makeStyles } from '@material-ui/core/styles';
 import sendRequest from 'api';
+import CustomerInfo from 'components/CustomerInfo';
 import CustomerCard from './CustomerCard';
 
 const CustomersListPage = () => {
   const dispatch = useDispatch();
   const storeCustomers = useSelector(customersListSelector);
-  const classes = useStyles();
 
   useEffect(() => {
     sendRequest('/customers', 'GET').then((data) => {
       if (data) dispatch(setCustomersListAction(data));
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -27,9 +25,7 @@ const CustomersListPage = () => {
         Клиенты
       </Typography>
 
-      <Button variant="contained" color="primary" className={classes.btn}>
-        Создать клиента
-      </Button>
+      <CustomerInfo />
 
       {storeCustomers && (
         <Grid container spacing={3}>
@@ -53,9 +49,3 @@ const CustomersListPage = () => {
 };
 
 export default CustomersListPage;
-
-const useStyles = makeStyles((theme) => ({
-  btn: {
-    marginBottom: theme.spacing(5),
-  },
-}));
