@@ -5,8 +5,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
-import User from './UserAvatar';
-import Client from './ClientAvatar';
+import DesktopMenu from './DesktopMenu';
 import AdaptiveMenu from './AdaptiveMenu';
 import Logo from '../../assets/logo.svg';
 
@@ -25,24 +24,13 @@ const Header = () => {
           <img src={Logo} alt="logo" className={classes.logo} />
         </Link>
 
-        {mobile
-          ? <AdaptiveMenu />
-          : (
-            <div className={classes.flex}>
-              <Client />
-              <User />
-            </div>
-          )}
+        {mobile ? <AdaptiveMenu /> : <DesktopMenu />}
       </Toolbar>
     </AppBar>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  flex: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   logo: {
     maxHeight: 56,
     filter: 'brightness(0) invert(1)',

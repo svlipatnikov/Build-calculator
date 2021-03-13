@@ -24,10 +24,8 @@ const Client = () => {
     >
       <Avatar sizes="20" className={classes.clientAvatar}>{name.charAt(0) + lastName.charAt(0)}</Avatar>
       <p className={classes.text}>
-        {lastName}
-        {name}
-        <br />
-        {patronymic}
+        {/* eslint-disable-next-line */}
+        {lastName} {name}<br />{patronymic}
       </p>
     </div>
   );

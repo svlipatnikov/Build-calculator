@@ -27,6 +27,7 @@ const useStyles = makeStyles(() => ({
     borderLeft: '1px solid #ccc',
     paddingLeft: 10,
     marginLeft: 10,
+    lineHeight: 1.2,
   },
   accountAvatar: {
     marginRight: 7,
