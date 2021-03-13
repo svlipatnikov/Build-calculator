@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import setAuthFlagAction from 'redux/actions/authInfoAction';
 import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
 import { useHistory } from 'react-router-dom';
+import sendRequest from 'api';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
@@ -17,11 +18,21 @@ const AuthPage = () => {
 
   if (isAuthenticated) history.push('/customers');
 
+  useEffect(() => {
+    localStorage.removeItem('access_token');
+  }, []);
+
   const submit = () => {
     setLogin('');
     setPassword('');
-    // здесь нужно отправть логин и пароль на бэк
-    if (login === 'admin' || password === 'admin') dispatch(setAuthFlagAction(true));
+
+    sendRequest('/auth/jwt/create', 'POST', { username: login, password }).then((data) => {
+      if (data) {
+        if (data.access) localStorage.setItem('access_token', data.access);
+        if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
+        dispatch(setAuthFlagAction(true));
+      }
+    });
   };
 
   const handleLoginChange = (event) => {
