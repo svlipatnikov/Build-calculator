@@ -5,22 +5,20 @@ import { ThemeProvider } from '@material-ui/core';
 import theme from 'malerialUI/theme';
 import PageLayout from 'layouts/page';
 import routes from 'routes';
-import { useSelector } from 'react-redux';
-import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
 
 function App() {
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const token = localStorage.getItem('access_token');
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <PageLayout>
-          {!isAuthenticated && <Redirect to="/login" />}
+          {!token && <Redirect to="/login" />}
           <Switch>
             {routes.map((props) => (
               <Route key={props.path} {...props} exact />
             ))}
-            {isAuthenticated && <Redirect to="/customers" />}
+            {token && <Redirect to="/customers" />}
           </Switch>
         </PageLayout>
       </Router>

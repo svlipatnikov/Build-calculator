@@ -11,21 +11,18 @@ const Client = () => {
   // TODO: create open modal function
   const handleClick = () => {};
 
-  if (!client.name) return null;
-  const [lastName, name, patronymic] = client.name.split(' ');
+  if (!client.id) return null;
+  const { lastName, firstName, secondName } = client;
 
   return (
-    <div
-      className={classes.client}
-      onClick={handleClick}
-      onKeyDown={handleClick}
-      role="button"
-      tabIndex="0"
-    >
-      <Avatar sizes="20" className={classes.clientAvatar}>{name.charAt(0) + lastName.charAt(0)}</Avatar>
+    <div className={classes.client} onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="0">
+      <Avatar sizes="20" className={classes.clientAvatar}>
+        {firstName.charAt(0) + lastName.charAt(0)}
+      </Avatar>
       <p className={classes.text}>
-        {/* eslint-disable-next-line */}
-        {lastName} {name}<br />{patronymic}
+        {`${lastName} ${firstName}`}
+        <br />
+        {secondName}
       </p>
     </div>
   );
