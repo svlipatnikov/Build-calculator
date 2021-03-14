@@ -3,6 +3,7 @@ import CustomerPage from '../pages/CustomerPage';
 import Estimate from '../pages/Estimate';
 import CustomersListPage from '../pages/CustomersListPage';
 import CalculationFormPage from '../pages/CalculationFormPage';
+import CalculationEditForm from '../pages/CalculationEditForm';
 
 const routes = [
   {
@@ -14,12 +15,16 @@ const routes = [
     component: CustomersListPage,
   },
   {
+    path: '/calculation/new',
+    component: CalculationFormPage,
+  },
+  {
     path: '/customers/:id',
     component: CustomerPage,
   },
   {
-    path: '/calculation/new',
-    component: CalculationFormPage,
+    path: '/calculationedit/:id',
+    component: CalculationEditForm,
   },
   {
     path: '/estimate/:id',

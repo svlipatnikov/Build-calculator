@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, TextField } from '@material-ui/core';
 
-const BoxForm = ({ name }) => {
+const BoxForm = ({ name, floor }) => {
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" m={1}>
       <Box css={{ fontSize: 16 }}>{name}</Box>
@@ -14,6 +14,7 @@ const BoxForm = ({ name }) => {
           }}
           variant="standard"
           color="secondary"
+          value={floor}
         />
       </Box>
     </Box>
@@ -22,10 +23,12 @@ const BoxForm = ({ name }) => {
 
 BoxForm.propTypes = {
   name: PropTypes.string,
+  floor: PropTypes.number,
 };
 
 BoxForm.defaultProps = {
   name: '',
+  floor: null,
 };
 
 export default BoxForm;

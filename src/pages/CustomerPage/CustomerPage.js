@@ -12,22 +12,28 @@ import TableCustomers from './TableCustomers';
 // Этот массив тестовый, будем получать с сервера в redux
 const calc = [
   {
+    id: 1,
     name: 678678,
     date: '03-03-2021',
     status: 'Актуален',
     address: 'г. Ульяновск, и тд',
+    floor: 3,
   },
   {
+    id: 2,
     name: 25435435,
     date: '03-03-2021',
     status: 'Не актуален',
     address: 'г. Ульяновск, и тд',
+    floor: 5,
   },
   {
+    id: 3,
     name: 17567657,
     date: '03-03-2021',
     status: 'Заключен договор',
     address: 'г. Ульяновск, и тд',
+    floor: 1,
   },
 ];
 
