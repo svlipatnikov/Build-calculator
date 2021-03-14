@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import setAuthFlagAction from 'redux/actions/authInfoAction';
-import { isAuthenticatedSelector } from 'redux/selectors/authInfoSelector';
 import { useHistory } from 'react-router-dom';
 import sendRequest from 'api';
 
@@ -14,9 +13,6 @@ const AuthPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
-
-  if (isAuthenticated) history.push('/customers');
 
   useEffect(() => {
     localStorage.removeItem('access_token');
@@ -31,6 +27,7 @@ const AuthPage = () => {
         if (data.access) localStorage.setItem('access_token', data.access);
         if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
         dispatch(setAuthFlagAction(true));
+        history.push('/customers');
       }
     });
   };

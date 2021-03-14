@@ -24,10 +24,10 @@ const Header = () => {
 
   return (
     <div className={classes.flex}>
-      <Client />
       <Button color="inherit" onClick={handleClick}>
         <User />
       </Button>
+      <Client />
       <Menu
         anchorEl={anchorEl}
         keepMounted
@@ -54,7 +54,10 @@ const Header = () => {
 const useStyles = makeStyles(() => ({
   flex: {
     display: 'flex',
+    flexDirection: 'row-reverse',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
   },
   exitIcon: {
     minWidth: 30,

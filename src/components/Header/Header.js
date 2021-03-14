@@ -4,7 +4,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
+import { AppBar, Toolbar, useMediaQuery, Container } from '@material-ui/core';
 import DesktopMenu from './DesktopMenu';
 import AdaptiveMenu from './AdaptiveMenu';
 import Logo from '../../assets/logo.svg';
@@ -19,13 +19,15 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Link to="/">
-          <img src={Logo} alt="logo" className={classes.logo} />
-        </Link>
+      <Container maxWidth="lg">
+        <Toolbar>
+          <Link to="/">
+            <img src={Logo} alt="logo" className={classes.logo} />
+          </Link>
 
-        {mobile ? <AdaptiveMenu /> : <DesktopMenu />}
-      </Toolbar>
+          {mobile ? <AdaptiveMenu /> : <DesktopMenu />}
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };
