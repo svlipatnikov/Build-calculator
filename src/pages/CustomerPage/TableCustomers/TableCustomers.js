@@ -1,5 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import setCalcId from 'redux/actions/setCalcId';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,6 +16,14 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const DenseTable = ({ rows }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleClick = (id, address, floor) => {
+    history.push(`/calculationedit/${id}`);
+    dispatch(setCalcId(id, address, floor));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table size="small" aria-label="a dense table">
@@ -28,8 +40,11 @@ const DenseTable = ({ rows }) => {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
+              <TableCell
+                component="th"
+                scope="row"
+                onClick={() => handleClick(row.id, row.address, row.floor)}>
+                <Button>{row.name}</Button>
               </TableCell>
               <TableCell align="right">{row.date}</TableCell>
               <TableCell align="right">{row.status}</TableCell>
@@ -57,7 +72,7 @@ DenseTable.propTypes = {
 };
 
 DenseTable.defaultProps = {
-  rows: {},
+  rows: [],
 };
 
 export default DenseTable;

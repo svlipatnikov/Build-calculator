@@ -5,6 +5,7 @@ import customersList from './customersListReducer';
 import curentCustomer from './curentCustomerReducer';
 import authInfo from './authInfoReducer';
 import customerListCalc from './customer-calc';
+import setCalcId from './setCalcId';
 
 const allReducers = combineReducers({
   authInfo,
@@ -13,6 +14,7 @@ const allReducers = combineReducers({
   customerListCalc,
   estimate,
   user,
+  setCalcId,
 });
 
 export default allReducers;
