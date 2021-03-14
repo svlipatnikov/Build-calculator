@@ -1,5 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { getMaterials } from 'redux/actions/customer-calc';
+import { materialsForCalc } from 'redux/selectors/customer-calc';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +15,21 @@ import DoorAndWindow from './DoorAndWindow';
 
 const CalculationFormPage = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const materials = useSelector(materialsForCalc);
+
+  useEffect(() => {
+    if (!materials.length) {
+      dispatch(getMaterials());
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  const handleClick = () => {
+    // TODO: add estimate id
+    history.push('/estimate/1');
+  };
 
   return (
     <main>
@@ -76,7 +94,7 @@ const CalculationFormPage = () => {
             </CustomAccordion>
           </div>
           <Box display="flex" justifyContent="center">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleClick}>
               Рассчитать
             </Button>
           </Box>
