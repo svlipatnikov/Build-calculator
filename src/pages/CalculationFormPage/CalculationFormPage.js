@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { getMaterials } from 'redux/actions/customer-calc';
-import { materialsForCalc } from 'redux/selectors/customer-calc';
+import { getMaterials } from 'redux/actions/customer-calcAction';
+import { materialsForCalc } from 'redux/selectors/customer-calcSelector';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,8 +35,9 @@ const CalculationFormPage = () => {
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
-          <Typography variant="h3" color="textPrimary" align="center">
-            <Link to="/customers/:id">
+          <Typography variant="h4" color="textPrimary" align="center">
+            {/* TODO: add customers id */}
+            <Link to="/customers/1">
               <Button className={classes.btnArrow}>
                 <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
               </Button>
@@ -57,12 +58,6 @@ const CalculationFormPage = () => {
               color="secondary"
               size="small"
             />
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ height: '38px', width: '150px', marginRight: '16px' }}>
-              Сохранить
-            </Button>
             <Button variant="contained" color="primary" style={{ height: '38px', width: '150px' }}>
               Очистить расчет
             </Button>

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import { customersListCalc } from '../../redux/selectors/customer-calc';
-import { setListCalc } from '../../redux/actions/customer-calc';
+import { customersListCalc } from '../../redux/selectors/customer-calcSelector';
+import { setListCalc } from '../../redux/actions/customer-calcAction';
 
 import TableCustomers from './TableCustomers';
 
@@ -50,7 +50,7 @@ const CustomerPage = () => {
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
-          <Typography variant="h3" color="textPrimary" align="center">
+          <Typography variant="h4" color="textPrimary" align="center">
             <Link to="/customers">
               <Button className={classes.btnArrow}>
                 <ArrowBackIcon fontSize="large" className={classes.arrowBack} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import setCalcId from 'redux/actions/setCalcId';
+import setCalcId from 'redux/actions/setCalcIdAction';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,14 +14,19 @@ import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const DenseTable = ({ rows }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleClick = (id, address, floor) => {
+  const handleClickEdit = (id, address, floor) => {
     history.push(`/calculationedit/${id}`);
     dispatch(setCalcId(id, address, floor));
+  };
+
+  const handleClickEstimate = (id) => {
+    history.push(`/estimate/${id}`);
   };
 
   return (
@@ -35,16 +40,14 @@ const DenseTable = ({ rows }) => {
             <TableCell align="right">Адрес</TableCell>
             <TableCell />
             <TableCell />
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
-              <TableCell
-                component="th"
-                scope="row"
-                onClick={() => handleClick(row.id, row.address, row.floor)}>
-                <Button>{row.name}</Button>
+              <TableCell component="th" scope="row">
+                <Button onClick={() => handleClickEstimate(row.id)}>{row.name}</Button>
               </TableCell>
               <TableCell align="right">{row.date}</TableCell>
               <TableCell align="right">{row.status}</TableCell>
@@ -52,6 +55,11 @@ const DenseTable = ({ rows }) => {
               <TableCell align="right">
                 <Button>
                   <FileCopyIcon />
+                </Button>
+              </TableCell>
+              <TableCell align="right">
+                <Button onClick={() => handleClickEdit(row.id, row.address, row.floor)}>
+                  <EditIcon />
                 </Button>
               </TableCell>
               <TableCell align="right">

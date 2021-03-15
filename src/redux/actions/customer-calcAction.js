@@ -6,12 +6,11 @@ export const setListCalc = (items) => ({
   payload: items,
 });
 
+export const getMaterials = () => (dispatch) => {
+  sendRequest('/materials/', 'GET').then((res) => dispatch(setMaterials(res)));
+};
+
 export const setMaterials = (materials) => ({
   type: SET_MATERIALS,
   payload: materials,
 });
-
-export const getMaterials = () => (dispatch) => {
-  sendRequest('/materials/', 'GET')
-    .then((res) => dispatch(setMaterials(res)));
-};
