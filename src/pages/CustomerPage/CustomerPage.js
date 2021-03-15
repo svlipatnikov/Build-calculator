@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import customersListCalc from '../../redux/selectors/customer-calc';
-import setListCalc from '../../redux/actions/customer-calc';
+import { customersListCalc } from '../../redux/selectors/customer-calc';
+import { setListCalc } from '../../redux/actions/customer-calc';
 
 import TableCustomers from './TableCustomers';
 
