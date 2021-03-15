@@ -12,7 +12,7 @@ const Estimate = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const handleBackClick = () => history.push('/calculation/new');
+  const handleBackClick = () => history.push('/customers/:id');
 
   return (
     <>
@@ -35,8 +35,7 @@ const Estimate = () => {
             color="primary"
             variant="outlined"
             className={classes.button}
-            onClick={handleBackClick}
-          >
+            onClick={handleBackClick}>
             <Edit />
           </Button>
         </Tooltip>

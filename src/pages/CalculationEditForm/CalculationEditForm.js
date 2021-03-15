@@ -10,7 +10,7 @@ import BoxFormSelect from '../CalculationFormPage/BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
 import CalculationImbrication from '../CalculationFormPage/CalculationImbrication';
 import DoorAndWindow from '../CalculationFormPage/DoorAndWindow';
-import currentCalcId from '../../redux/selectors/setCalcId';
+import currentCalcId from '../../redux/selectors/setCalcIdSelector';
 
 const CalculationEditForm = () => {
   const classes = useStyles();
@@ -20,7 +20,7 @@ const CalculationEditForm = () => {
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
-          <Typography variant="h3" color="textPrimary" align="center">
+          <Typography variant="h4" color="textPrimary" align="center">
             <Link to="/customers/:id">
               <Button className={classes.btnArrow}>
                 <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
@@ -35,7 +35,7 @@ const CalculationEditForm = () => {
               className={classes.mainButtonInput}
               style={{
                 width: '450px',
-                backgroundColor: '#ffffff',
+                background: '#ffffff',
               }}
               placeholder="Добавить адрес объекта строительства"
               variant="outlined"
@@ -43,12 +43,6 @@ const CalculationEditForm = () => {
               size="small"
               value={calculation.address}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ height: '38px', width: '150px', marginRight: '16px' }}>
-              Сохранить
-            </Button>
             <Button variant="contained" color="primary" style={{ height: '38px', width: '150px' }}>
               Очистить расчет
             </Button>
