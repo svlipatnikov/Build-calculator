@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import setAuthFlagAction from 'redux/actions/authInfoAction';
 import { Drawer, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Close } from '@material-ui/icons';
@@ -7,12 +10,16 @@ import User from './UserAvatar';
 
 const AdaptiveHeader = () => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
 
   const handleClick = () => setOpen(!open);
 
   const handleLogout = () => {
-    // TODO: logout function
+    localStorage.removeItem('access_token');
+    dispatch(setAuthFlagAction(false));
+    history.push('/login');
     handleClick();
   };
 

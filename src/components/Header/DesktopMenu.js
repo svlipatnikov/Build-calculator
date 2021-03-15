@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import setAuthFlagAction from 'redux/actions/authInfoAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { ExitToApp } from '@material-ui/icons';
 import { Button, Menu, ListItemIcon, MenuItem, ListItemText } from '@material-ui/core';
@@ -7,6 +10,8 @@ import Client from './ClientAvatar';
 
 const Header = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -18,7 +23,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // TODO: logout function
+    localStorage.removeItem('access_token');
+    dispatch(setAuthFlagAction(false));
+    history.push('/login');
     handleClose(null);
   };
 
