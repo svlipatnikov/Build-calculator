@@ -13,9 +13,10 @@ const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adres
   if (!id) return null;
 
   const handleClick = () => {
-    history.push(`/customers/${id}`);
     // запоминаем в store текущего заказчика
     dispatch(setCurentCustomerAction({ id, lastName, firstName, secondName, phone, email, adress }));
+    // редирект на страницу выбранного заказчика
+    history.push(`/customers/${id}`);
   };
 
   return (

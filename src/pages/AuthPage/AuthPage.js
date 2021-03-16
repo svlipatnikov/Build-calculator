@@ -22,7 +22,7 @@ const AuthPage = () => {
     setLogin('');
     setPassword('');
 
-    sendRequest('/auth/jwt/create', 'POST', { username: login, password }).then((data) => {
+    sendRequest('/auth/jwt/create/', 'POST', { username: login, password }).then((data) => {
       if (data) {
         if (data.access) localStorage.setItem('access_token', data.access);
         if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
