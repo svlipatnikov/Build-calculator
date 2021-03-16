@@ -1,22 +1,36 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import { curentCustomerSelector } from 'redux/selectors';
+import { getCurrentCustomer } from 'redux/actions/curentCustomerAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
 const Client = () => {
   const classes = useStyles();
-  const client = useSelector(curentCustomerSelector);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const customer = useSelector(curentCustomerSelector);
+
+  useEffect(() => {
+    const customerId = new URLSearchParams(location.search).get('id');
+
+    if (!customer.id && customerId) {
+      dispatch(getCurrentCustomer(customerId));
+    }
+    // eslint-disable-next-line
+  }, []);
 
   // TODO: create open modal function
   const handleClick = () => {};
 
-  if (!client.id) return null;
-  const { lastName, firstName, secondName } = client;
+  if (!customer.id) return null;
+
+  const { lastName, firstName, secondName } = customer;
 
   return (
-    <div className={classes.client} onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="0">
-      <Avatar sizes="20" className={classes.clientAvatar}>
+    <div className={classes.customer} onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="0">
+      <Avatar sizes="20" className={classes.customerAvatar}>
         {firstName.charAt(0) + lastName.charAt(0)}
       </Avatar>
       <p className={classes.text}>
@@ -29,7 +43,7 @@ const Client = () => {
 };
 
 const useStyles = makeStyles(() => ({
-  client: {
+  customer: {
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
@@ -42,7 +56,7 @@ const useStyles = makeStyles(() => ({
       },
     },
   },
-  clientAvatar: {
+  customerAvatar: {
     width: 30,
     height: 30,
     fontSize: 14,

@@ -4,7 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography, CardContent, Card, CardActionArea } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import setCurentCustomerAction from 'redux/actions/curentCustomerAction';
+import { setCurentCustomerAction } from 'redux/actions/curentCustomerAction';
 
 const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adress }) => {
   const history = useHistory();

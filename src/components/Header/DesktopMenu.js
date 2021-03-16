@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ExitToApp } from '@material-ui/icons';
 import { Button, Menu, ListItemIcon, MenuItem, ListItemText } from '@material-ui/core';
 import User from './UserAvatar';
-import Client from './ClientAvatar';
+import Customer from './CustomerAvatar';
 
 const Header = () => {
   const classes = useStyles();
@@ -34,7 +34,7 @@ const Header = () => {
       <Button color="inherit" onClick={handleClick}>
         <User />
       </Button>
-      <Client />
+      <Customer />
       <Menu
         anchorEl={anchorEl}
         keepMounted

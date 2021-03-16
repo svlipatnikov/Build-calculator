@@ -5,7 +5,7 @@ import setAuthFlagAction from 'redux/actions/authInfoAction';
 import { Drawer, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Close } from '@material-ui/icons';
-import Client from './ClientAvatar';
+import Customer from './CustomerAvatar';
 import User from './UserAvatar';
 
 const AdaptiveHeader = () => {
@@ -33,7 +33,7 @@ const AdaptiveHeader = () => {
           <Close />
         </IconButton>
         <div className={classes.content}>
-          <Client />
+          <Customer />
           <User />
           <Button color="inherit" variant="outlined" onClick={handleLogout}>Выйти</Button>
         </div>
