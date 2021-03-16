@@ -2,11 +2,9 @@
 /* eslint-disable prefer-template */
 // const apiUrl = 'http://3.20.227.226:8000/api/v1';
 const apiUrl = 'http://build-calculator-dev.spring-intensive-2021.simbirsoft1.com:8000/api/v1';
-const loginUrl = '/login';
 
 export default function sendRequest(url, method, body) {
   const token = localStorage.getItem('access_token');
-  if (!token) window.location.replace(loginUrl);
 
   return fetch(apiUrl + url, {
     method,
