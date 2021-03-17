@@ -28,7 +28,7 @@ BoxForm.propTypes = {
 
 BoxForm.defaultProps = {
   name: '',
-  floor: null,
+  floor: undefined,
 };
 
 export default BoxForm;

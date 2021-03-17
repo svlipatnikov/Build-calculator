@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { getMaterials } from 'redux/actions/customer-calcAction';
-import { materialsForCalc } from 'redux/selectors/customer-calcSelector';
+import { useHistory } from 'react-router-dom';
+import { getMaterials } from 'redux/actions/customerCalcAction';
+import { materialsForCalc } from 'redux/selectors/customerCalcSelector';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,17 +31,19 @@ const CalculationFormPage = () => {
     history.push('/estimate/1');
   };
 
+  const handleClickCustomers = () => {
+    // TODO: add customers id
+    history.push('/customers/1');
+  };
+
   return (
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
           <Typography variant="h4" color="textPrimary" align="center">
-            {/* TODO: add customers id */}
-            <Link to="/customers/1">
-              <Button className={classes.btnArrow}>
-                <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
-              </Button>
-            </Link>
+            <Button className={classes.btnArrow} onClick={handleClickCustomers}>
+              <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
+            </Button>
             Каркас
           </Typography>
         </div>
