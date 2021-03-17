@@ -1,3 +1,3 @@
-const changeFlag = ({ chgFlag }) => chgFlag.isChange;
+const changeFlagCalc = ({ changeFlag }) => changeFlag.isChange;
 
-export default changeFlag;
+export default changeFlagCalc;
