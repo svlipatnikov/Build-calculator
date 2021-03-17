@@ -28,8 +28,8 @@ const AuthPage = () => {
         if (data.access) localStorage.setItem('access_token', data.access);
         if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
         dispatch(setAuthFlagAction(true));
+        history.push('/customers');
       }
-      history.push('/customers');
     });
   };
 
