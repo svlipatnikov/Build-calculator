@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import setCalcId from 'redux/actions/setCalcIdAction';
 
 import Table from '@material-ui/core/Table';
@@ -44,43 +44,36 @@ const DenseTable = ({ rows }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                <Button onClick={() => handleClickEstimate(row.id)}>{row.name}</Button>
-              </TableCell>
-              <TableCell align="right">{row.date}</TableCell>
-              <TableCell align="right">{row.status}</TableCell>
-              <TableCell align="right">{row.address}</TableCell>
-              <TableCell align="right">
-                <Button>
-                  <FileCopyIcon />
-                </Button>
-              </TableCell>
-              <TableCell align="right">
-                <Button onClick={() => handleClickEdit(row.id, row.address, row.floor)}>
-                  <EditIcon />
-                </Button>
-              </TableCell>
-              <TableCell align="right">
-                <Button>
-                  <DeleteIcon />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {rows &&
+            rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  <Button onClick={() => handleClickEstimate(row.id)}>{row.name}</Button>
+                </TableCell>
+                <TableCell align="right">{row.date}</TableCell>
+                <TableCell align="right">{row.status}</TableCell>
+                <TableCell align="right">{row.address}</TableCell>
+                <TableCell align="right">
+                  <Button>
+                    <FileCopyIcon />
+                  </Button>
+                </TableCell>
+                <TableCell align="right">
+                  <Button onClick={() => handleClickEdit(row.id, row.address, row.floor)}>
+                    <EditIcon />
+                  </Button>
+                </TableCell>
+                <TableCell align="right">
+                  <Button>
+                    <DeleteIcon />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-};
-
-DenseTable.propTypes = {
-  rows: PropTypes.shape,
-};
-
-DenseTable.defaultProps = {
-  rows: [],
 };
 
 export default DenseTable;

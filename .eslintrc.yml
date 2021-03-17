@@ -23,4 +23,5 @@ rules:
     react/jsx-closing-bracket-location: 'off',
     import/no-unresolved: 'off',
     react/jsx-props-no-spreading: 'off',
+    operator-linebreak: 'off'
   }

@@ -4,9 +4,10 @@ import user from './userReducer';
 import customersList from './customersListReducer';
 import curentCustomer from './curentCustomerReducer';
 import authInfo from './authInfoReducer';
-import customerListCalc from './customer-calcReducer';
+import customerListCalc from './customerCalcReducer';
 import setCalcId from './setCalcIdReducer';
 import loader from './loaderReducer';
+import changeFlag from './changeFlagReducer';
 
 const allReducers = combineReducers({
   authInfo,
@@ -17,6 +18,7 @@ const allReducers = combineReducers({
   user,
   setCalcId,
   loader,
+  changeFlag,
 });
 
 export default allReducers;
