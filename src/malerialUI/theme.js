@@ -56,6 +56,9 @@ let theme = createMuiTheme({
       h4: {
         marginBottom: 30,
       },
+      h5: {
+        fontSize: 18,
+      },
       h6: {
         fontSize: 18,
         marginBottom: 12,

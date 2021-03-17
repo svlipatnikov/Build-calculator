@@ -1,43 +1,38 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { userSelector } from 'redux/selectors/userSelector';
-import { makeStyles } from '@material-ui/core/styles';
-import { AccountCircle } from '@material-ui/icons';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import userSelector from 'redux/selectors/userSelector';
+import sendRequest from 'api';
+import { setUserInfo } from 'redux/actions/userInfoAction';
+import { snakeToCamelObj } from 'help';
+import { Avatar, Box, Typography } from '@material-ui/core';
 
 const User = () => {
-  const classes = useStyles();
-  const user = useSelector(userSelector);
+  const { username, firstName, lastName, secondName, photo } = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!username) {
+      sendRequest('/myprofile/', 'GET').then((userData) => {
+        if (userData) dispatch(setUserInfo(snakeToCamelObj(userData)));
+      });
+    }
+  }, [dispatch, username]);
 
   return (
-    <div className={classes.account}>
-      <AccountCircle className={classes.accountAvatar} />
+    <Box ml={2} pl={2} display="flex" alignItems="center" borderLeft={1}>
+      <Avatar src={photo} />
 
-      <div>
-        <p className={classes.text}>{user.name}</p>
-        <span className={classes.span}>{user.position}</span>
-      </div>
-    </div>
+      <Box ml={1}>
+        <Typography component="div">
+          <Box lineHeight={1.2}>{lastName}</Box>
+          <Box lineHeight={1.2}>{`${firstName} ${secondName}`}</Box>
+          <Box lineHeight={1.2} color="#b2b2b2">
+            {username}
+          </Box>
+        </Typography>
+      </Box>
+    </Box>
   );
 };
-
-const useStyles = makeStyles(() => ({
-  account: {
-    display: 'flex',
-    alignItems: 'center',
-    borderLeft: '1px solid #ccc',
-    paddingLeft: 10,
-    marginLeft: 10,
-    lineHeight: 1.2,
-  },
-  accountAvatar: {
-    marginRight: 7,
-    fontSize: 30,
-  },
-  span: {
-    fontSize: 12,
-    marginLeft: 1,
-    color: '#b2b2b2',
-  },
-}));
 
 export default User;
