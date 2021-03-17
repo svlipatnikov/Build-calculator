@@ -18,7 +18,8 @@ const AuthPage = () => {
     localStorage.removeItem('access_token');
   }, []);
 
-  const submit = () => {
+  const submit = (event) => {
+    event.preventDefault();
     setLogin('');
     setPassword('');
 
@@ -27,8 +28,8 @@ const AuthPage = () => {
         if (data.access) localStorage.setItem('access_token', data.access);
         if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
         dispatch(setAuthFlagAction(true));
-        history.push('/customers');
       }
+      history.push('/customers');
     });
   };
 
@@ -41,7 +42,7 @@ const AuthPage = () => {
   };
 
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={submit}>
       <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
         <Grid item>
           <img className={classes.logo} alt="Logo" src={logo} />
@@ -56,6 +57,7 @@ const AuthPage = () => {
             color="secondary"
             onChange={handleLoginChange}
             value={login}
+            type="text"
           />
         </Grid>
 
@@ -73,7 +75,7 @@ const AuthPage = () => {
         </Grid>
 
         <Grid item>
-          <Button className={classes.formBtn} variant="contained" color="primary" onClick={submit}>
+          <Button className={classes.formBtn} variant="contained" color="primary" type="submit">
             Войти
           </Button>
         </Grid>

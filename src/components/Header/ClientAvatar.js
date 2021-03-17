@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { curentCustomerSelector } from 'redux/selectors';
+import curentCustomerSelector from 'redux/selectors/curentCustomerSelector';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
