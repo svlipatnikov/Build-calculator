@@ -1,13 +1,13 @@
 import { SET_CHANGE_FLAG } from '../actions/types';
 
 const initialState = {
-  isChange: true,
+  isChanged: true,
 };
 
 const getChangeFlag = (state = initialState, action) => {
   switch (action.type) {
     case SET_CHANGE_FLAG:
-      return { ...state, isChange: action.payload };
+      return { ...state, isChanged: action.payload };
     default:
       return state;
   }

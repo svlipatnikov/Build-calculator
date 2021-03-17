@@ -1,6 +1,6 @@
 import sendRequest from 'api';
 import { SET_CUSTOMERS_LIST_CALC, SET_MATERIALS } from './types';
-import setChangeFlagAction from './changeFlagAction';
+import setChangeFlagAction from './customerChangeFlagAction';
 
 export const getCalculation = () => (dispatch) => {
   sendRequest('/calculation/', 'GET').then((res) => dispatch(setListCalc(res)));
