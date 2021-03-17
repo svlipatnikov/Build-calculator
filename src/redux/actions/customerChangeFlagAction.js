@@ -1,8 +1,8 @@
 import { SET_CHANGE_FLAG } from './types';
 
-const setChangeFlagAction = (isChange) => ({
+const setChangeFlagAction = (isChanged) => ({
   type: SET_CHANGE_FLAG,
-  payload: isChange,
+  payload: isChanged,
 });
 
 export default setChangeFlagAction;

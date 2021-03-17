@@ -5,7 +5,7 @@ import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import { customersListCalc } from '../../redux/selectors/customerCalcSelector';
-import changeFlag from '../../redux/selectors/changeFlagSelector';
+import changeFlag from '../../redux/selectors/customerChangeFlagSelector';
 import { getCalculation } from '../../redux/actions/customerCalcAction';
 
 import TableCustomers from './TableCustomers';
@@ -14,13 +14,13 @@ const CustomerPage = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const rows = useSelector(customersListCalc);
-  const isChange = useSelector(changeFlag);
+  const isChanged = useSelector(changeFlag);
 
   useEffect(() => {
-    if (isChange) {
+    if (isChanged) {
       dispatch(getCalculation());
     }
-  }, [dispatch, isChange]);
+  }, [dispatch, isChanged]);
 
   return (
     <main>
