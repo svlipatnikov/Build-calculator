@@ -4,47 +4,23 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import { customersListCalc } from '../../redux/selectors/customer-calcSelector';
-import { setListCalc } from '../../redux/actions/customer-calcAction';
+import { customersListCalc } from '../../redux/selectors/customerCalcSelector';
+import changeFlag from '../../redux/selectors/changeFlagSelector';
+import { getCalculation } from '../../redux/actions/customerCalcAction';
 
 import TableCustomers from './TableCustomers';
-
-// Этот массив тестовый, будем получать с сервера в redux
-const calc = [
-  {
-    id: 1,
-    name: 678678,
-    date: '03-03-2021',
-    status: 'Актуален',
-    address: 'г. Ульяновск, и тд',
-    floor: 3,
-  },
-  {
-    id: 2,
-    name: 25435435,
-    date: '03-03-2021',
-    status: 'Не актуален',
-    address: 'г. Ульяновск, и тд',
-    floor: 5,
-  },
-  {
-    id: 3,
-    name: 17567657,
-    date: '03-03-2021',
-    status: 'Заключен договор',
-    address: 'г. Ульяновск, и тд',
-    floor: 1,
-  },
-];
 
 const CustomerPage = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const rows = useSelector(customersListCalc);
+  const isChange = useSelector(changeFlag);
 
   useEffect(() => {
-    dispatch(setListCalc(calc));
-  }, [dispatch]);
+    if (isChange) {
+      dispatch(getCalculation());
+    }
+  }, [dispatch, isChange]);
 
   return (
     <main>

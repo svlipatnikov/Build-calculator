@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,22 +9,24 @@ import BoxFormSelect from '../CalculationFormPage/BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
 import CalculationImbrication from '../CalculationFormPage/CalculationImbrication';
 import DoorAndWindow from '../CalculationFormPage/DoorAndWindow';
-import currentCalcId from '../../redux/selectors/setCalcIdSelector';
 
 const CalculationEditForm = () => {
   const classes = useStyles();
-  const calculation = useSelector(currentCalcId);
+  const history = useHistory();
+
+  const handleClickCustomers = () => {
+    // TODO: add customers id
+    history.push('/customers/:id');
+  };
 
   return (
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
           <Typography variant="h4" color="textPrimary" align="center">
-            <Link to="/customers/:id">
-              <Button className={classes.btnArrow}>
-                <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
-              </Button>
-            </Link>
+            <Button className={classes.btnArrow} onClick={handleClickCustomers}>
+              <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
+            </Button>
             Каркас
           </Typography>
         </div>
@@ -41,7 +42,6 @@ const CalculationEditForm = () => {
               variant="outlined"
               color="secondary"
               size="small"
-              value={calculation.address}
             />
             <Button variant="contained" color="primary" style={{ height: '38px', width: '150px' }}>
               Очистить расчет
@@ -50,7 +50,7 @@ const CalculationEditForm = () => {
         </div>
         <div className={classes.mainSourceData}>
           <Box css={{ fontSize: 16, fontWeight: 700 }}>Исходные данные</Box>
-          <BoxForm name="Количество этажей" floor={calculation.floor} />
+          <BoxForm name="Количество этажей" />
           <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
           <BoxForm name="Высота этажа" />
           <BoxForm name="Периметр внешних стен" />

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Button, Box } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { customersListSelector } from 'redux/selectors';
+import customersListSelector from 'redux/selectors/customersListSelector';
 import setCustomersListAction from 'redux/actions/customersListAction';
 import sendRequest from 'api';
 import { snakeToCamelArr } from 'help';
