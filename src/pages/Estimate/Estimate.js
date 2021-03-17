@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Update, Edit, ArrowBack } from '@material-ui/icons';
 import { Typography, Button, Tooltip } from '@material-ui/core';
@@ -10,9 +10,13 @@ import EstimateTable from './EstimateTable';
 
 const Estimate = () => {
   const history = useHistory();
+  const { id } = useParams();
   const classes = useStyles();
 
-  const handleBackClick = () => history.push('/customers/:id');
+  const handleBackClick = () => history.push({
+    pathname: `/calculationedit/${id}`,
+    search: history.location.search,
+  });
 
   return (
     <>

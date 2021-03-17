@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { curentCustomerSelector } from 'redux/selectors';
+import curentCustomerSelector from 'redux/selectors/curentCustomerSelector';
 import { getCurrentCustomer } from 'redux/actions/curentCustomerAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';

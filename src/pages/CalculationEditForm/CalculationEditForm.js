@@ -16,7 +16,10 @@ const CalculationEditForm = () => {
 
   const handleClickCustomers = () => {
     // TODO: add customers id
-    history.push('/customers/:id');
+    history.push({
+      pathname: '/customers/:id',
+      search: history.location.search,
+    });
   };
 
   return (

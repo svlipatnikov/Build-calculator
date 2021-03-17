@@ -16,7 +16,7 @@ const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adres
     // запоминаем в store текущего заказчика
     dispatch(setCurentCustomerAction({ id, lastName, firstName, secondName, phone, email, adress }));
     // редирект на страницу выбранного заказчика
-    history.push(`/customers/${id}`);
+    history.push(`/customers/${id}?id=${id}`);
   };
 
   return (
