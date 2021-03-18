@@ -17,7 +17,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <PageLayout>
-          {isLoading && <Loader />}
           {!token && <Redirect to="/login" />}
           <Switch>
             {routes.map((props) => (
@@ -25,6 +24,7 @@ function App() {
             ))}
             {token && <Redirect to="/customers" />}
           </Switch>
+          {isLoading && <Loader />}
         </PageLayout>
       </Router>
     </ThemeProvider>

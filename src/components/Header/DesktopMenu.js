@@ -5,6 +5,7 @@ import setAuthFlagAction from 'redux/actions/authInfoAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { ExitToApp } from '@material-ui/icons';
 import { Button, Menu, ListItemIcon, MenuItem, ListItemText } from '@material-ui/core';
+import { clearUserInfo } from 'redux/actions/userInfoAction';
 import User from './UserAvatar';
 import Client from './ClientAvatar';
 
@@ -25,6 +26,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     dispatch(setAuthFlagAction(false));
+    dispatch(clearUserInfo());
     history.push('/login');
     handleClose(null);
   };
