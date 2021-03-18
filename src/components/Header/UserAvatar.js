@@ -5,6 +5,7 @@ import sendRequest from 'api';
 import { setUserInfo } from 'redux/actions/userInfoAction';
 import { snakeToCamelObj } from 'help';
 import { Avatar, Box, Typography } from '@material-ui/core';
+import mediaBaseUrl from 'api/mediaBaseUrl';
 
 const User = () => {
   const { username, firstName, lastName, secondName, photo } = useSelector(userSelector);
@@ -20,7 +21,7 @@ const User = () => {
 
   return (
     <Box ml={2} pl={2} display="flex" alignItems="center" borderLeft={1}>
-      <Avatar src={photo} />
+      <Avatar src={`${mediaBaseUrl}${photo}`} />
 
       <Box ml={1}>
         <Typography component="div">
