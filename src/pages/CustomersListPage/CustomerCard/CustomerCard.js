@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -13,9 +12,7 @@ const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adres
   if (!id) return null;
 
   const handleClick = () => {
-    // запоминаем в store текущего заказчика
     dispatch(setCurentCustomerAction({ id, lastName, firstName, secondName, phone, email, adress }));
-    // редирект на страницу выбранного заказчика
     history.push(`/customers/${id}?id=${id}`);
   };
 
