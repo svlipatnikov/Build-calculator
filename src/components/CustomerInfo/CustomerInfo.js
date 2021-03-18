@@ -7,7 +7,7 @@ import sendRequest from 'api';
 import { camelToSnakeObj, snakeToCamelArr } from 'help';
 import { useDispatch } from 'react-redux';
 import setCustomersListAction from 'redux/actions/customersListAction';
-import setCurentCustomerAction from 'redux/actions/curentCustomerAction';
+import { setCurentCustomerAction } from 'redux/actions/curentCustomerAction';
 import { useHistory } from 'react-router-dom';
 
 const labels = {

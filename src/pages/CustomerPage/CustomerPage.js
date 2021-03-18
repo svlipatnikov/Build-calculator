@@ -36,7 +36,8 @@ const CustomerPage = () => {
           </Typography>
         </div>
         <div className={classes.mainCanculation}>
-          <Link to="/calculation/new">
+          {/* eslint-disable-next-line */}
+          <Link to={{ pathname: '/calculation/new', search: location.search }}>
             <Button variant="contained" color="primary">
               Создать расчет
             </Button>
