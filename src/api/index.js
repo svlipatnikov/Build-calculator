@@ -1,7 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable prefer-template */
-import setLoadingFlag from 'redux/actions/loaderAction';
+import setLoadingFlag from 'redux/actions/setLoadingFlagAction';
+import setServerError from 'redux/actions/setServerErrorAction';
 import store from 'redux/store';
 
 const { dispatch } = store;
@@ -65,11 +66,13 @@ export default async function sendRequest(url, method, body) {
 
     if (error.response) {
       // ответ сервера
-      console.log(error.response.status);
+      console.log(error.response.status, error.response.statusText);
+      dispatch(setServerError(error.response.status, error.response.statusText));
       // TODO обработать статус ошибки
     } else {
       // ошибки соединения
-      console.log(error);
+      console.log(error.message);
+      dispatch(setServerError(null, error.message));
     }
   }
 }

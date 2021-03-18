@@ -3,7 +3,7 @@ import { Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch } from 'react-redux';
-import setAuthFlagAction from 'redux/actions/authInfoAction';
+import setAuthFlagAction from 'redux/actions/setAuthFlagAction';
 import { useHistory } from 'react-router-dom';
 import sendRequest from 'api';
 

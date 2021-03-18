@@ -1,2 +1,3 @@
-// eslint-disable-next-line
-export const userSelector = (state) => state.user;
+const userSelector = (state) => state.user;
+
+export default userSelector;

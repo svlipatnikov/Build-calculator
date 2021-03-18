@@ -5,27 +5,26 @@ import { ThemeProvider } from '@material-ui/core';
 import theme from 'malerialUI/theme';
 import PageLayout from 'layouts/page';
 import routes from 'routes';
-import loaderSelector from 'redux/selectors/loaderSelector';
-import { useSelector } from 'react-redux';
 import Loader from 'components/Loader';
 import ServerMessage from 'components/ServerMessage';
+import { useSelector } from 'react-redux';
+import isAuthenticatedSelector from 'redux/selectors/isAuthenticatedSelector';
 
 function App() {
-  const token = localStorage.getItem('access_token');
-  const isLoading = useSelector(loaderSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <PageLayout>
-          {isLoading && <Loader />}
-          {!token && <Redirect to="/login" />}
+          {!isAuthenticated && <Redirect to="/login" />}
           <Switch>
             {routes.map((props) => (
               <Route key={props.path} {...props} exact />
             ))}
-            {token && <Redirect to="/customers" />}
+            {isAuthenticated && <Redirect to="/customers" />}
           </Switch>
+          <Loader />
           <ServerMessage />
         </PageLayout>
       </Router>

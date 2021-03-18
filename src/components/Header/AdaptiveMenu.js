@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import setAuthFlagAction from 'redux/actions/authInfoAction';
+import setAuthFlagAction from 'redux/actions/setAuthFlagAction';
 import { Drawer, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Close } from '@material-ui/icons';
@@ -35,7 +35,9 @@ const AdaptiveHeader = () => {
         <div className={classes.content}>
           <Client />
           <User />
-          <Button color="inherit" variant="outlined" onClick={handleLogout}>Выйти</Button>
+          <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            Выйти
+          </Button>
         </div>
       </Drawer>
     </>

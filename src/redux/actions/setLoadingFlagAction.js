@@ -1,8 +1,8 @@
 import { SET_LOAGING_FLAG } from './types';
 
-const setLoadingFlag = (flag) => ({
+const setLoadingFlag = (isLoading) => ({
   type: SET_LOAGING_FLAG,
-  payload: flag,
+  payload: isLoading,
 });
 
 export default setLoadingFlag;
