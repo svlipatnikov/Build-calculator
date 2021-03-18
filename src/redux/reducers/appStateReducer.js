@@ -1,9 +1,10 @@
-import { SET_AUTH_FLAG, SET_LOAGING_FLAG, SET_SERVER_ERROR, CLEAR_SERVER_ERROR } from 'redux/actions/types';
+import { SET_AUTH_FLAG, SET_LOAGING_FLAG, SET_ERROR, CLEAR_ERROR } from 'redux/actions/types';
 
 const initialState = {
   isAuthenticated: !!localStorage.getItem('access_token'),
   isLoading: false,
-  serverError: {
+  error: {
+    isError: false,
     statusCode: null,
     statusText: '',
   },
@@ -23,16 +24,16 @@ const appStateReducer = (state = initialState, action) => {
         isLoading: action.payload,
       };
 
-    case SET_SERVER_ERROR:
+    case SET_ERROR:
       return {
         ...state,
-        serverError: { statusCode: action.payload.statusCode, statusText: action.payload.statusText },
+        error: { statusCode: action.payload.statusCode, statusText: action.payload.statusText, isError: true },
       };
 
-    case CLEAR_SERVER_ERROR:
+    case CLEAR_ERROR:
       return {
         ...state,
-        serverError: { statusCode: null, statusText: '' },
+        error: { statusCode: null, statusText: '', isError: false },
       };
 
     default:

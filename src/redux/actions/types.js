@@ -8,5 +8,5 @@ export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
 export const SET_LOAGING_FLAG = 'SET_LOAGING_FLAG';
 export const SET_CHANGE_FLAG = 'SET_CHANGE_FLAG';
-export const SET_SERVER_ERROR = 'SET_SERVER_ERROR';
-export const CLEAR_SERVER_ERROR = 'CLEAR_SERVER_ERROR';
+export const SET_ERROR = 'SET_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';

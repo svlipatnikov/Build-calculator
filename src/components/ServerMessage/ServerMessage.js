@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dialog, DialogTitle, DialogActions, Typography, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import serverErrorSelector from 'redux/selectors/serverErrorSelector';
-import clearServerError from 'redux/actions/clearServerErrorAction';
+import { errorSelector } from 'redux/selectors/appStateSelector';
+import { clearError } from 'redux/actions/appStateAction';
 
 const ServerMessage = () => {
-  const [open, setOpen] = useState(true);
-  const { statusCode, statusText } = useSelector(serverErrorSelector);
+  const { isError, statusCode, statusText } = useSelector(errorSelector);
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(clearServerError());
-    setOpen(false);
+    dispatch(clearError());
   };
 
-  useEffect(() => {
-    if (statusCode || statusText) setOpen(true);
-  }, [statusCode, statusText]);
-
-  if (!statusCode && !statusText) return null;
-
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={isError} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle id="alert-dialog-title">
         <Typography align="center" variant="h6">
           {`Error ${statusCode || ''}: ${statusText}`}

@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
-import setLoadingFlag from 'redux/actions/setLoadingFlagAction';
-import setServerError from 'redux/actions/setServerErrorAction';
+import { setError, setLoadingFlag } from 'redux/actions/appStateAction';
 import store from 'redux/store';
 
 const { dispatch } = store;
@@ -17,7 +16,6 @@ export default async function sendRequest(url, method, body) {
   };
   if (body) fetchData.body = JSON.stringify(body);
 
-  // начало асинхронной загрузки данных
   dispatch(setLoadingFlag(true));
 
   try {
@@ -28,19 +26,14 @@ export default async function sendRequest(url, method, body) {
       throw error;
     }
     const data = await response.json();
-    // окончание асинхронной загрузки данных
     dispatch(setLoadingFlag(false));
     return data;
   } catch (error) {
-    // окончание асинхронной загрузки данных
-    dispatch(setLoadingFlag(false));
-
     if (error.response) {
-      // ответ сервера
-      dispatch(setServerError(error.response.status, error.response.statusText));
+      dispatch(setError(error.response.status, error.response.statusText));
     } else {
-      // ошибки соединения
-      dispatch(setServerError(null, error.message));
+      dispatch(setError(null, error.message));
     }
+    dispatch(setLoadingFlag(false));
   }
 }
