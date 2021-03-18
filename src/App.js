@@ -8,6 +8,7 @@ import routes from 'routes';
 import loaderSelector from 'redux/selectors/loaderSelector';
 import { useSelector } from 'react-redux';
 import Loader from 'components/Loader';
+import ServerMessage from 'components/ServerMessage';
 
 function App() {
   const token = localStorage.getItem('access_token');
@@ -25,6 +26,7 @@ function App() {
             ))}
             {token && <Redirect to="/customers" />}
           </Switch>
+          <ServerMessage />
         </PageLayout>
       </Router>
     </ThemeProvider>
