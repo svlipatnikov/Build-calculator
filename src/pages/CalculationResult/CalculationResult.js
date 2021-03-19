@@ -2,19 +2,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import currentCalculation from 'redux/selectors/currentCalculationSelector';
 import { getCurrentCalculation } from 'redux/actions/currentCalculationAction';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Update, Edit, ArrowBack } from '@material-ui/icons';
-import { Typography, Button, Tooltip } from '@material-ui/core';
+import { Typography, Button, Tooltip, Box } from '@material-ui/core';
 import CustomAccordion from '../../components/CustomAccordion';
 import CalculationResultTable from './CalculationResultTable';
 
 const CalculationResult = () => {
-  const history = useHistory();
   const { id } = useParams();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -27,16 +27,29 @@ const CalculationResult = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleBackClick = () => history.push({
-    pathname: `/calculationedit/${id}`,
-    search: history.location.search,
-  });
+  if (!calculation.id) return null;
+
+  const createdDate = new Date(calculation.created_date)
+    .toLocaleString('ru-RU', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+  const results = calculation.results.reduce((acc, result) => {
+    const current = acc[acc.length - 1];
+
+    if (current.some((p) => p.name === result.name)) {
+      acc.push([result]);
+    } else current.push(result);
+
+    return acc;
+  }, [[]]);
 
   return (
     <>
-      <Button>
-        <ArrowBack fontSize="large" onClick={handleBackClick} />
-      </Button>
+      {/* eslint-disable-next-line */}
+      <Link to={{ pathname: `/calculationedit/${id}`, search: location.search }}>
+        <Button>
+          <ArrowBack fontSize="large" />
+        </Button>
+      </Link>
 
       <Typography variant="h4" align="center">
         Расчет
@@ -49,18 +62,29 @@ const CalculationResult = () => {
           </Button>
         </Tooltip>
         <Tooltip title="Редактировать">
-          <Button
-            color="primary"
-            variant="outlined"
-            className={classes.button}
-            onClick={handleBackClick}>
-            <Edit />
-          </Button>
+          {/* eslint-disable-next-line */}
+          <Link to={{ pathname: `/calculationedit/${id}`, search: location.search }}>
+            <Button color="primary" variant="outlined" className={classes.button}>
+              <Edit />
+            </Button>
+          </Link>
         </Tooltip>
       </div>
 
+      <Box className={classes.calculationInfo}>
+        <Typography variant="body1">Дата: {createdDate}</Typography>
+        <Typography variant="body1" className={classes.address}>
+          Адрес объекта: <span className={classes.capitalize}>{calculation.adress_object_construction}</span>
+        </Typography>
+      </Box>
+
       <CustomAccordion title="Результат расчета каркаса" className={classes.mb30}>
-        <CalculationResultTable />
+        {results.map((floorData, floorNumber) => (
+          <Box>
+            <Typography variant="body1" className={classes.title}>Результат расчета {floorNumber + 1} этажа</Typography>
+            <CalculationResultTable data={floorData} />
+          </Box>
+        ))}
       </CustomAccordion>
 
       <div className={classes.right}>
@@ -90,6 +114,18 @@ const useStyles = makeStyles(() => ({
     minWidth: 'unset',
     padding: 6,
     marginRight: 5,
+  },
+  calculationInfo: {
+    marginLeft: 10,
+    marginBottom: 16,
+  },
+  capitalize: {
+    textTransform: 'capitalize',
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 600,
+    marginBottom: 20,
   },
 }));
 
