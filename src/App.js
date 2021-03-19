@@ -8,12 +8,12 @@ import routes from 'routes';
 import Loader from 'components/Loader';
 import ServerMessage from 'components/ServerMessage';
 import { useSelector } from 'react-redux';
-import { isAuthenticatedSelector, isLoadingSelector, isErrorSelector } from 'redux/selectors/appStateSelector';
+import { isAuthenticatedSelector, isLoadingSelector, errorSelector } from 'redux/selectors/appStateSelector';
 
 function App() {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const isLoading = useSelector(isLoadingSelector);
-  const isError = useSelector(isErrorSelector);
+  const { isError, isShown } = useSelector(errorSelector);
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,7 +27,7 @@ function App() {
             {isAuthenticated && <Redirect to="/customers" />}
           </Switch>
           {isLoading && <Loader />}
-          {isError && <ServerMessage />}
+          {isError && isShown && <ServerMessage />}
         </PageLayout>
       </Router>
     </ThemeProvider>
