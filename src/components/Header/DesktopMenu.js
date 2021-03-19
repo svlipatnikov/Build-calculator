@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import setAuthFlagAction from 'redux/actions/authInfoAction';
+import { setAuthFlag } from 'redux/actions/appStateAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { ExitToApp } from '@material-ui/icons';
 import { Button, Menu, ListItemIcon, MenuItem, ListItemText } from '@material-ui/core';
@@ -25,7 +25,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    dispatch(setAuthFlagAction(false));
+    dispatch(setAuthFlag(false));
     dispatch(clearUserInfo());
     history.push('/login');
     handleClose(null);

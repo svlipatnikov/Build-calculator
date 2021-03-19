@@ -6,18 +6,20 @@ import { setUserInfo } from 'redux/actions/userInfoAction';
 import { snakeToCamelObj } from 'help';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import mediaBaseUrl from 'api/mediaBaseUrl';
+import { isAuthenticatedSelector } from 'redux/selectors/appStateSelector';
 
 const User = () => {
   const { username, firstName, lastName, secondName, photo } = useSelector(userSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!username) {
+    if (isAuthenticated && !username) {
       sendRequest('/myprofile/', 'GET').then((userData) => {
         if (userData) dispatch(setUserInfo(snakeToCamelObj(userData)));
       });
     }
-  }, [dispatch, username]);
+  }, [dispatch, isAuthenticated, username]);
 
   return (
     <Box ml={2} pl={2} display="flex" alignItems="center" borderLeft={1}>

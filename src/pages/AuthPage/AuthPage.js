@@ -3,7 +3,7 @@ import { TextField, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch } from 'react-redux';
-import setAuthFlagAction from 'redux/actions/authInfoAction';
+import { setAuthFlag } from 'redux/actions/appStateAction';
 import { useHistory } from 'react-router-dom';
 import sendRequest from 'api';
 
@@ -27,7 +27,7 @@ const AuthPage = () => {
       if (data) {
         if (data.access) localStorage.setItem('access_token', data.access);
         if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
-        dispatch(setAuthFlagAction(true));
+        dispatch(setAuthFlag(true));
         history.push('/customers');
       }
     });

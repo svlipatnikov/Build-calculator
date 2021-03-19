@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import setAuthFlagAction from 'redux/actions/authInfoAction';
+import { setAuthFlag } from 'redux/actions/appStateAction';
 import { Drawer, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Close } from '@material-ui/icons';
@@ -18,7 +18,7 @@ const AdaptiveHeader = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    dispatch(setAuthFlagAction(false));
+    dispatch(setAuthFlag(false));
     history.push('/login');
     handleClick();
   };
@@ -35,7 +35,9 @@ const AdaptiveHeader = () => {
         <div className={classes.content}>
           <Customer />
           <User />
-          <Button color="inherit" variant="outlined" onClick={handleLogout}>Выйти</Button>
+          <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            Выйти
+          </Button>
         </div>
       </Drawer>
     </>
