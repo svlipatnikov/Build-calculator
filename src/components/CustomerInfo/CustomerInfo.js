@@ -4,11 +4,11 @@ import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } 
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import sendRequest from 'api';
-import { camelToSnakeObj, snakeToCamelArr } from 'help';
+import { camelToSnakeObj } from 'help';
 import { useDispatch } from 'react-redux';
-import setCustomersListAction from 'redux/actions/customersListAction';
-import { setCurentCustomerAction } from 'redux/actions/curentCustomerAction';
+import { clearCurentCustomerAction } from 'redux/actions/curentCustomerAction';
 import { useHistory } from 'react-router-dom';
+import { customersListIsChangedAction } from 'redux/actions/customersListAction';
 
 const labels = {
   lastName: 'Фамилия',
@@ -32,12 +32,6 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
     setEditable(!isNew);
   }, [open]);
 
-  const getCustomersList = () => {
-    sendRequest('/customers/', 'GET').then((data) => {
-      if (data) dispatch(setCustomersListAction(snakeToCamelArr(data)));
-    });
-  };
-
   const handleClose = () => {
     setOpen(false);
     setClientInfo({});
@@ -46,22 +40,22 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
   const handleSave = () => {
     if (isNew) {
       sendRequest(`/customers/${id}/`, 'PATCH', camelToSnakeObj(clientInfo)).then(() => {
+        dispatch(customersListIsChangedAction());
         handleClose();
-        getCustomersList();
       });
     } else {
       sendRequest('/customers/', 'POST', camelToSnakeObj(clientInfo)).then(() => {
+        dispatch(customersListIsChangedAction());
         handleClose();
-        getCustomersList();
       });
     }
   };
 
   const handleRemove = () => {
     sendRequest(`/customers/${id}/`, 'DELETE', { id }).then(() => {
-      dispatch(setCurentCustomerAction({}));
+      dispatch(clearCurentCustomerAction());
+      dispatch(customersListIsChangedAction());
       handleClose();
-      getCustomersList();
       history.push('/customers');
     });
   };

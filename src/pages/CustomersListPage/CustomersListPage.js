@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Button, Box } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import customersListSelector from 'redux/selectors/customersListSelector';
-import setCustomersListAction from 'redux/actions/customersListAction';
-import sendRequest from 'api';
-import { snakeToCamelArr } from 'help';
+import { customersListSelector, isChangedCustomersListSelector } from 'redux/selectors/customersListSelector';
+import { getCustomersList } from 'redux/actions/customersListAction';
 import CustomerInfo from 'components/CustomerInfo';
 import CustomerCard from './CustomerCard';
 
@@ -13,12 +10,13 @@ const CustomersListPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const storeCustomers = useSelector(customersListSelector);
+  const isChanged = useSelector(isChangedCustomersListSelector);
 
   useEffect(() => {
-    sendRequest('/customers/', 'GET').then((data) => {
-      if (data) dispatch(setCustomersListAction(snakeToCamelArr(data)));
-    });
-  }, []);
+    if (isChanged) {
+      dispatch(getCustomersList());
+    }
+  }, [dispatch, isChanged]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
