@@ -1,17 +1,31 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
+
+import currentCalculation from 'redux/selectors/currentCalculationSelector';
+import { getCurrentCalculation } from 'redux/actions/currentCalculationAction';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Update, Edit, ArrowBack } from '@material-ui/icons';
 import { Typography, Button, Tooltip } from '@material-ui/core';
 import CustomAccordion from '../../components/CustomAccordion';
-import EstimateTable from './EstimateTable';
+import CalculationResultTable from './CalculationResultTable';
 
-const Estimate = () => {
+const CalculationResult = () => {
   const history = useHistory();
   const { id } = useParams();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const calculation = useSelector(currentCalculation);
+
+  useEffect(() => {
+    if (!calculation.id) {
+      dispatch(getCurrentCalculation(id));
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const handleBackClick = () => history.push({
     pathname: `/calculationedit/${id}`,
@@ -45,11 +59,8 @@ const Estimate = () => {
         </Tooltip>
       </div>
 
-      <Typography variant="h6">Результат расчета стен</Typography>
-      <EstimateTable />
-
       <CustomAccordion title="Результат расчета каркаса" className={classes.mb30}>
-        <EstimateTable />
+        <CalculationResultTable />
       </CustomAccordion>
 
       <div className={classes.right}>
@@ -82,4 +93,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default Estimate;
+export default CalculationResult;

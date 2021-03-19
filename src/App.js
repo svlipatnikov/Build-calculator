@@ -24,7 +24,7 @@ function App() {
             {routes.map((props) => (
               <Route key={props.path} {...props} exact />
             ))}
-            {isAuthenticated && <Redirect to="/customers" />}
+            <Route path="/*" render={() => <Redirect to="/customers" />} />
           </Switch>
           {isLoading && <Loader />}
           {isError && <ServerMessage />}

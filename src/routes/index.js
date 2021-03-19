@@ -1,6 +1,6 @@
 import AuthPage from '../pages/AuthPage';
 import CustomerPage from '../pages/CustomerPage';
-import Estimate from '../pages/Estimate';
+import CalculationResult from '../pages/CalculationResult';
 import CustomersListPage from '../pages/CustomersListPage';
 import CalculationFormPage from '../pages/CalculationFormPage';
 import CalculationEditForm from '../pages/CalculationEditForm';
@@ -27,8 +27,8 @@ const routes = [
     component: CalculationEditForm,
   },
   {
-    path: '/estimate/:id',
-    component: Estimate,
+    path: '/calculation_result/:id',
+    component: CalculationResult,
   },
 ];
 

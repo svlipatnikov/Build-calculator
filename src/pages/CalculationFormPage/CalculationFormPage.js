@@ -27,9 +27,9 @@ const CalculationFormPage = () => {
   }, []);
 
   const handleClick = () => {
-    // TODO: add estimate id
+    // TODO: add calculation id
     history.push({
-      pathname: '/estimate/1',
+      pathname: '/calculation_result/1',
       search: history.location.search,
     });
   };
