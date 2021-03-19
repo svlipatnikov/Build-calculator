@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { TextField, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch } from 'react-redux';
@@ -28,8 +28,8 @@ const AuthPage = () => {
         if (data.access) localStorage.setItem('access_token', data.access);
         if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
         dispatch(setAuthFlagAction(true));
+        history.push('/customers');
       }
-      history.push('/customers');
     });
   };
 
@@ -42,15 +42,14 @@ const AuthPage = () => {
   };
 
   return (
-    <form className={classes.form} onSubmit={submit}>
-      <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
-        <Grid item>
+    <Box height="100vh" display="flex" alignItems="center" justifyContent="center">
+      <form className={classes.form} onSubmit={submit}>
+        <Box display="flex" flexDirection="column" alignItems="center">
           <img className={classes.logo} alt="Logo" src={logo} />
-        </Grid>
 
-        <Grid item>
           <TextField
             className={classes.formInput}
+            margin="dense"
             id="login"
             label="Введите логин"
             variant="outlined"
@@ -58,12 +57,12 @@ const AuthPage = () => {
             onChange={handleLoginChange}
             value={login}
             type="text"
+            fullWidth
           />
-        </Grid>
 
-        <Grid item>
           <TextField
             className={classes.formInput}
+            margin="dense"
             id="pass"
             label="Введите пароль"
             variant="outlined"
@@ -71,40 +70,32 @@ const AuthPage = () => {
             onChange={handlePasswordChange}
             value={password}
             type="password"
+            fullWidth
           />
-        </Grid>
 
-        <Grid item>
           <Button className={classes.formBtn} variant="contained" color="primary" type="submit">
             Войти
           </Button>
-        </Grid>
-      </Grid>
-    </form>
+        </Box>
+      </form>
+    </Box>
   );
 };
 
 export default AuthPage;
 
 const useStyles = makeStyles(() => ({
-  form: {
-    minHeight: '100vh',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   logo: {
-    height: '150px',
+    maxWidth: '100%',
+    minWidth: '150px',
   },
   formInput: {
-    width: '450px',
+    margin: '4%',
     backgroundColor: '#ffffff',
   },
   formBtn: {
-    width: '285px',
-    height: '59px',
-    fontSize: '18px',
+    margin: '4%',
+    width: '70%',
+    fontSize: '1.2rem',
   },
 }));
