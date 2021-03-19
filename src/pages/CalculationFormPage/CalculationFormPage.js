@@ -28,12 +28,18 @@ const CalculationFormPage = () => {
 
   const handleClick = () => {
     // TODO: add estimate id
-    history.push('/estimate/1');
+    history.push({
+      pathname: '/estimate/1',
+      search: history.location.search,
+    });
   };
 
   const handleClickCustomers = () => {
     // TODO: add customers id
-    history.push('/customers/1');
+    history.push({
+      pathname: '/customers/1',
+      search: history.location.search,
+    });
   };
 
   return (

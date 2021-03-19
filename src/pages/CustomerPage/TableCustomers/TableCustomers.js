@@ -21,12 +21,18 @@ const DenseTable = ({ rows }) => {
   const dispatch = useDispatch();
 
   const handleClickEdit = (id, address, floor) => {
-    history.push(`/calculationedit/${id}`);
+    history.push({
+      pathname: `/calculationedit/${id}`,
+      search: history.location.search,
+    });
     dispatch(setCalcId(id, address, floor));
   };
 
   const handleClickEstimate = (id) => {
-    history.push(`/estimate/${id}`);
+    history.push({
+      pathname: `/estimate/${id}`,
+      search: history.location.search,
+    });
   };
 
   return (
