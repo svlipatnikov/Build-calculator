@@ -1,3 +1,3 @@
-const currentCalculation = (state) => state.currentCalcualtion.calculation;
+const currentCalculation = (state) => state.currentCalculation.calculation;
 
 export default currentCalculation;
