@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -27,12 +27,9 @@ const CalculationResult = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (!calculation.id) return null;
+  const createdDate = useMemo(() => new Date(calculation.created_date).toLocaleDateString('ru-RU'), [calculation.created_date]);
 
-  const createdDate = new Date(calculation.created_date)
-    .toLocaleString('ru-RU', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-  const results = calculation.results.reduce((acc, result) => {
+  const results = useMemo(() => calculation.results && calculation.results.reduce((acc, result) => {
     const current = acc[acc.length - 1];
 
     if (current.some((p) => p.name === result.name)) {
@@ -40,12 +37,14 @@ const CalculationResult = () => {
     } else current.push(result);
 
     return acc;
-  }, [[]]);
+  }, [[]]), [calculation.results]);
+
+  if (!calculation.id) return null;
 
   return (
     <>
       {/* eslint-disable-next-line */}
-      <Link to={{ pathname: `/calculationedit/${id}`, search: location.search }}>
+      <Link to={{ pathname: `/customers/${id}`, search: location.search }}>
         <Button>
           <ArrowBack fontSize="large" />
         </Button>
