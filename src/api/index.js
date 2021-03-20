@@ -30,9 +30,16 @@ export default async function sendRequest(url, method, body) {
     return data;
   } catch (error) {
     if (error.response) {
-      dispatch(setError(error.response.status, error.response.statusText));
+      switch (error.response.status) {
+        case 401:
+          dispatch(setError(error.response.status, error.response.statusText, false));
+          break;
+
+        default:
+          dispatch(setError(error.response.status, error.response.statusText, true));
+      }
     } else {
-      dispatch(setError(null, error.message));
+      dispatch(setError(null, error.message, true));
     }
     dispatch(setLoadingFlag(false));
   }

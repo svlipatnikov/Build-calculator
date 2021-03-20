@@ -5,9 +5,9 @@ export const setLoadingFlag = (isLoading) => ({
   payload: isLoading,
 });
 
-export const setError = (statusCode, statusText) => ({
+export const setError = (statusCode, statusText, isShown = true) => ({
   type: SET_ERROR,
-  payload: { statusCode, statusText },
+  payload: { statusCode, statusText, isShown },
 });
 
 export const clearError = () => ({

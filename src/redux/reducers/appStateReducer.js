@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: {
     isError: false,
+    isShown: false,
     statusCode: null,
     statusText: '',
   },
@@ -27,13 +28,13 @@ const appStateReducer = (state = initialState, action) => {
     case SET_ERROR:
       return {
         ...state,
-        error: { statusCode: action.payload.statusCode, statusText: action.payload.statusText, isError: true },
+        error: { ...action.payload, isError: true },
       };
 
     case CLEAR_ERROR:
       return {
         ...state,
-        error: { statusCode: null, statusText: '', isError: false },
+        error: { ...initialState.error },
       };
 
     default:

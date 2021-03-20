@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { TextField, Button, Box } from '@material-ui/core';
+import React, { useState } from 'react';
+import { TextField, Button, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
-import { useDispatch } from 'react-redux';
-import { setAuthFlag } from 'redux/actions/appStateAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearError, setAuthFlag } from 'redux/actions/appStateAction';
 import { useHistory } from 'react-router-dom';
 import sendRequest from 'api';
+import { errorSelector } from 'redux/selectors/appStateSelector';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
@@ -13,32 +14,33 @@ const AuthPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-
-  useEffect(() => {
-    localStorage.removeItem('access_token');
-  }, []);
+  const { isError, statusCode } = useSelector(errorSelector);
 
   const submit = (event) => {
     event.preventDefault();
-    setLogin('');
-    setPassword('');
+    if (login && password) {
+      setLogin('');
+      setPassword('');
 
-    sendRequest('/auth/jwt/create/', 'POST', { username: login, password }).then((data) => {
-      if (data) {
-        if (data.access) localStorage.setItem('access_token', data.access);
-        if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
-        dispatch(setAuthFlag(true));
-        history.push('/customers');
-      }
-    });
+      sendRequest('/auth/jwt/create/', 'POST', { username: login, password }).then((data) => {
+        if (data) {
+          if (data.access) localStorage.setItem('access_token', data.access);
+          if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
+          dispatch(setAuthFlag(true));
+          history.push('/customers');
+        }
+      });
+    }
   };
 
   const handleLoginChange = (event) => {
     setLogin(event.target.value);
+    dispatch(clearError());
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    dispatch(clearError());
   };
 
   return (
@@ -76,6 +78,14 @@ const AuthPage = () => {
           <Button className={classes.formBtn} variant="contained" color="primary" type="submit">
             Войти
           </Button>
+
+          {isError && statusCode === 401 && (
+            <Box maxWidth="380px">
+              <Typography color="error" variant="h6" align="center">
+                Неправильные данные для входа. Пожалуйста попробуйте снова
+              </Typography>
+            </Box>
+          )}
         </Box>
       </form>
     </Box>
@@ -95,7 +105,7 @@ const useStyles = makeStyles(() => ({
   },
   formBtn: {
     margin: '4%',
-    width: '70%',
+    width: '100%',
     fontSize: '1.2rem',
   },
 }));
