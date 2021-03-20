@@ -25,9 +25,12 @@ export default async function sendRequest(url, method, body) {
       error.response = response;
       throw error;
     }
-    const data = await response.json();
-    dispatch(setLoadingFlag(false));
-    return data;
+    try {
+      const data = await response.json();
+      return data;
+    } catch {
+      // TODO ошибка извлечения Json
+    }
   } catch (error) {
     if (error.response) {
       switch (error.response.status) {
@@ -41,6 +44,7 @@ export default async function sendRequest(url, method, body) {
     } else {
       dispatch(setError(null, error.message, true));
     }
+  } finally {
     dispatch(setLoadingFlag(false));
   }
 }
