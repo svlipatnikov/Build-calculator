@@ -11,7 +11,7 @@ const Client = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [openModal, setOpenModal] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState(false);
   const customer = useSelector(curentCustomerSelector);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Client = () => {
   }, []);
 
   const handleClick = () => {
-    setOpenModal(true);
+    setIsModalOpened(true);
   };
 
   if (!customer.id) return null;
@@ -43,7 +43,7 @@ const Client = () => {
           {secondName}
         </p>
       </div>
-      <CustomerInfo open={openModal} setOpen={setOpenModal} clientData={customer} />
+      <CustomerInfo open={isModalOpened} setOpen={setIsModalOpened} clientData={customer} />
     </>
   );
 };
