@@ -2,7 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import setCalcId from 'redux/actions/setCalcIdAction';
+import { setCurrentCalculation } from 'redux/actions/currentCalculationAction';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,17 +20,18 @@ const DenseTable = ({ rows }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleClickEdit = (id, address, floor) => {
+  const handleClickEdit = (calculation) => {
+    dispatch(setCurrentCalculation(calculation));
     history.push({
-      pathname: `/calculationedit/${id}`,
+      pathname: `/calculationedit/${calculation.id}`,
       search: history.location.search,
     });
-    dispatch(setCalcId(id, address, floor));
   };
 
-  const handleClickEstimate = (id) => {
+  const handleClickCalculationResult = (calculation) => {
+    dispatch(setCurrentCalculation(calculation));
     history.push({
-      pathname: `/estimate/${id}`,
+      pathname: `/calculation_result/${calculation.id}`,
       search: history.location.search,
     });
   };
@@ -54,7 +55,7 @@ const DenseTable = ({ rows }) => {
             rows.map((row) => (
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
-                  <Button onClick={() => handleClickEstimate(row.id)}>{row.name}</Button>
+                  <Button onClick={() => handleClickCalculationResult(row)}>{row.name}</Button>
                 </TableCell>
                 <TableCell align="right">{row.date}</TableCell>
                 <TableCell align="right">{row.status}</TableCell>
@@ -65,7 +66,7 @@ const DenseTable = ({ rows }) => {
                   </Button>
                 </TableCell>
                 <TableCell align="right">
-                  <Button onClick={() => handleClickEdit(row.id, row.address, row.floor)}>
+                  <Button onClick={() => handleClickEdit(row)}>
                     <EditIcon />
                   </Button>
                 </TableCell>
