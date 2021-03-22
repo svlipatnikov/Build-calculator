@@ -1,6 +1,9 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import customerNewValueCalc from '../../../redux/selectors/customerNewCalcSelector';
+import { setValueNewCalc } from '../../../redux/actions/customerNewCalcAction';
 
 import BoxForm from '../BoxForm';
 
@@ -9,6 +12,23 @@ const fontSize = {
 };
 
 const DoorAndWindow = () => {
+  const dispatch = useDispatch();
+  const {
+    wigthWindow,
+    heightWindow,
+    countWindow,
+    wigthDoorOut,
+    heightDoorOut,
+    countDoorOut,
+    wigthDoorIn,
+    heightDoorIn,
+    countDoorIn,
+  } = useSelector(customerNewValueCalc);
+
+  const handleChangeValue = (prop) => (e) => {
+    dispatch(setValueNewCalc(prop, e.target.value));
+  };
+
   return (
     <Box>
       <Box>
@@ -18,19 +38,34 @@ const DoorAndWindow = () => {
             <Box css={fontSize} textAlign="center">
               Высота
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={heightWindow}
+              title="heightWindow"
+              handleChangeValues={handleChangeValue}
+              measure="м"
+            />
           </Box>
           <Box>
             <Box css={fontSize} textAlign="center">
               Ширина
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={wigthWindow}
+              title="wigthWindow"
+              handleChangeValues={handleChangeValue}
+              measure="м"
+            />
           </Box>
           <Box>
             <Box css={fontSize} textAlign="center">
               Количество
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={countWindow}
+              title="countWindow"
+              handleChangeValues={handleChangeValue}
+              measure="шт"
+            />
           </Box>
         </Box>
         <Box display="flex" justifyContent="flex-end">
@@ -48,19 +83,34 @@ const DoorAndWindow = () => {
             <Box css={fontSize} textAlign="center">
               Высота
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={heightDoorOut}
+              title="heightDoorOut"
+              handleChangeValues={handleChangeValue}
+              measure="м"
+            />
           </Box>
           <Box>
             <Box css={fontSize} textAlign="center">
               Ширина
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={wigthDoorOut}
+              title="wigthDoorOut"
+              handleChangeValues={handleChangeValue}
+              measure="м"
+            />
           </Box>
           <Box>
             <Box css={fontSize} textAlign="center">
               Количество
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={countDoorOut}
+              title="countDoorOut"
+              handleChangeValues={handleChangeValue}
+              measure="шт"
+            />
           </Box>
         </Box>
         <Box display="flex" justifyContent="flex-end">
@@ -78,19 +128,34 @@ const DoorAndWindow = () => {
             <Box css={fontSize} textAlign="center">
               Высота
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={heightDoorIn}
+              title="heightDoorIn"
+              handleChangeValues={handleChangeValue}
+              measure="м"
+            />
           </Box>
           <Box>
             <Box css={fontSize} textAlign="center">
               Ширина
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={wigthDoorIn}
+              title="wigthDoorIn"
+              handleChangeValues={handleChangeValue}
+              measure="м"
+            />
           </Box>
           <Box>
             <Box css={fontSize} textAlign="center">
               Количество
             </Box>
-            <BoxForm />
+            <BoxForm
+              value={countDoorIn}
+              title="countDoorIn"
+              handleChangeValues={handleChangeValue}
+              measure="шт"
+            />
           </Box>
         </Box>
         <Box display="flex" justifyContent="flex-end">

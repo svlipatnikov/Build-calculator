@@ -53,13 +53,15 @@ const DenseTable = ({ rows }) => {
         <TableBody>
           {rows &&
             rows.map((row) => (
-              <TableRow key={row.name}>
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  <Button onClick={() => handleClickCalculationResult(row)}>{row.name}</Button>
+                  <Button onClick={() => handleClickCalculationResult(row)}>{row.id}</Button>
                 </TableCell>
-                <TableCell align="right">{row.date}</TableCell>
-                <TableCell align="right">{row.status}</TableCell>
-                <TableCell align="right">{row.address}</TableCell>
+                <TableCell align="right">{row.created_date}</TableCell>
+                <TableCell align="right">
+                  {row.state_calculation === 1 ? 'Актуален' : 'Не актуален'}
+                </TableCell>
+                <TableCell align="right">{row.adress_object_construction}</TableCell>
                 <TableCell align="right">
                   <Button>
                     <FileCopyIcon />

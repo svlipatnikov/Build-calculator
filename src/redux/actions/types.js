@@ -12,3 +12,5 @@ export const SET_LOAGING_FLAG = 'SET_LOAGING_FLAG';
 export const SET_CHANGE_FLAG = 'SET_CHANGE_FLAG';
 export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const SET_VALUE_NEW_CALC = 'SET_VALUE_NEW_CALC';
+export const CLEAR_VALUE_NEW_CALC = 'CLEAR_VALUE_NEW_CALC';

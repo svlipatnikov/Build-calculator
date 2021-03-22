@@ -6,6 +6,7 @@ import customerListCalc from './customerCalcReducer';
 import currentCalculation from './currentCalculationReducer';
 import changedFlag from './customerChangeFlagReducer';
 import appState from './appStateReducer';
+import newCalc from './customerNewCalcReducer';
 
 const allReducers = combineReducers({
   customersList,
@@ -15,6 +16,7 @@ const allReducers = combineReducers({
   currentCalculation,
   changedFlag,
   appState,
+  newCalc,
 });
 
 export default allReducers;
