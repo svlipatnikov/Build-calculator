@@ -43,7 +43,7 @@ const Client = () => {
           {secondName}
         </p>
       </div>
-      <CustomerInfo open={isModalOpened} setOpen={setIsModalOpened} clientData={customer} />
+      {isModalOpened && <CustomerInfo open={isModalOpened} setOpen={setIsModalOpened} clientData={customer} />}
     </>
   );
 };

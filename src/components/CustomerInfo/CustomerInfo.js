@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, TextField, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import sendRequest from 'api';
 import { camelToSnakeObj } from 'help';
 import { useDispatch } from 'react-redux';
-import { clearCurentCustomerAction } from 'redux/actions/curentCustomerAction';
+import { clearCurentCustomerAction, setCurentCustomerAction } from 'redux/actions/curentCustomerAction';
 import { useHistory } from 'react-router-dom';
 import { customersListIsChangedAction } from 'redux/actions/customersListAction';
 
@@ -23,13 +23,13 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
   const classes = useStyles();
   const { id, ...initialData } = clientData;
   const [clientInfo, setClientInfo] = useState(initialData);
-  const isNew = !!id;
+  const isNew = !id;
   const [editable, setEditable] = useState(isNew);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    setEditable(!isNew);
+    setEditable(isNew);
   }, [open]);
 
   const handleClose = () => {
@@ -39,12 +39,13 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
 
   const handleSave = () => {
     if (isNew) {
-      sendRequest(`/customers/${id}/`, 'PATCH', camelToSnakeObj(clientInfo)).then(() => {
+      sendRequest('/customers/', 'POST', camelToSnakeObj(clientInfo)).then(() => {
         dispatch(customersListIsChangedAction());
         handleClose();
       });
     } else {
-      sendRequest('/customers/', 'POST', camelToSnakeObj(clientInfo)).then(() => {
+      sendRequest(`/customers/${id}/`, 'PATCH', camelToSnakeObj({ id, ...clientInfo })).then(() => {
+        dispatch(setCurentCustomerAction({ id, ...clientInfo }));
         dispatch(customersListIsChangedAction());
         handleClose();
       });
@@ -89,13 +90,7 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
         ))}
       </DialogContent>
 
-      <DialogActions>
-        {isNew && editable && (
-          <Button onClick={handleRemove} variant="contained" color="primary" className={classes.btn}>
-            Удалить
-          </Button>
-        )}
-
+      <Box display="flex" flexDirection="row-reverse" justifyContent="space-between" m={1}>
         {editable ? (
           <Button onClick={handleSave} variant="contained" color="primary" className={classes.btn}>
             Сохранить
@@ -105,7 +100,13 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
             Редактировать
           </Button>
         )}
-      </DialogActions>
+
+        {!isNew && editable && (
+          <Button onClick={handleRemove} variant="contained" color="primary" className={classes.btn}>
+            Удалить
+          </Button>
+        )}
+      </Box>
     </Dialog>
   );
 };

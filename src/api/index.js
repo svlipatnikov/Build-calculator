@@ -25,22 +25,22 @@ export default async function sendRequest(url, method, body) {
       error.response = response;
       throw error;
     }
-    const data = await response.json();
-    dispatch(setLoadingFlag(false));
-    return data;
+    const text = await response.text();
+    if (text !== '') return JSON.parse(text);
   } catch (error) {
     if (error.response) {
       switch (error.response.status) {
         case 401:
           dispatch(setError(error.response.status, error.response.statusText, false));
           break;
-
+        // TODO обработка других кодов
         default:
           dispatch(setError(error.response.status, error.response.statusText, true));
       }
     } else {
       dispatch(setError(null, error.message, true));
     }
+  } finally {
     dispatch(setLoadingFlag(false));
   }
 }
