@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import { clearCurentCustomerAction } from 'redux/actions/curentCustomerAction';
 import { customersListCalc } from '../../redux/selectors/customerCalcSelector';
 import changeFlag from '../../redux/selectors/customerChangeFlagSelector';
 import { getCalculation } from '../../redux/actions/customerCalcAction';
@@ -11,6 +12,7 @@ import { getCalculation } from '../../redux/actions/customerCalcAction';
 import TableCustomers from './TableCustomers';
 
 const CustomerPage = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
   const rows = useSelector(customersListCalc);
@@ -22,16 +24,19 @@ const CustomerPage = () => {
     }
   }, [dispatch, isChanged]);
 
+  const handleBackClick = () => {
+    dispatch(clearCurentCustomerAction());
+    history.push('/customers');
+  };
+
   return (
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
           <Typography variant="h4" color="textPrimary" align="center">
-            <Link to="/customers">
-              <Button className={classes.btnArrow}>
-                <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
-              </Button>
-            </Link>
+            <Button className={classes.btnArrow} onClick={handleBackClick}>
+              <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
+            </Button>
             Карточка клиента
           </Typography>
         </div>
