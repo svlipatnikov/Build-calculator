@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import curentCustomerSelector from 'redux/selectors/curentCustomerSelector';
+import { curentCustomerSelector } from 'redux/selectors/curentCustomerSelector';
 import { getCurrentCustomer } from 'redux/actions/curentCustomerAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
@@ -33,7 +33,12 @@ const Client = () => {
 
   return (
     <>
-      <div className={classes.customer} onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="0">
+      <div
+        className={classes.customer}
+        onClick={handleClick}
+        onKeyDown={handleClick}
+        role="button"
+        tabIndex="0">
         <Avatar sizes="20" className={classes.customerAvatar}>
           {firstName.charAt(0) + lastName.charAt(0)}
         </Avatar>
