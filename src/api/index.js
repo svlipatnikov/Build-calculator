@@ -25,12 +25,8 @@ export default async function sendRequest(url, method, body) {
       error.response = response;
       throw error;
     }
-    try {
-      const data = await response.json();
-      return data;
-    } catch {
-      // TODO ошибка извлечения Json
-    }
+    const text = await response.text();
+    if (text !== '') return JSON.parse(text);
   } catch (error) {
     if (error.response) {
       switch (error.response.status) {
