@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ import {
   currentCustomerIdSelector,
   currentCustomerIsChangedSelector,
 } from 'redux/selectors/currentCustomerSelector';
-import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
+import { clearCurrentCustomerAction, getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import frame from '../../assets/frame.svg';
 import base from '../../assets/base.svg';
 import roof from '../../assets/roof.svg';
@@ -23,6 +23,7 @@ const CustomerPage = () => {
   const rows = useSelector(calculationSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+  const history = useHistory();
   const isChanged = useSelector(currentCustomerIsChangedSelector);
   const currentUserId = useSelector(currentCustomerIdSelector);
 
@@ -38,16 +39,19 @@ const CustomerPage = () => {
     setAnchorEl(null);
   };
 
+  const handleBackClick = () => {
+    dispatch(clearCurrentCustomerAction());
+    history.push('/customers');
+  };
+
   return (
     <main>
       <Container maxWidth="lg">
         <div className={classes.mainNav}>
           <Typography variant="h4" color="textPrimary" align="center">
-            <Link to="/customers">
-              <Button className={classes.btnArrow}>
-                <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
-              </Button>
-            </Link>
+            <Button className={classes.btnArrow} onClick={handleBackClick}>
+              <ArrowBackIcon fontSize="large" className={classes.arrowBack} />
+            </Button>
             Карточка клиента
           </Typography>
         </div>
