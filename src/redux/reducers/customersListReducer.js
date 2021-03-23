@@ -1,4 +1,4 @@
-import { SET_CUSTOMERS_LIST_DATA, SET_CUSTOMERS_LIST_IS_CHANGED } from 'redux/actions/types';
+import { SET_CUSTOMERS_LIST_DATA, SET_CUSTOMERS_LIST_IS_CHANGED, CLEAR_CUSTOMERS_LIST_DATA } from 'redux/actions/types';
 
 const customersListInitialState = {
   isChanged: true,
@@ -12,6 +12,9 @@ export default function customersListReducer(state = customersListInitialState, 
 
     case SET_CUSTOMERS_LIST_IS_CHANGED:
       return { ...state, isChanged: true };
+
+    case CLEAR_CUSTOMERS_LIST_DATA:
+      return { ...customersListInitialState };
 
     default:
       return state;
