@@ -1,19 +1,22 @@
-import { SET_CUSTOMERS_LIST_CALC, SET_MATERIALS } from '../actions/types';
+import { SET_CUSTOMER_CALC_LIST, SET_CUSTOMER_CALC_LIST_IS_CHANGED, SET_MATERIALS } from '../actions/types';
 
 const initialState = {
-  items: [],
+  isChanged: true,
+  calculations: [],
   materials: [],
 };
 
-const getListCalc = (state = initialState, action) => {
+const customerCalcReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_CUSTOMERS_LIST_CALC:
-      return { ...state, items: action.payload };
+    case SET_CUSTOMER_CALC_LIST:
+      return { ...state, calculations: action.payload, isChanged: false };
     case SET_MATERIALS:
-      return { ...state, materials: action.payload };
+      return { ...state, materials: action.payload, isChanged: false };
+    case SET_CUSTOMER_CALC_LIST_IS_CHANGED:
+      return { ...state, isChanged: true };
     default:
       return state;
   }
 };
 
-export default getListCalc;
+export default customerCalcReducer;

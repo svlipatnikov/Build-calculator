@@ -4,15 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getMaterials } from 'redux/actions/customerCalcAction';
 import { materialsForCalc } from 'redux/selectors/customerCalcSelector';
-import { curentCustomerIdSelector } from 'redux/selectors/curentCustomerSelector';
+import { currentCustomerIdSelector } from 'redux/selectors/currentCustomerSelector';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import sendRequest from 'api';
-import setChangeFlagAction from '../../redux/actions/customerChangeFlagAction';
+import { setCurrentCustomerIsChangedAction } from 'redux/actions/currentCustomerAction';
 import customerNewValueCalc from '../../redux/selectors/customerNewCalcSelector';
 import { setValueNewCalc, clearValueNewCalc } from '../../redux/actions/customerNewCalcAction';
-
 import BoxForm from './BoxForm';
 import BoxFormSelect from './BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
@@ -25,7 +24,7 @@ const CalculationFormPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const materials = useSelector(materialsForCalc);
-  const customerID = useSelector(curentCustomerIdSelector);
+  const customerID = useSelector(currentCustomerIdSelector);
   const {
     adress_object_construction,
     number_of_floors,
@@ -138,7 +137,7 @@ const CalculationFormPage = () => {
       console.log(error);
     });
     handleClickClearValue();
-    dispatch(setChangeFlagAction(true));
+    dispatch(setCurrentCustomerIsChangedAction());
     handleClickCustomers();
   };
   return (
@@ -171,7 +170,8 @@ const CalculationFormPage = () => {
               variant="contained"
               color="primary"
               style={{ height: '38px', width: '150px' }}
-              onClick={handleClickClearValue}>
+              onClick={handleClickClearValue}
+            >
               Очистить расчет
             </Button>
           </Box>

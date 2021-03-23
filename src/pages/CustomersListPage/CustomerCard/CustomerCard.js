@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography, CardContent, Card, CardActionArea } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { setCurentCustomerAction } from 'redux/actions/curentCustomerAction';
+import { setCurrentCustomerId } from 'redux/actions/currentCustomerAction';
 
 const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adress }) => {
   const history = useHistory();
@@ -12,7 +12,7 @@ const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adres
   if (!id) return null;
 
   const handleClick = () => {
-    dispatch(setCurentCustomerAction({ id, lastName, firstName, secondName, phone, email, adress }));
+    dispatch(setCurrentCustomerId(id));
     history.push(`/customers/${id}?id=${id}`);
   };
 

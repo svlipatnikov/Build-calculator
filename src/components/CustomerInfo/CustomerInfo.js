@@ -1,12 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import sendRequest from 'api';
-import { camelToSnakeObj } from 'help';
 import { useDispatch } from 'react-redux';
-import { clearCurentCustomerAction, setCurentCustomerAction } from 'redux/actions/curentCustomerAction';
+import { clearCurrentCustomerAction, createNewCustomer, updateCustomer } from 'redux/actions/currentCustomerAction';
 import { useHistory } from 'react-router-dom';
 import { customersListIsChangedAction } from 'redux/actions/customersListAction';
 
@@ -19,10 +17,10 @@ const labels = {
   adress: 'Адрес',
 };
 
-const CustomerInfo = ({ open, setOpen, clientData }) => {
+const CustomerInfo = ({ open, setOpen, customerData }) => {
   const classes = useStyles();
-  const { id, ...initialData } = clientData;
-  const [clientInfo, setClientInfo] = useState(initialData);
+  const { id, ...initialData } = customerData;
+  const [customerInfo, setCustomerInfo] = useState(initialData);
   const isNew = !id;
   const [editable, setEditable] = useState(isNew);
   const dispatch = useDispatch();
@@ -30,39 +28,30 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
 
   useEffect(() => {
     setEditable(isNew);
-  }, [open]);
+  }, [isNew, open]);
 
   const handleClose = () => {
     setOpen(false);
-    setClientInfo({});
+    setCustomerInfo({});
   };
 
   const handleSave = () => {
-    if (isNew) {
-      sendRequest('/customers/', 'POST', camelToSnakeObj(clientInfo)).then(() => {
-        dispatch(customersListIsChangedAction());
-        handleClose();
-      });
-    } else {
-      sendRequest(`/customers/${id}/`, 'PATCH', camelToSnakeObj({ id, ...clientInfo })).then(() => {
-        dispatch(setCurentCustomerAction({ id, ...clientInfo }));
-        dispatch(customersListIsChangedAction());
-        handleClose();
-      });
-    }
+    if (isNew) dispatch(createNewCustomer(customerInfo));
+    else dispatch(updateCustomer({ id, ...customerInfo }));
+    handleClose();
   };
 
   const handleRemove = () => {
     sendRequest(`/customers/${id}/`, 'DELETE', { id }).then(() => {
-      dispatch(clearCurentCustomerAction());
-      dispatch(customersListIsChangedAction());
       handleClose();
       history.push('/customers');
+      dispatch(clearCurrentCustomerAction());
+      dispatch(customersListIsChangedAction());
     });
   };
 
   const handleChange = (prop) => (event) => {
-    setClientInfo({ ...clientInfo, [prop]: event.target.value });
+    setCustomerInfo({ ...customerInfo, [prop]: event.target.value });
   };
 
   const handleEdit = () => {
@@ -79,7 +68,7 @@ const CustomerInfo = ({ open, setOpen, clientData }) => {
             id={field}
             key={field}
             label={labels[field]}
-            value={clientInfo[field]}
+            value={customerInfo[field]}
             onChange={handleChange(field)}
             variant="outlined"
             color="secondary"
@@ -122,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 CustomerInfo.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
-  clientData: PropTypes.shape({
+  customerData: PropTypes.shape({
     id: PropTypes.number,
     lastName: PropTypes.string,
     firstName: PropTypes.string,
@@ -134,7 +123,7 @@ CustomerInfo.propTypes = {
 };
 
 CustomerInfo.defaultProps = {
-  clientData: {
+  customerData: {
     id: null,
     lastName: '',
     firstName: '',

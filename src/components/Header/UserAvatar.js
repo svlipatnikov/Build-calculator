@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import userSelector from 'redux/selectors/userSelector';
 import sendRequest from 'api';
 import { setUserInfo } from 'redux/actions/userInfoAction';
-import { snakeToCamelObj } from 'help';
+import { snakeStringObjectToCamelStringObject } from 'help/camelSnakeConverter';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import mediaBaseUrl from 'api/mediaBaseUrl';
 import { isAuthenticatedSelector } from 'redux/selectors/appStateSelector';
@@ -16,7 +16,7 @@ const User = () => {
   useEffect(() => {
     if (isAuthenticated && !username) {
       sendRequest('/myprofile/', 'GET').then((userData) => {
-        if (userData) dispatch(setUserInfo(snakeToCamelObj(userData)));
+        if (userData) dispatch(setUserInfo(snakeStringObjectToCamelStringObject(userData)));
       });
     }
   }, [dispatch, isAuthenticated, username]);

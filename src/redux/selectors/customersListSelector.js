@@ -1,2 +1,2 @@
-export const customersListSelector = (state) => state.customersList.list;
-export const isChangedCustomersListSelector = (state) => state.customersList.isChanged;
+export const customersListSelector = (store) => store.customersList.list;
+export const isChangedCustomersListSelector = (store) => store.customersList.isChanged;

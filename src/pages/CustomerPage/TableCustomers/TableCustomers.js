@@ -15,6 +15,7 @@ import { Button } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { removeCurrentCustomerCalculation } from 'redux/actions/currentCustomerAction';
 
 const DenseTable = ({ rows }) => {
   const history = useHistory();
@@ -34,6 +35,10 @@ const DenseTable = ({ rows }) => {
       pathname: `/calculation_result/${calculation.id}`,
       search: history.location.search,
     });
+  };
+
+  const handleClickRemove = ({ id }) => {
+    dispatch(removeCurrentCustomerCalculation(id));
   };
 
   return (
@@ -58,9 +63,7 @@ const DenseTable = ({ rows }) => {
                   <Button onClick={() => handleClickCalculationResult(row)}>{row.id}</Button>
                 </TableCell>
                 <TableCell align="right">{row.created_date}</TableCell>
-                <TableCell align="right">
-                  {row.state_calculation === 1 ? 'Актуален' : 'Не актуален'}
-                </TableCell>
+                <TableCell align="right">{row.state_calculation === 1 ? 'Актуален' : 'Не актуален'}</TableCell>
                 <TableCell align="right">{row.adress_object_construction}</TableCell>
                 <TableCell align="right">
                   <Button>
@@ -73,7 +76,7 @@ const DenseTable = ({ rows }) => {
                   </Button>
                 </TableCell>
                 <TableCell align="right">
-                  <Button>
+                  <Button onClick={() => handleClickRemove(row)}>
                     <DeleteIcon />
                   </Button>
                 </TableCell>
