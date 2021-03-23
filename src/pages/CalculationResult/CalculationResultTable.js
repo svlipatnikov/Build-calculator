@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   makeStyles,
@@ -13,6 +13,16 @@ import {
 const CalculationResultTable = ({ data }) => {
   const classes = useStyles();
 
+  const total = useMemo(() => {
+    const localTotal = {};
+
+    Object.keys(data).forEach((category) => {
+      localTotal[category] = data[category].reduce((sum, categoryData) => sum + categoryData.full_price, 0);
+    });
+
+    return localTotal;
+  }, [data]);
+
   return (
     <TableContainer className={classes.mb30}>
       <Table className={classes.table}>
@@ -26,22 +36,33 @@ const CalculationResultTable = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {Object.entries(data).map(([category, categoryData]) => (
             <>
               <TableRow>
-                <TableCell className={classes.td}>{row.name}</TableCell>
+                <TableCell className={classes.td}>{category}</TableCell>
                 <TableCell className={classes.td} colSpan="3" />
-                <TableCell align="center" className={classes.td}>{row.full_price} руб.</TableCell>
+                <TableCell align="center" className={classes.td}>
+                  {total[category]} руб.
+                </TableCell>
               </TableRow>
-              <TableRow className={classes.row}>
-                <TableCell className={classes.td}>{row.specific_material.material}</TableCell>
-                <TableCell align="center" className={classes.td}>{row.specific_material.name}</TableCell>
-                <TableCell align="center" className={classes.td}>{row.specific_material.measurement_unit}</TableCell>
-                <TableCell align="center" className={classes.td}>{row.amount}</TableCell>
-                <TableCell align="center" className={classes.td}>{row.price} руб.</TableCell>
-              </TableRow>
+              {categoryData.map((row) => (
+                <TableRow className={classes.row}>
+                  <TableCell className={classes.td}>{row.specific_material.material}</TableCell>
+                  <TableCell align="center" className={classes.td}>{row.specific_material.name}</TableCell>
+                  <TableCell align="center" className={classes.td}>{row.specific_material.measurement_unit}</TableCell>
+                  <TableCell align="center" className={classes.td}>{row.amount}</TableCell>
+                  <TableCell align="center" className={classes.td}>{row.full_price} руб.</TableCell>
+                </TableRow>
+              ))}
             </>
           ))}
+          <TableRow>
+            <TableCell className={classes.td}><b>Итого стоимость материалов</b></TableCell>
+            <TableCell className={classes.td} colSpan="3" />
+            <TableCell align="center" className={classes.td}>
+              {Object.values(total).reduce((fullTotal, categoryTotal) => fullTotal + categoryTotal, 0)} руб.
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
@@ -73,22 +94,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 CalculationResultTable.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    amount: PropTypes.string,
-    full_price: PropTypes.number,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    specific_material: PropTypes.shape({
-      id: PropTypes.number,
-      material: PropTypes.string,
-      measurement_unit: PropTypes.string,
+  data: PropTypes.shape({
+    [PropTypes.string]: PropTypes.arrayOf(PropTypes.shape({
+      amount: PropTypes.string,
+      full_price: PropTypes.number,
       name: PropTypes.string,
-    }),
-  })),
+      price: PropTypes.number,
+      specific_material: PropTypes.shape({
+        id: PropTypes.number,
+        material: PropTypes.string,
+        measurement_unit: PropTypes.string,
+        name: PropTypes.string,
+      }),
+    })),
+  }),
 };
 
 CalculationResultTable.defaultProps = {
-  data: [],
+  data: {},
 };
 
 export default CalculationResultTable;
