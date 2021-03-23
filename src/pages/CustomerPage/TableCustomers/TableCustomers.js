@@ -15,6 +15,7 @@ import { Button } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { removeCurrentCustomerCalculation } from 'redux/actions/currentCustomerAction';
 
 const DenseTable = ({ rows }) => {
   const history = useHistory();
@@ -36,6 +37,10 @@ const DenseTable = ({ rows }) => {
     });
   };
 
+  const handleClickRemove = ({ id }) => {
+    dispatch(removeCurrentCustomerCalculation(id));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table size="small" aria-label="a dense table">
@@ -53,13 +58,13 @@ const DenseTable = ({ rows }) => {
         <TableBody>
           {rows &&
             rows.map((row) => (
-              <TableRow key={row.name}>
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  <Button onClick={() => handleClickCalculationResult(row)}>{row.name}</Button>
+                  <Button onClick={() => handleClickCalculationResult(row)}>{row.id}</Button>
                 </TableCell>
-                <TableCell align="right">{row.date}</TableCell>
-                <TableCell align="right">{row.status}</TableCell>
-                <TableCell align="right">{row.address}</TableCell>
+                <TableCell align="right">{row.created_date}</TableCell>
+                <TableCell align="right">{row.state_calculation === 1 ? 'Актуален' : 'Не актуален'}</TableCell>
+                <TableCell align="right">{row.adress_object_construction}</TableCell>
                 <TableCell align="right">
                   <Button>
                     <FileCopyIcon />
@@ -71,7 +76,7 @@ const DenseTable = ({ rows }) => {
                   </Button>
                 </TableCell>
                 <TableCell align="right">
-                  <Button>
+                  <Button onClick={() => handleClickRemove(row)}>
                     <DeleteIcon />
                   </Button>
                 </TableCell>

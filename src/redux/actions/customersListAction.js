@@ -1,10 +1,10 @@
 import sendRequest from 'api';
-import { snakeToCamelArr } from 'help';
+import { snakeStirngsArrayToCamelStringsArray } from 'help/camelSnakeConverter';
 import { SET_CUSTOMERS_LIST_DATA, SET_CUSTOMERS_LIST_IS_CHANGED } from './types';
 
 export const getCustomersList = () => (dispatch) => {
   sendRequest('/customers/', 'GET').then((data) => {
-    if (data) dispatch(setCustomersListAction(snakeToCamelArr(data)));
+    if (data) dispatch(setCustomersListAction(snakeStirngsArrayToCamelStringsArray(data)));
   });
 };
 

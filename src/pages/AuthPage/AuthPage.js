@@ -82,7 +82,7 @@ const AuthPage = () => {
           {isError && statusCode === 401 && (
             <Box maxWidth="380px">
               <Typography color="error" variant="h6" align="center">
-                Неправильные данные для входа. Пожалуйста попробуйте снова
+                Неправильные данные для входа. Пожалуйста, попробуйте снова
               </Typography>
             </Box>
           )}

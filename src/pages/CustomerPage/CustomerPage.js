@@ -1,31 +1,46 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { Link, useHistory } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import { clearCurentCustomerAction } from 'redux/actions/curentCustomerAction';
-import { customersListCalc } from '../../redux/selectors/customerCalcSelector';
-import changeFlag from '../../redux/selectors/customerChangeFlagSelector';
-import { getCalculation } from '../../redux/actions/customerCalcAction';
-
+import {
+  calculationSelector,
+  currentCustomerIdSelector,
+  currentCustomerIsChangedSelector,
+} from 'redux/selectors/currentCustomerSelector';
+import { clearCurrentCustomerAction, getCurrentCustomer } from 'redux/actions/currentCustomerAction';
+import frame from '../../assets/frame.svg';
+import base from '../../assets/base.svg';
+import roof from '../../assets/roof.svg';
 import TableCustomers from './TableCustomers';
 
 const CustomerPage = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const rows = useSelector(customersListCalc);
-  const isChanged = useSelector(changeFlag);
+  const rows = useSelector(calculationSelector);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isChanged = useSelector(currentCustomerIsChangedSelector);
+  const currentUserId = useSelector(currentCustomerIdSelector);
 
   useEffect(() => {
-    if (isChanged) {
-      dispatch(getCalculation());
-    }
-  }, [dispatch, isChanged]);
+    if (isChanged) dispatch(getCurrentCustomer(currentUserId));
+  }, [dispatch, isChanged, currentUserId]);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleBackClick = () => {
-    dispatch(clearCurentCustomerAction());
+    dispatch(clearCurrentCustomerAction());
     history.push('/customers');
   };
 
@@ -41,12 +56,33 @@ const CustomerPage = () => {
           </Typography>
         </div>
         <div className={classes.mainCanculation}>
-          {/* eslint-disable-next-line */}
-          <Link to={{ pathname: '/calculation/new', search: location.search }}>
-            <Button variant="contained" color="primary">
+          <div>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              color="primary"
+            >
               Создать расчет
             </Button>
-          </Link>
+            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+              <Link to={{ pathname: '/calculation/new', search: location.search }}>
+                <MenuItem onClick={handleClose} className={classes.menuItem}>
+                  <img src={frame} alt="frame" className={classes.img} />
+                  Каркас
+                </MenuItem>
+              </Link>
+              <MenuItem onClick={handleClose} className={classes.menuItem}>
+                <img src={base} alt="base" className={classes.img} />
+                Фундамент
+              </MenuItem>
+              <MenuItem onClick={handleClose} className={classes.menuItem}>
+                <img src={roof} alt="roof" className={classes.img} />
+                Крыша
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
         <div className={classes.mainTable}>
           <TableCustomers rows={rows} />
@@ -75,5 +111,13 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 0,
     left: 0,
+  },
+  img: {
+    maxHeight: 40,
+    maxWidth: 40,
+    marginRight: theme.spacing(2),
+  },
+  menuItem: {
+    fontSize: 18,
   },
 }));

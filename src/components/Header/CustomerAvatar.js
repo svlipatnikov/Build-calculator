@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import curentCustomerSelector from 'redux/selectors/curentCustomerSelector';
-import { getCurrentCustomer } from 'redux/actions/curentCustomerAction';
+import { currentCustomerSelector } from 'redux/selectors/currentCustomerSelector';
+import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 import CustomerInfo from '../CustomerInfo';
@@ -12,16 +12,12 @@ const Client = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const customer = useSelector(curentCustomerSelector);
+  const customer = useSelector(currentCustomerSelector);
 
   useEffect(() => {
     const customerId = new URLSearchParams(location.search).get('id');
-
-    if (!customer.id && customerId) {
-      dispatch(getCurrentCustomer(customerId));
-    }
-    // eslint-disable-next-line
-  }, []);
+    if (!customer.id && customerId) dispatch(getCurrentCustomer(customerId));
+  }, [customer.id, dispatch, location.search]);
 
   const handleClick = () => {
     setIsModalOpened(true);
@@ -43,7 +39,7 @@ const Client = () => {
           {secondName}
         </p>
       </div>
-      {isModalOpened && <CustomerInfo open={isModalOpened} setOpen={setIsModalOpened} clientData={customer} />}
+      {isModalOpened && <CustomerInfo open={isModalOpened} setOpen={setIsModalOpened} customerData={customer} />}
     </>
   );
 };
