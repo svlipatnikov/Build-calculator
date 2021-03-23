@@ -7,23 +7,28 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import { customersListCalc } from '../../redux/selectors/customerCalcSelector';
-import changeFlag from '../../redux/selectors/customerChangeFlagSelector';
-import { getCalculation } from '../../redux/actions/customerCalcAction';
-
+import {
+  calculationSelector,
+  currentCustomerIdSelector,
+  currentCustomerIsChangedSelector,
+} from 'redux/selectors/currentCustomerSelector';
+import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import frame from '../../assets/frame.svg';
 import base from '../../assets/base.svg';
 import roof from '../../assets/roof.svg';
-
 import TableCustomers from './TableCustomers';
 
 const CustomerPage = () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const rows = useSelector(customersListCalc);
-  const isChanged = useSelector(changeFlag);
-
+  const rows = useSelector(calculationSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const isChanged = useSelector(currentCustomerIsChangedSelector);
+  const currentUserId = useSelector(currentCustomerIdSelector);
+
+  useEffect(() => {
+    if (isChanged) dispatch(getCurrentCustomer(currentUserId));
+  }, [dispatch, isChanged, currentUserId]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,12 +37,6 @@ const CustomerPage = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    if (isChanged) {
-      dispatch(getCalculation());
-    }
-  }, [dispatch, isChanged]);
 
   return (
     <main>
@@ -59,15 +58,11 @@ const CustomerPage = () => {
               aria-haspopup="true"
               onClick={handleClick}
               variant="contained"
-              color="primary">
+              color="primary"
+            >
               Создать расчет
             </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}>
+            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
               <Link to={{ pathname: '/calculation/new', search: location.search }}>
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
                   <img src={frame} alt="frame" className={classes.img} />

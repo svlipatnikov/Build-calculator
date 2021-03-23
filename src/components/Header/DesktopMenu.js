@@ -47,7 +47,8 @@ const Header = () => {
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
-        }}>
+        }}
+      >
         <MenuItem onClick={handleLogout}>
           <ListItemIcon className={classes.exitIcon}>
             <ExitToApp />
