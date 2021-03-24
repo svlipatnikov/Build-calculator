@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { setAuthFlag } from 'redux/actions/appStateAction';
 import { Drawer, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Close } from '@material-ui/icons';
+import logout from 'api/logout';
 import Customer from './CustomerAvatar';
 import User from './UserAvatar';
 
 const AdaptiveHeader = () => {
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
-  const history = useHistory();
   const classes = useStyles();
 
   const handleClick = () => setOpen(!open);
 
   const handleLogout = () => {
-    localStorage.removeItem('access_token');
-    dispatch(setAuthFlag(false));
-    history.push('/login');
-    handleClick();
+    logout();
   };
 
   return (

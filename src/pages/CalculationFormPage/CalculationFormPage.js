@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getMaterials } from 'redux/actions/customerCalcAction';
 import { materialsForCalc } from 'redux/selectors/customerCalcSelector';
-import { currentCustomerIdSelector } from 'redux/selectors/currentCustomerSelector';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +23,8 @@ const CalculationFormPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const materials = useSelector(materialsForCalc);
-  const customerID = useSelector(currentCustomerIdSelector);
+  const { customerId } = useParams();
+
   const {
     adress_object_construction,
     number_of_floors,
@@ -70,10 +70,7 @@ const CalculationFormPage = () => {
   };
 
   const handleClickCustomers = () => {
-    history.push({
-      pathname: `/customers/${customerID}`,
-      search: history.location.search,
-    });
+    history.push(`/customers/${customerId}`);
   };
 
   const submit = (e) => {
@@ -126,7 +123,7 @@ const CalculationFormPage = () => {
         },
       ],
       calculation: {
-        customer: Number(`${customerID}`),
+        customer: Number(`${customerId}`),
         state_calculation: 'Актуален',
         manager: 2,
         adress_object_construction,

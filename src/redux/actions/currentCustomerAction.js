@@ -33,7 +33,7 @@ export const updateCustomer = (customer) => (dispatch) => {
 };
 
 export const removeCurrentCustomerCalculation = (id) => (dispatch) => {
-  sendRequest(`/calculation/${id}`, 'DELETE', { id }).then(() => {
+  sendRequest(`/calculation/${id}/`, 'DELETE', { id }).then(() => {
     dispatch(setCurrentCustomerIsChangedAction());
   });
 };

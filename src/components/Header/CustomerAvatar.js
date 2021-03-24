@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
 import { currentCustomerSelector } from 'redux/selectors/currentCustomerSelector';
 import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,14 +9,13 @@ import CustomerInfo from '../CustomerInfo';
 const Client = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const location = useLocation();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const customer = useSelector(currentCustomerSelector);
 
   useEffect(() => {
-    const customerId = new URLSearchParams(location.search).get('id');
+    const customerId = Number(window.location.pathname.split('/')[2]);
     if (!customer.id && customerId) dispatch(getCurrentCustomer(customerId));
-  }, [customer.id, dispatch, location.search]);
+  }, [customer.id, dispatch]);
 
   const handleClick = () => {
     setIsModalOpened(true);

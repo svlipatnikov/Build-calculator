@@ -13,7 +13,7 @@ const CustomerCard = ({ id, lastName, firstName, secondName, phone, email, adres
 
   const handleClick = () => {
     dispatch(setCurrentCustomerId(id));
-    history.push(`/customers/${id}?id=${id}`);
+    history.push(`/customers/${id}`);
   };
 
   return (

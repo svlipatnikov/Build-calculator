@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Table from '@material-ui/core/Table';
@@ -19,19 +19,14 @@ import { removeCurrentCustomerCalculation } from 'redux/actions/currentCustomerA
 const DenseTable = ({ rows }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { customerId } = useParams();
 
   const handleClickEdit = (calculation) => {
-    history.push({
-      pathname: `/calculationedit/${calculation.id}`,
-      search: history.location.search,
-    });
+    history.push(`/customers/${customerId}/calculation_edit/${calculation.id}`);
   };
 
   const handleClickCalculationResult = (calculation) => {
-    history.push({
-      pathname: `/calculation_result/${calculation.id}`,
-      search: history.location.search,
-    });
+    history.push(`/customers/${customerId}/calculation_result/${calculation.id}`);
   };
 
   const handleClickRemove = ({ id }) => {

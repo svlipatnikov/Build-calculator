@@ -1,9 +1,9 @@
-/* eslint-disable consistent-return */
 import { setError, setLoadingFlag } from 'redux/actions/appStateAction';
 import store from 'redux/store';
+import logout from './logout';
 
 const { dispatch } = store;
-const apiUrl = 'http://build-calculator-dev.spring-intensive-2021.simbirsoft1.com:8000/api/v1';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export default async function sendRequest(url, method, body) {
   const token = localStorage.getItem('access_token');
@@ -17,6 +17,7 @@ export default async function sendRequest(url, method, body) {
   if (body) fetchData.body = JSON.stringify(body);
 
   dispatch(setLoadingFlag(true));
+  let data;
 
   try {
     const response = await fetch(apiUrl + url, fetchData);
@@ -26,12 +27,28 @@ export default async function sendRequest(url, method, body) {
       throw error;
     }
     const text = await response.text();
-    if (text !== '') return JSON.parse(text);
+    if (text !== '') data = JSON.parse(text);
   } catch (error) {
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          dispatch(setError(error.response.status, error.response.statusText, false));
+          if (new URL(error.response.url).pathname === '/api/v1/auth/jwt/create/') {
+            dispatch(setError(error.response.status, error.response.statusText, false));
+          } else if (new URL(error.response.url).pathname !== '/auth/jwt/refresh/') {
+            const refresh = localStorage.getItem('refresh_token');
+            const tokenData = await sendRequest('/auth/jwt/refresh/', 'POST', { refresh });
+            if (tokenData) {
+              if (tokenData.access) {
+                localStorage.setItem('access_token', tokenData.access);
+                fetchData.headers.Authorization = `Bearer ${tokenData.access}`;
+                const response = await fetch(apiUrl + url, fetchData);
+                if (response.ok) {
+                  const text = await response.text();
+                  if (text !== '') data = JSON.parse(text);
+                } else logout();
+              } else logout();
+            } else logout();
+          } else dispatch(setError(error.response.status, error.response.statusText, true));
           break;
         // TODO обработка других кодов
         default:
@@ -43,4 +60,5 @@ export default async function sendRequest(url, method, body) {
   } finally {
     dispatch(setLoadingFlag(false));
   }
+  return data;
 }
