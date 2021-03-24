@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ import {
   currentCustomerIdSelector,
   currentCustomerIsChangedSelector,
 } from 'redux/selectors/currentCustomerSelector';
-import { clearCurrentCustomerAction, getCurrentCustomer } from 'redux/actions/currentCustomerAction';
+import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import frame from '../../assets/frame.svg';
 import base from '../../assets/base.svg';
 import roof from '../../assets/roof.svg';
@@ -26,6 +26,7 @@ const CustomerPage = () => {
   const history = useHistory();
   const isChanged = useSelector(currentCustomerIsChangedSelector);
   const currentUserId = useSelector(currentCustomerIdSelector);
+  const { customerId } = useParams();
 
   useEffect(() => {
     if (isChanged) dispatch(getCurrentCustomer(currentUserId));
@@ -40,7 +41,6 @@ const CustomerPage = () => {
   };
 
   const handleBackClick = () => {
-    dispatch(clearCurrentCustomerAction());
     history.push('/customers');
   };
 
@@ -67,7 +67,7 @@ const CustomerPage = () => {
               Создать расчет
             </Button>
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-              <Link to={{ pathname: '/calculation/new', search: location.search }}>
+              <Link to={`/customers/${customerId}/calculation/new`}>
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
                   <img src={frame} alt="frame" className={classes.img} />
                   Каркас

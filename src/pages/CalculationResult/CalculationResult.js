@@ -15,14 +15,14 @@ import CustomAccordion from '../../components/CustomAccordion';
 import CalculationResultTable from './CalculationResultTable';
 
 const CalculationResult = () => {
-  const { id } = useParams();
+  const { customerId, calcId } = useParams();
   const classes = useStyles();
   const dispatch = useDispatch();
   const calculation = useSelector(currentCalculation);
 
   useEffect(() => {
     if (!calculation.id) {
-      dispatch(getCurrentCalculation(id));
+      dispatch(getCurrentCalculation(calcId));
     }
     // eslint-disable-next-line
   }, []);
@@ -43,8 +43,7 @@ const CalculationResult = () => {
 
   return (
     <>
-      {/* eslint-disable-next-line */}
-      <Link to={{ pathname: `/customers/${id}`, search: location.search }}>
+      <Link to={`/customers/${customerId}`}>
         <Button>
           <ArrowBack fontSize="large" />
         </Button>
@@ -61,8 +60,7 @@ const CalculationResult = () => {
           </Button>
         </Tooltip>
         <Tooltip title="Редактировать">
-          {/* eslint-disable-next-line */}
-          <Link to={{ pathname: `/calculationedit/${id}`, search: location.search }}>
+          <Link to={`/customers/${customerId}/calculation_edit/${calcId}`}>
             <Button color="primary" variant="outlined" className={classes.button}>
               <Edit />
             </Button>

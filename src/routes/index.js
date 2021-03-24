@@ -15,19 +15,19 @@ const routes = [
     component: CustomersListPage,
   },
   {
-    path: '/calculation/new',
-    component: CalculationFormPage,
-  },
-  {
-    path: '/customers/:id',
+    path: '/customers/:customerId',
     component: CustomerPage,
   },
   {
-    path: '/calculationedit/:id',
+    path: '/customers/:customerId/calculation/new',
+    component: CalculationFormPage,
+  },
+  {
+    path: '/customers/:customerId/calculation_edit/:calcId',
     component: CalculationEditForm,
   },
   {
-    path: '/calculation_result/:id',
+    path: '/customers/:customerId/calculation_result/:calcId',
     component: CalculationResult,
   },
 ];
