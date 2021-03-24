@@ -2,7 +2,6 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setCurrentCalculation } from 'redux/actions/currentCalculationAction';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -23,12 +22,10 @@ const DenseTable = ({ rows }) => {
   const { customerId } = useParams();
 
   const handleClickEdit = (calculation) => {
-    dispatch(setCurrentCalculation(calculation));
     history.push(`/customers/${customerId}/calculation_edit/${calculation.id}`);
   };
 
   const handleClickCalculationResult = (calculation) => {
-    dispatch(setCurrentCalculation(calculation));
     history.push(`/customers/${customerId}/calculation_result/${calculation.id}`);
   };
 

@@ -7,6 +7,6 @@ export const setCurrentCalculation = (calculation) => ({
 });
 
 export const getCurrentCalculation = (id) => (dispatch) => {
-  sendRequest(`/calculation/${id}`, 'GET')
+  sendRequest(`/calculation/${id}/`, 'GET')
     .then((res) => dispatch(setCurrentCalculation(res)));
 };

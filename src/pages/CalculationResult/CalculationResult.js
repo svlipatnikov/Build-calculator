@@ -9,10 +9,11 @@ import currentCalculation from 'redux/selectors/currentCalculationSelector';
 import { getCurrentCalculation } from 'redux/actions/currentCalculationAction';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Update, Edit, ArrowBack } from '@material-ui/icons';
+import { Edit, ArrowBack } from '@material-ui/icons';
 import { Typography, Button, Tooltip, Box } from '@material-ui/core';
 import CustomAccordion from '../../components/CustomAccordion';
 import CalculationResultTable from './CalculationResultTable';
+import groupBy from '../../help/helpers';
 
 const CalculationResult = () => {
   const { customerId, calcId } = useParams();
@@ -29,15 +30,27 @@ const CalculationResult = () => {
 
   const createdDate = useMemo(() => new Date(calculation.created_date).toLocaleDateString('ru-RU'), [calculation.created_date]);
 
-  const results = useMemo(() => calculation.results && calculation.results.reduce((acc, result) => {
-    const current = acc[acc.length - 1];
+  const results = useMemo(() => {
+    if (calculation.results) {
+      const floorsData = groupBy(calculation.results, 'floor');
 
-    if (current.some((p) => p.name === result.name)) {
-      acc.push([result]);
-    } else current.push(result);
+      Object.keys(floorsData).forEach((floorNumber) => {
+        floorsData[floorNumber] = groupBy(floorsData[floorNumber], 'name');
+      });
 
-    return acc;
-  }, [[]]), [calculation.results]);
+      return floorsData;
+    }
+
+    return {};
+  }, [calculation.results]);
+
+  const total = useMemo(() => {
+    if (calculation.results) {
+      return calculation.results.reduce((sum, result) => sum + result.full_price, 0);
+    }
+
+    return 0;
+  }, [calculation.results]);
 
   if (!calculation.id) return null;
 
@@ -54,11 +67,6 @@ const CalculationResult = () => {
       </Typography>
 
       <div className={classes.right}>
-        <Tooltip title="Сменить статус">
-          <Button variant="outlined" color="primary" className={classes.button}>
-            <Update />
-          </Button>
-        </Tooltip>
         <Tooltip title="Редактировать">
           <Link to={`/customers/${customerId}/calculation_edit/${calcId}`}>
             <Button color="primary" variant="outlined" className={classes.button}>
@@ -73,39 +81,34 @@ const CalculationResult = () => {
         <Typography variant="body1" className={classes.address}>
           Адрес объекта: <span className={classes.capitalize}>{calculation.adress_object_construction}</span>
         </Typography>
+        <Typography variant="body1">Статус: {calculation.state_calculation}</Typography>
       </Box>
 
-      <CustomAccordion title="Результат расчета каркаса" className={classes.mb30}>
-        {results.map((floorData, floorNumber) => (
+      <CustomAccordion title="Результат расчета каркаса" className={classes.mb0}>
+        {Object.entries(results).map(([floorNumber, floorData]) => (
           <Box>
-            <Typography variant="body1" className={classes.title}>Результат расчета {floorNumber + 1} этажа</Typography>
+            <Typography variant="body1" className={classes.title}>Результат расчета {floorNumber} этажа</Typography>
             <CalculationResultTable data={floorData} />
           </Box>
         ))}
-      </CustomAccordion>
 
-      <div className={classes.right}>
-        <Button className={classes.green}>Добавить расчет</Button>
-      </div>
+        <Box className={classes.total}>
+          <Typography variant="h6">Итого стоимость материалов:</Typography>
+          <Typography variant="h6">
+            {total} руб.
+          </Typography>
+        </Box>
+      </CustomAccordion>
     </>
   );
 };
 
 const useStyles = makeStyles(() => ({
-  mb30: {
-    marginBottom: 30,
+  mb0: {
+    marginBottom: '0 !important',
   },
   right: {
     textAlign: 'right',
-  },
-  green: {
-    color: 'white',
-    border: '1px solid transparent',
-    backgroundColor: '#146c43',
-    transition: '0.5s',
-    '&:hover': {
-      backgroundColor: '#0e5333',
-    },
   },
   button: {
     minWidth: 'unset',
@@ -123,6 +126,14 @@ const useStyles = makeStyles(() => ({
     fontSize: 16,
     fontWeight: 600,
     marginBottom: 20,
+  },
+  total: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    '& h6': {
+      fontSize: 16,
+    },
   },
 }));
 
