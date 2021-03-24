@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from 'assets/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, setAuthFlag } from 'redux/actions/appStateAction';
+import { clearError, getToken } from 'redux/actions/appStateAction';
+import { clearUserInfo } from 'redux/actions/userInfoAction';
+import { clearCustomersListAction } from 'redux/actions/customersListAction';
+import { clearCurrentCustomerAction } from 'redux/actions/currentCustomerAction';
 import { useHistory } from 'react-router-dom';
-import sendRequest from 'api';
-import { errorSelector } from 'redux/selectors/appStateSelector';
+import { errorSelector, isAuthenticatedSelector } from 'redux/selectors/appStateSelector';
 
 const AuthPage = () => {
   const [login, setLogin] = useState('');
@@ -15,22 +17,20 @@ const AuthPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isError, statusCode } = useSelector(errorSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  if (isAuthenticated) history.push('/customers');
+
+  useEffect(() => {
+    dispatch(clearUserInfo());
+    dispatch(clearCurrentCustomerAction());
+    dispatch(clearCustomersListAction());
+  }, [dispatch]);
 
   const submit = (event) => {
     event.preventDefault();
-    if (login && password) {
-      setLogin('');
-      setPassword('');
-
-      sendRequest('/auth/jwt/create/', 'POST', { username: login, password }).then((data) => {
-        if (data) {
-          if (data.access) localStorage.setItem('access_token', data.access);
-          if (data.refresh) localStorage.setItem('refresh_token', data.refresh);
-          dispatch(setAuthFlag(true));
-          history.push('/customers');
-        }
-      });
-    }
+    if (login && password) dispatch(getToken(login, password));
+    setLogin('');
+    setPassword('');
   };
 
   const handleLoginChange = (event) => {
