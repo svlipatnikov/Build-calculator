@@ -44,6 +44,14 @@ const CalculationResult = () => {
     return {};
   }, [calculation.results]);
 
+  const total = useMemo(() => {
+    if (calculation.results) {
+      return calculation.results.reduce((sum, result) => sum + result.full_price, 0);
+    }
+
+    return 0;
+  }, [calculation.results]);
+
   if (!calculation.id) return null;
 
   return (
@@ -89,7 +97,7 @@ const CalculationResult = () => {
         <Box className={classes.total}>
           <Typography variant="h6">Итого стоимость материалов:</Typography>
           <Typography variant="h6">
-            {calculation.results.reduce((total, result) => total + result.full_price, 0)} руб.
+            {total} руб.
           </Typography>
         </Box>
       </CustomAccordion>
