@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,13 +13,10 @@ import DoorAndWindow from '../CalculationFormPage/DoorAndWindow';
 const CalculationEditForm = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { customerId } = useParams();
 
   const handleClickCustomers = () => {
-    // TODO: add customers id
-    history.push({
-      pathname: '/customers/:id',
-      search: history.location.search,
-    });
+    history.push(`/customers/${customerId}`);
   };
 
   return (

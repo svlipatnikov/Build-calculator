@@ -3,6 +3,7 @@ import { Container, Typography, Grid, Button, Box } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { customersListSelector, isChangedCustomersListSelector } from 'redux/selectors/customersListSelector';
 import { getCustomersList } from 'redux/actions/customersListAction';
+import { clearCurrentCustomerAction } from 'redux/actions/currentCustomerAction';
 import CustomerInfo from 'components/CustomerInfo';
 import CustomerCard from './CustomerCard';
 
@@ -13,6 +14,7 @@ const CustomersListPage = () => {
   const isChanged = useSelector(isChangedCustomersListSelector);
 
   useEffect(() => {
+    dispatch(clearCurrentCustomerAction());
     if (isChanged) {
       dispatch(getCustomersList());
     }
