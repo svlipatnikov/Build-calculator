@@ -62,11 +62,15 @@ const CustomerPage = () => {
               aria-haspopup="true"
               onClick={handleClick}
               variant="contained"
-              color="primary"
-            >
+              color="primary">
               Создать расчет
             </Button>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}>
               <Link to={`/customers/${customerId}/calculation/new`}>
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
                   <img src={frame} alt="frame" className={classes.img} />
