@@ -1,4 +1,4 @@
-const groupBy = (array, property) => array.reduce((acc, item) => {
+export const groupBy = (array, property) => array.reduce((acc, item) => {
   if (!acc[item[property]]) {
     acc[item[property]] = [];
   }
@@ -8,4 +8,4 @@ const groupBy = (array, property) => array.reduce((acc, item) => {
   return acc;
 }, {});
 
-export default groupBy;
+export const getObjPropertyByPath = (obj, path) => path.split('.').reduce((acc, prop) => acc && acc[prop], obj);

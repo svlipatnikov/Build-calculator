@@ -13,7 +13,7 @@ import { Edit, ArrowBack } from '@material-ui/icons';
 import { Typography, Button, Tooltip, Box } from '@material-ui/core';
 import CustomAccordion from '../../components/CustomAccordion';
 import CalculationResultTable from './CalculationResultTable';
-import groupBy from '../../help/helpers';
+import { groupBy } from '../../help/helpers';
 
 const CalculationResult = () => {
   const { customerId, calcId } = useParams();
