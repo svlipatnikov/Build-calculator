@@ -99,7 +99,7 @@ const CalculationFormPage = () => {
             windscreen_base_area,
             insulation_base_area,
             step_of_racks: 0.6,
-            internal_wall_thickness: 100,
+            internal_wall_thickness,
           },
           openings: [
             {
@@ -126,9 +126,8 @@ const CalculationFormPage = () => {
       calculation: {
         customer: Number(`${customerId}`),
         state_calculation: 'Актуален',
-        manager: 2,
         adress_object_construction,
-        title: 'тестовый расчет',
+        title: 'Расчет',
       },
     });
     handleClickClearValue();
