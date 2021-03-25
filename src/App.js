@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
@@ -15,11 +15,16 @@ function App() {
   const isLoading = useSelector(isLoadingSelector);
   const { isError, isShown } = useSelector(errorSelector);
 
+  useEffect(() => {
+    if (!isAuthenticated && window.location.pathname !== '/login') {
+      window.location.replace('/login');
+    }
+  }, [isAuthenticated]);
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <PageLayout>
-          {!isAuthenticated && <Redirect to="/login" />}
           <Switch>
             {routes.map((props) => (
               <Route key={props.path} {...props} exact />

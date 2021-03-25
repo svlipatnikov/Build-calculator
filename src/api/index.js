@@ -34,7 +34,7 @@ export default async function sendRequest(url, method, body) {
         case 401:
           if (new URL(error.response.url).pathname === '/api/v1/auth/jwt/create/') {
             dispatch(setError(error.response.status, error.response.statusText, false));
-          } else if (new URL(error.response.url).pathname !== '/auth/jwt/refresh/') {
+          } else if (new URL(error.response.url).pathname !== '/api/v1/auth/jwt/refresh/') {
             const refresh = localStorage.getItem('refresh_token');
             const tokenData = await sendRequest('/auth/jwt/refresh/', 'POST', { refresh });
             if (tokenData) {
