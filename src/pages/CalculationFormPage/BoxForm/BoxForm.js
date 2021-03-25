@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Input from '@material-ui/core/Input';
+import { Box, makeStyles } from '@material-ui/core';
+import { useFormContext } from 'react-hook-form';
+import { getObjPropertyByPath } from '../../../help/helpers';
+import validation from '../validation';
 
-const BoxForm = ({ name, value, handleChangeValues, title, measure }) => {
+const BoxForm = ({ name, title, measure }) => {
+  const classes = useStyles();
+  const propValidation = useMemo(() => validation(title), [title]);
+  const { register, errors } = useFormContext();
+  const error = getObjPropertyByPath(errors, title);
+
   return (
-    <Box display="flex" alignItems="center" justifyContent="space-between" m={1}>
+    <Box display="flex" alignItems="start" justifyContent="space-between" m={1}>
       <Box css={{ fontSize: 16 }}>{name}</Box>
-      <Box>
-        <Input
-          style={{
-            width: '100px',
-            backgroundColor: '#ffffff',
-          }}
-          variant="standard"
-          color="secondary"
-          endAdornment={<InputAdornment position="end">{measure}</InputAdornment>}
-          value={value}
-          onChange={handleChangeValues(title)}
-        />
+      <Box width={150}>
+        <Box className={classes.inputWrapper}>
+          <input
+            type="number"
+            name={title}
+            ref={register(propValidation)}
+          />
+          <span>{measure}</span>
+        </Box>
+        <Box className={classes.error}>{error && error.message}</Box>
       </Box>
     </Box>
   );
@@ -27,18 +31,32 @@ const BoxForm = ({ name, value, handleChangeValues, title, measure }) => {
 
 BoxForm.propTypes = {
   name: PropTypes.string,
-  value: PropTypes.string,
-  handleChangeValues: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   measure: PropTypes.string,
 };
 
 BoxForm.defaultProps = {
   name: '',
-  value: '',
-  handleChangeValues: () => {},
-  title: '',
   measure: '',
 };
+
+const useStyles = makeStyles(() => ({
+  inputWrapper: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    padding: '7px 10px',
+    backgroundColor: '#ffffff',
+    width: 150,
+    '& input': {
+      marginRight: 7,
+      maxWidth: 'calc(100% - 22px)',
+    },
+  },
+  error: {
+    fontSize: 12,
+    color: 'red',
+    marginTop: 5,
+  },
+}));
 
 export default BoxForm;

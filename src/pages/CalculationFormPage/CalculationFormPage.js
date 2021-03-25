@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
 import { getMaterials } from 'redux/actions/customerCalcAction';
 import { materialsForCalc } from 'redux/selectors/customerCalcSelector';
 import { Button, Container, Typography, Box, TextField } from '@material-ui/core';
@@ -14,7 +15,6 @@ import { setValueNewCalc, clearValueNewCalc } from '../../redux/actions/customer
 import BoxForm from './BoxForm';
 import BoxFormSelect from './BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
-import { osb, insulation, waterproofing, windscreen, externalWall, internalWall } from './const';
 import DoorAndWindow from './DoorAndWindow';
 import CalculationImbrication from './CalculationImbrication';
 
@@ -25,35 +25,8 @@ const CalculationFormPage = () => {
   const materials = useSelector(materialsForCalc);
   const { customerId } = useParams();
 
-  const {
-    adress_object_construction,
-    number_of_floors,
-    height_of_one_floor,
-    perimeter_of_external_walls,
-    base_area,
-    external_wall_thickness,
-    internal_wall_thickness,
-    internal_wall_length,
-    OSB_for_external_walls,
-    steam_waterproofing_external_walls,
-    windscreen_external_walls,
-    insulation_external_walls,
-    OSB_for_interior_walls,
-    overlap_thickness,
-    OSB_for_base_area,
-    steam_waterproofing_base_area,
-    windscreen_base_area,
-    insulation_base_area,
-    wigthWindow,
-    heightWindow,
-    countWindow,
-    wigthDoorOut,
-    heightDoorOut,
-    countDoorOut,
-    wigthDoorIn,
-    heightDoorIn,
-    countDoorIn,
-  } = useSelector(customerNewValueCalc);
+  const { adress_object_construction } = useSelector(customerNewValueCalc);
+  const methods = useForm();
 
   const handleChangeValue = (prop) => (e) => {
     dispatch(setValueNewCalc(prop, e.target.value));
@@ -74,66 +47,34 @@ const CalculationFormPage = () => {
     history.push(`/customers/${customerId}`);
   };
 
-  const submit = (e) => {
-    e.preventDefault();
-    sendRequest('/calc_post/', 'POST', {
-      structural_element_frame: [
-        {
-          frame: {
-            number_of_floors,
-            height_of_one_floor,
-            perimeter_of_external_walls,
-            base_area,
-            external_wall_thickness,
-            internal_wall_length,
-            OSB_for_external_walls,
-            steam_waterproofing_external_walls,
-            windscreen_external_walls,
-            insulation_external_walls,
-            // ОСБ для внутренних стен
-            OSB_for_interior_walls,
-            // расчет перекрытий
-            overlap_thickness,
-            OSB_for_base_area,
-            steam_waterproofing_base_area,
-            windscreen_base_area,
-            insulation_base_area,
-            step_of_racks: 0.6,
-            internal_wall_thickness,
+  const submit = (data) => {
+    if (data) {
+      sendRequest('/calc_post/', 'POST', {
+        structural_element_frame: [
+          {
+            frame: { ...data.frame, step_of_racks: 0.6 },
+            openings: [
+              { type: 'Оконные проемы', ...data.window },
+              { type: 'Дверные проемы внешние', ...data.doorOut },
+              { type: 'Дверные проемы внутренние', ...data.doorIn },
+            ],
           },
-          openings: [
-            {
-              type: 'Оконные проемы',
-              wigth: wigthWindow,
-              height: heightWindow,
-              count: countWindow,
-            },
-            {
-              type: 'Дверные проемы внешние',
-              wigth: wigthDoorOut,
-              height: heightDoorOut,
-              count: countDoorOut,
-            },
-            {
-              type: 'Дверные проемы внутренние',
-              wigth: wigthDoorIn,
-              height: heightDoorIn,
-              count: countDoorIn,
-            },
-          ],
+        ],
+        calculation: {
+          customer: Number(`${customerId}`),
+          state_calculation: 'Актуален',
+          manager: 2,
+          adress_object_construction,
+          title: 'тестовый расчет',
         },
-      ],
-      calculation: {
-        customer: Number(`${customerId}`),
-        state_calculation: 'Актуален',
-        adress_object_construction,
-        title: 'Расчет',
-      },
-    });
-    handleClickClearValue();
-    dispatch(setCurrentCustomerIsChangedAction());
-    handleClickCustomers();
+      });
+
+      handleClickClearValue();
+      dispatch(setCurrentCustomerIsChangedAction());
+      handleClickCustomers();
+    }
   };
+
   return (
     <main>
       <Container maxWidth="lg">
@@ -170,108 +111,88 @@ const CalculationFormPage = () => {
           </Box>
         </div>
         <div className={classes.mainSourceData}>
-          <Box css={{ fontSize: 16, fontWeight: 700 }}>Исходные данные</Box>
-          <BoxForm
-            name="Количество этажей"
-            value={number_of_floors}
-            title="number_of_floors"
-            handleChangeValues={handleChangeValue}
-            measure="шт"
-          />
-          <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
-          <BoxForm
-            name="Высота этажа"
-            value={height_of_one_floor}
-            title="height_of_one_floor"
-            handleChangeValues={handleChangeValue}
-            measure="м"
-          />
-          <BoxForm
-            name="Периметр внешних стен"
-            value={perimeter_of_external_walls}
-            title="perimeter_of_external_walls"
-            handleChangeValues={handleChangeValue}
-            measure="м"
-          />
-          <BoxForm
-            name="Площадь основания"
-            value={base_area}
-            title="base_area"
-            handleChangeValues={handleChangeValue}
-            measure="м2"
-          />
-          <BoxFormSelect
-            name="Толщина внешних стен"
-            value={external_wall_thickness}
-            title="external_wall_thickness"
-            handleChangeValues={handleChangeValue}
-            currencies={externalWall}
-          />
-          <BoxForm
-            name="Длина внутренних стен"
-            value={internal_wall_length}
-            title="internal_wall_length"
-            handleChangeValues={handleChangeValue}
-            measure="м"
-          />
-          <BoxFormSelect
-            name="Толщина внутренних стен"
-            value={internal_wall_thickness}
-            title="internal_wall_thickness"
-            handleChangeValues={handleChangeValue}
-            currencies={internalWall}
-          />
-          <div className={classes.outWall}>
-            <Box css={{ fontSize: 16, fontWeight: 700 }}>Обшивка внешних стен</Box>
-            <BoxFormSelect
-              name="ОСБ"
-              value={OSB_for_external_walls}
-              title="OSB_for_external_walls"
-              handleChangeValues={handleChangeValue}
-              currencies={osb}
-            />
-            <BoxFormSelect
-              name="Парогидроизоляция"
-              value={steam_waterproofing_external_walls}
-              title="steam_waterproofing_external_walls"
-              handleChangeValues={handleChangeValue}
-              currencies={waterproofing}
-            />
-            <BoxFormSelect
-              name="Ветрозащита"
-              value={windscreen_external_walls}
-              title="windscreen_external_walls"
-              handleChangeValues={handleChangeValue}
-              currencies={windscreen}
-            />
-            <BoxFormSelect
-              name="Утеплитель"
-              value={insulation_external_walls}
-              title="insulation_external_walls"
-              handleChangeValues={handleChangeValue}
-              currencies={insulation}
-            />
-            <CustomAccordion title="Добавить расчет обшивки внутренних стен" className="mb-30">
-              <BoxFormSelect
-                name="ОСБ"
-                value={OSB_for_interior_walls}
-                title="OSB_for_interior_walls"
-                handleChangeValues={handleChangeValue}
-                currencies={osb}
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(submit)}>
+              <Box css={{ fontSize: 16, fontWeight: 700 }}>Исходные данные</Box>
+              <BoxForm
+                name="Количество этажей"
+                title="frame.number_of_floors"
+                measure="шт"
               />
-            </CustomAccordion>
-            <CustomAccordion title="Учесть двери и окна" className="mb-30">
-              <DoorAndWindow />
-            </CustomAccordion>
-            <CustomAccordion title="Добавить расчет перекрытий" className="mb-30">
-              <CalculationImbrication />
-            </CustomAccordion>
-          </div>
-          <Box display="flex" justifyContent="center">
-            <Button variant="contained" color="primary" onClick={submit}>
-              Рассчитать
-            </Button>
-          </Box>
+              <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
+              <BoxForm
+                name="Высота этажа"
+                title="frame.height_of_one_floor"
+                measure="м"
+              />
+              <BoxForm
+                name="Периметр внешних стен"
+                title="frame.perimeter_of_external_walls"
+                measure="м"
+              />
+              <BoxForm
+                name="Площадь основания"
+                title="frame.base_area"
+                measure="м2"
+              />
+              <BoxFormSelect
+                name="Толщина внешних стен"
+                title="frame.external_wall_thickness"
+                currency="externalWall"
+              />
+              <BoxForm
+                name="Длина внутренних стен"
+                title="frame.internal_wall_length"
+                measure="м"
+              />
+              <BoxFormSelect
+                name="Толщина внутренних стен"
+                title="frame.internal_wall_thickness"
+                currency="internalWall"
+              />
+              <div className={classes.outWall}>
+                <Box css={{ fontSize: 16, fontWeight: 700 }}>Обшивка внешних стен</Box>
+                <BoxFormSelect
+                  name="ОСБ"
+                  title="frame.OSB_for_external_walls"
+                  currency="osb"
+                />
+                <BoxFormSelect
+                  name="Парогидроизоляция"
+                  title="frame.steam_waterproofing_external_walls"
+                  currency="waterproofing"
+                />
+                <BoxFormSelect
+                  name="Ветрозащита"
+                  title="frame.windscreen_external_walls"
+                  currency="windscreen"
+                />
+                <BoxFormSelect
+                  name="Утеплитель"
+                  title="frame.insulation_external_walls"
+                  currency="insulation"
+                />
+                <CustomAccordion title="Добавить расчет обшивки внутренних стен" className="mb-30">
+                  <BoxFormSelect
+                    name="ОСБ"
+                    title="frame.OSB_for_interior_walls"
+                    currency="osb"
+                  />
+                </CustomAccordion>
+                <CustomAccordion title="Учесть двери и окна" className="mb-30">
+                  <DoorAndWindow />
+                </CustomAccordion>
+                <CustomAccordion title="Добавить расчет перекрытий" className="mb-30">
+                  <CalculationImbrication />
+                </CustomAccordion>
+              </div>
+              <Box display="flex" justifyContent="center">
+                <Button variant="contained" color="primary" type="submit">
+                  Рассчитать
+                </Button>
+              </Box>
+            </form>
+          </FormProvider>
         </div>
       </Container>
     </main>
