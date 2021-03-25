@@ -1,8 +1,5 @@
 export const osb = [
   {
-    value: '',
-  },
-  {
     value: 'OSB 9 мм',
   },
   {
@@ -17,9 +14,6 @@ export const osb = [
 ];
 
 export const insulation = [
-  {
-    value: '',
-  },
   {
     value: 'Кнауф ТеплоКнауф 100 мм',
   },
@@ -45,9 +39,6 @@ export const insulation = [
 
 export const waterproofing = [
   {
-    value: '',
-  },
-  {
     value: 'Ондутис',
   },
   {
@@ -63,9 +54,6 @@ export const waterproofing = [
 
 export const windscreen = [
   {
-    value: '',
-  },
-  {
     value: 'Гидро-ветрозащита Тип А',
   },
   {
@@ -73,5 +61,38 @@ export const windscreen = [
   },
   {
     value: 'Паропроницаемая ветро-влагозащита A Optima',
+  },
+];
+
+export const externalWall = [
+  {
+    value: '50',
+  },
+  {
+    value: '100',
+  },
+  {
+    value: '150',
+  },
+  {
+    value: '200',
+  },
+  {
+    value: '250',
+  },
+];
+
+export const internalWall = [
+  {
+    value: '50',
+  },
+  {
+    value: '100',
+  },
+  {
+    value: '150',
+  },
+  {
+    value: '200',
   },
 ];

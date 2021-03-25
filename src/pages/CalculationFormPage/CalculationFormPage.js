@@ -14,7 +14,7 @@ import { setValueNewCalc, clearValueNewCalc } from '../../redux/actions/customer
 import BoxForm from './BoxForm';
 import BoxFormSelect from './BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
-import { osb, insulation, waterproofing, windscreen } from './const';
+import { osb, insulation, waterproofing, windscreen, externalWall, internalWall } from './const';
 import DoorAndWindow from './DoorAndWindow';
 import CalculationImbrication from './CalculationImbrication';
 
@@ -32,6 +32,7 @@ const CalculationFormPage = () => {
     perimeter_of_external_walls,
     base_area,
     external_wall_thickness,
+    internal_wall_thickness,
     internal_wall_length,
     OSB_for_external_walls,
     steam_waterproofing_external_walls,
@@ -129,9 +130,6 @@ const CalculationFormPage = () => {
         adress_object_construction,
         title: 'тестовый расчет',
       },
-    }).catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log(error);
     });
     handleClickClearValue();
     dispatch(setCurrentCustomerIsChangedAction());
@@ -167,8 +165,7 @@ const CalculationFormPage = () => {
               variant="contained"
               color="primary"
               style={{ height: '38px', width: '150px' }}
-              onClick={handleClickClearValue}
-            >
+              onClick={handleClickClearValue}>
               Очистить расчет
             </Button>
           </Box>
@@ -204,12 +201,12 @@ const CalculationFormPage = () => {
             handleChangeValues={handleChangeValue}
             measure="м2"
           />
-          <BoxForm
+          <BoxFormSelect
             name="Толщина внешних стен"
             value={external_wall_thickness}
             title="external_wall_thickness"
             handleChangeValues={handleChangeValue}
-            measure="мм"
+            currencies={externalWall}
           />
           <BoxForm
             name="Длина внутренних стен"
@@ -217,6 +214,13 @@ const CalculationFormPage = () => {
             title="internal_wall_length"
             handleChangeValues={handleChangeValue}
             measure="м"
+          />
+          <BoxFormSelect
+            name="Толщина внутренних стен"
+            value={internal_wall_thickness}
+            title="internal_wall_thickness"
+            handleChangeValues={handleChangeValue}
+            currencies={internalWall}
           />
           <div className={classes.outWall}>
             <Box css={{ fontSize: 16, fontWeight: 700 }}>Обшивка внешних стен</Box>

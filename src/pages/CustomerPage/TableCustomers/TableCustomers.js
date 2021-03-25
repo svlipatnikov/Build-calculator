@@ -11,7 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+// import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { removeCurrentCustomerCalculation } from 'redux/actions/currentCustomerAction';
@@ -21,8 +21,8 @@ const DenseTable = ({ rows }) => {
   const dispatch = useDispatch();
   const { customerId } = useParams();
 
-  const handleClickEdit = (calculation) => {
-    history.push(`/customers/${customerId}/calculation_edit/${calculation.id}`);
+  const handleClickEdit = () => {
+    // history.push(`/customers/${customerId}/calculation_edit/${calculation.id}`);
   };
 
   const handleClickCalculationResult = (calculation) => {
@@ -42,7 +42,7 @@ const DenseTable = ({ rows }) => {
             <TableCell align="right">Дата</TableCell>
             <TableCell align="right">Статус</TableCell>
             <TableCell align="right">Адрес</TableCell>
-            <TableCell />
+            {/* <TableCell /> */}
             <TableCell />
             <TableCell />
           </TableRow>
@@ -55,13 +55,15 @@ const DenseTable = ({ rows }) => {
                   <Button onClick={() => handleClickCalculationResult(row)}>{row.id}</Button>
                 </TableCell>
                 <TableCell align="right">{row.created_date}</TableCell>
-                <TableCell align="right">{row.state_calculation === 1 ? 'Актуален' : 'Не актуален'}</TableCell>
-                <TableCell align="right">{row.adress_object_construction}</TableCell>
                 <TableCell align="right">
+                  {row.state_calculation === 1 ? 'Актуален' : 'Не актуален'}
+                </TableCell>
+                <TableCell align="right">{row.adress_object_construction}</TableCell>
+                {/* <TableCell align="right">
                   <Button>
                     <FileCopyIcon />
                   </Button>
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="right">
                   <Button onClick={() => handleClickEdit(row)}>
                     <EditIcon />
