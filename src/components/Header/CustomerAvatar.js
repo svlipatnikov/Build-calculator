@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentCustomerSelector } from 'redux/selectors/currentCustomerSelector';
 import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
@@ -11,11 +12,12 @@ const Client = () => {
   const dispatch = useDispatch();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const customer = useSelector(currentCustomerSelector);
+  const location = useLocation();
 
   useEffect(() => {
-    const customerId = Number(window.location.pathname.split('/')[2]);
+    const customerId = Number(location.pathname.split('/')[2]);
     if (!customer.id && customerId) dispatch(getCurrentCustomer(customerId));
-  }, [customer.id, dispatch]);
+  }, [customer.id, dispatch, location]);
 
   const handleClick = () => {
     setIsModalOpened(true);
