@@ -22,7 +22,7 @@ const CalculationResult = () => {
   const calculation = useSelector(currentCalculation);
 
   useEffect(() => {
-    if (!calculation.id) {
+    if (!calculation.id || calculation.id !== +calcId) {
       dispatch(getCurrentCalculation(calcId));
     }
     // eslint-disable-next-line
