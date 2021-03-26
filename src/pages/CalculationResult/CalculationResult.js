@@ -9,8 +9,8 @@ import currentCalculation from 'redux/selectors/currentCalculationSelector';
 import { getCurrentCalculation } from 'redux/actions/currentCalculationAction';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Edit, ArrowBack } from '@material-ui/icons';
-import { Typography, Button, Tooltip, Box } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
+import { Typography, Button, Box } from '@material-ui/core';
 import CustomAccordion from '../../components/CustomAccordion';
 import CalculationResultTable from './CalculationResultTable';
 import { groupBy } from '../../help/helpers';
@@ -28,7 +28,9 @@ const CalculationResult = () => {
     // eslint-disable-next-line
   }, []);
 
-  const createdDate = useMemo(() => new Date(calculation.created_date).toLocaleDateString('ru-RU'), [calculation.created_date]);
+  const createdDate = useMemo(() => new Date(calculation.created_date).toLocaleDateString('ru-RU'), [
+    calculation.created_date,
+  ]);
 
   const results = useMemo(() => {
     if (calculation.results) {
@@ -66,16 +68,6 @@ const CalculationResult = () => {
         Расчет
       </Typography>
 
-      <div className={classes.right}>
-        <Tooltip title="Редактировать">
-          <Link to={`/customers/${customerId}/calculation_edit/${calcId}`}>
-            <Button color="primary" variant="outlined" className={classes.button}>
-              <Edit />
-            </Button>
-          </Link>
-        </Tooltip>
-      </div>
-
       <Box className={classes.calculationInfo}>
         <Typography variant="body1">Дата: {createdDate}</Typography>
         <Typography variant="body1" className={classes.address}>
@@ -87,16 +79,16 @@ const CalculationResult = () => {
       <CustomAccordion title="Результат расчета каркаса" className={classes.mb0}>
         {Object.entries(results).map(([floorNumber, floorData]) => (
           <Box>
-            <Typography variant="body1" className={classes.title}>Результат расчета {floorNumber} этажа</Typography>
+            <Typography variant="body1" className={classes.title}>
+              Результат расчета {floorNumber} этажа
+            </Typography>
             <CalculationResultTable data={floorData} />
           </Box>
         ))}
 
         <Box className={classes.total}>
           <Typography variant="h6">Итого стоимость материалов:</Typography>
-          <Typography variant="h6">
-            {total} руб.
-          </Typography>
+          <Typography variant="h6">{total} руб.</Typography>
         </Box>
       </CustomAccordion>
     </>
@@ -106,9 +98,6 @@ const CalculationResult = () => {
 const useStyles = makeStyles(() => ({
   mb0: {
     marginBottom: '0 !important',
-  },
-  right: {
-    textAlign: 'right',
   },
   button: {
     minWidth: 'unset',

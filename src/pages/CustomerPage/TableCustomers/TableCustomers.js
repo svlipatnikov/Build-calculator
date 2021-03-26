@@ -17,7 +17,6 @@ const DenseTable = () => {
             <TableCell align="center">Статус</TableCell>
             <TableCell align="center">Адрес</TableCell>
             <TableCell />
-            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
