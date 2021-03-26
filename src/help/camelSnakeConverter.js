@@ -8,7 +8,15 @@ export const camelStringToSnakeString = (key) => {
 export const camelStringObjectToSnakeStringObject = (camelObj) => {
   if (!camelObj) return camelObj;
   const snakeObject = {};
-  Object.keys(camelObj).forEach((key) => (snakeObject[camelStringToSnakeString(key)] = camelObj[key]));
+  Object.keys(camelObj).forEach((key) => {
+    if (camelObj[key] instanceof Array) {
+      snakeObject[camelStringToSnakeString(key)] = camelStringsArrayToSnakeStirngsArray(camelObj[key]);
+    } else if (camelObj[key] instanceof Object) {
+      snakeObject[camelStringToSnakeString(key)] = camelStringObjectToSnakeStringObject(camelObj[key]);
+    } else {
+      snakeObject[camelStringToSnakeString(key)] = camelObj[key];
+    }
+  });
   return snakeObject;
 };
 
@@ -25,7 +33,15 @@ export const snakeStringToCamelString = (string) => {
 export const snakeStringObjectToCamelStringObject = (snakeObj) => {
   if (!snakeObj) return snakeObj;
   const camelObj = {};
-  Object.keys(snakeObj).forEach((key) => (camelObj[snakeStringToCamelString(key)] = snakeObj[key]));
+  Object.keys(snakeObj).forEach((key) => {
+    if (snakeObj[key] instanceof Array) {
+      camelObj[snakeStringToCamelString(key)] = snakeStirngsArrayToCamelStringsArray(snakeObj[key]);
+    } else if (snakeObj[key] instanceof Object) {
+      camelObj[snakeStringToCamelString(key)] = snakeStringObjectToCamelStringObject(snakeObj[key]);
+    } else {
+      camelObj[snakeStringToCamelString(key)] = snakeObj[key];
+    }
+  });
   return camelObj;
 };
 

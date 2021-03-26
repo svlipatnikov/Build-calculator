@@ -7,18 +7,13 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { Button, Container, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  calculationSelector,
-  currentCustomerIdSelector,
-  currentCustomerIsChangedSelector,
-} from 'redux/selectors/currentCustomerSelector';
+import { currentCustomerIdSelector, currentCustomerIsChangedSelector } from 'redux/selectors/currentCustomerSelector';
 import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import frame from '../../assets/frame.svg';
 import TableCustomers from './TableCustomers';
 
 const CustomerPage = () => {
   const classes = useStyles();
-  const rows = useSelector(calculationSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -60,15 +55,11 @@ const CustomerPage = () => {
               aria-haspopup="true"
               onClick={handleClick}
               variant="contained"
-              color="primary">
+              color="primary"
+            >
               Создать расчет
             </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}>
+            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
               <Link to={`/customers/${customerId}/calculation/new`}>
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
                   <img src={frame} alt="frame" className={classes.img} />
@@ -79,7 +70,7 @@ const CustomerPage = () => {
           </div>
         </div>
         <div className={classes.mainTable}>
-          <TableCustomers rows={rows} />
+          <TableCustomers />
         </div>
       </Container>
     </main>
