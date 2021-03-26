@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React, { useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { TableRow, TableCell, Button } from '@material-ui/core';
@@ -8,7 +7,7 @@ import { removeCurrentCustomerCalculation } from 'redux/actions/currentCustomerA
 import PropTypes from 'prop-types';
 
 const TableRowCalculation = ({ calculation }) => {
-  const { id, created_date, state_calculation, adress_object_construction } = calculation;
+  const { id, createdDate, stateCalculation, adressObjectConstruction } = calculation;
   const history = useHistory();
   const dispatch = useDispatch();
   const { customerId } = useParams();
@@ -32,9 +31,9 @@ const TableRowCalculation = ({ calculation }) => {
   return (
     <TableRow onClick={handleClickCalculationResult} hover>
       <TableCell align="left">{id}</TableCell>
-      <TableCell align="center">{created_date}</TableCell>
-      <TableCell align="center">{state_calculation}</TableCell>
-      <TableCell align="left">{adress_object_construction}</TableCell>
+      <TableCell align="center">{createdDate}</TableCell>
+      <TableCell align="center">{stateCalculation}</TableCell>
+      <TableCell align="left">{adressObjectConstruction}</TableCell>
       <TableCell align="center">
         <Button onClick={handleClickEdit} ref={editRef}>
           <EditIcon />
@@ -52,9 +51,9 @@ const TableRowCalculation = ({ calculation }) => {
 TableRowCalculation.propTypes = {
   calculation: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    created_date: PropTypes.string.isRequired,
-    state_calculation: PropTypes.string.isRequired,
-    adress_object_construction: PropTypes.string.isRequired,
+    createdDate: PropTypes.string.isRequired,
+    stateCalculation: PropTypes.string.isRequired,
+    adressObjectConstruction: PropTypes.string.isRequired,
   }).isRequired,
 };
 
