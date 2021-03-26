@@ -14,8 +14,6 @@ import {
 } from 'redux/selectors/currentCustomerSelector';
 import { getCurrentCustomer } from 'redux/actions/currentCustomerAction';
 import frame from '../../assets/frame.svg';
-import base from '../../assets/base.svg';
-import roof from '../../assets/roof.svg';
 import TableCustomers from './TableCustomers';
 
 const CustomerPage = () => {
@@ -77,14 +75,6 @@ const CustomerPage = () => {
                   Каркас
                 </MenuItem>
               </Link>
-              <MenuItem onClick={handleClose} className={classes.menuItem}>
-                <img src={base} alt="base" className={classes.img} />
-                Фундамент
-              </MenuItem>
-              <MenuItem onClick={handleClose} className={classes.menuItem}>
-                <img src={roof} alt="roof" className={classes.img} />
-                Крыша
-              </MenuItem>
             </Menu>
           </div>
         </div>
