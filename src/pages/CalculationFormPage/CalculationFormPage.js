@@ -63,9 +63,8 @@ const CalculationFormPage = () => {
         calculation: {
           customer: Number(`${customerId}`),
           state_calculation: 'Актуален',
-          manager: 2,
           adress_object_construction,
-          title: 'тестовый расчет',
+          title: 'Расчет',
         },
       });
 
@@ -112,29 +111,17 @@ const CalculationFormPage = () => {
         </div>
         <div className={classes.mainSourceData}>
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(submit)}>
+            <form onSubmit={methods.handleSubmit(submit)} noValidate>
               <Box css={{ fontSize: 16, fontWeight: 700 }}>Исходные данные</Box>
-              <BoxForm
-                name="Количество этажей"
-                title="frame.number_of_floors"
-                measure="шт"
-              />
+              <BoxForm name="Количество этажей" title="frame.number_of_floors" measure="шт" />
               <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
-              <BoxForm
-                name="Высота этажа"
-                title="frame.height_of_one_floor"
-                measure="м"
-              />
+              <BoxForm name="Высота этажа" title="frame.height_of_one_floor" measure="м" />
               <BoxForm
                 name="Периметр внешних стен"
                 title="frame.perimeter_of_external_walls"
                 measure="м"
               />
-              <BoxForm
-                name="Площадь основания"
-                title="frame.base_area"
-                measure="м2"
-              />
+              <BoxForm name="Площадь основания" title="frame.base_area" measure="м2" />
               <BoxFormSelect
                 name="Толщина внешних стен"
                 title="frame.external_wall_thickness"
@@ -152,11 +139,7 @@ const CalculationFormPage = () => {
               />
               <div className={classes.outWall}>
                 <Box css={{ fontSize: 16, fontWeight: 700 }}>Обшивка внешних стен</Box>
-                <BoxFormSelect
-                  name="ОСБ"
-                  title="frame.OSB_for_external_walls"
-                  currency="osb"
-                />
+                <BoxFormSelect name="ОСБ" title="frame.OSB_for_external_walls" currency="osb" />
                 <BoxFormSelect
                   name="Парогидроизоляция"
                   title="frame.steam_waterproofing_external_walls"
@@ -173,11 +156,7 @@ const CalculationFormPage = () => {
                   currency="insulation"
                 />
                 <CustomAccordion title="Добавить расчет обшивки внутренних стен" className="mb-30">
-                  <BoxFormSelect
-                    name="ОСБ"
-                    title="frame.OSB_for_interior_walls"
-                    currency="osb"
-                  />
+                  <BoxFormSelect name="ОСБ" title="frame.OSB_for_interior_walls" currency="osb" />
                 </CustomAccordion>
                 <CustomAccordion title="Учесть двери и окна" className="mb-30">
                   <DoorAndWindow />
