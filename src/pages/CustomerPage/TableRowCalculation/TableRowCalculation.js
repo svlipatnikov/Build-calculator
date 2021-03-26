@@ -25,7 +25,7 @@ const TableRowCalculation = ({ calculation }) => {
 
   return (
     <TableRow onClick={handleClickCalculationResult} hover style={{ cursor: 'pointer' }}>
-      <TableCell align="left">{id}</TableCell>
+      <TableCell align="center">{id}</TableCell>
       <TableCell align="center">{createdDate}</TableCell>
       <TableCell align="center">{stateCalculation}</TableCell>
       <TableCell align="left">{adressObjectConstruction}</TableCell>

@@ -12,7 +12,7 @@ const DenseTable = () => {
       <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="left">Номер расчета</TableCell>
+            <TableCell align="center">Номер расчета</TableCell>
             <TableCell align="center">Дата</TableCell>
             <TableCell align="center">Статус</TableCell>
             <TableCell align="center">Адрес</TableCell>
