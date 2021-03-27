@@ -7,20 +7,22 @@ import { useDispatch } from 'react-redux';
 import { clearCurrentCustomerAction, createNewCustomer, updateCustomer } from 'redux/actions/currentCustomerAction';
 import { useHistory } from 'react-router-dom';
 import { customersListIsChangedAction } from 'redux/actions/customersListAction';
+import { useForm } from 'react-hook-form';
+import validation from './validation';
 
 const labels = {
-  lastName: 'Фамилия',
-  firstName: 'Имя',
-  secondName: 'Отчество',
-  phone: 'Телефон',
-  email: 'E-mail',
-  adress: 'Адрес',
+  lastName: { label: 'Фамилия', type: 'text' },
+  firstName: { label: 'Имя', type: 'text' },
+  secondName: { label: 'Отчество', type: 'text' },
+  phone: { label: 'Телефон', type: 'tel' },
+  email: { label: 'E-mail', type: 'email' },
+  adress: { label: 'Адрес', type: 'text' },
 };
 
 const CustomerInfo = ({ open, setOpen, customerData }) => {
   const classes = useStyles();
-  const { id, ...initialData } = customerData;
-  const [customerInfo, setCustomerInfo] = useState(initialData);
+  const { id, ...defaultValues } = customerData;
+  const { register, handleSubmit, errors } = useForm({ defaultValues });
   const isNew = !id;
   const [editable, setEditable] = useState(isNew);
   const dispatch = useDispatch();
@@ -32,13 +34,14 @@ const CustomerInfo = ({ open, setOpen, customerData }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setCustomerInfo({});
   };
 
-  const handleSave = () => {
-    if (isNew) dispatch(createNewCustomer(customerInfo));
-    else dispatch(updateCustomer({ id, ...customerInfo }));
-    handleClose();
+  const handleSave = (data) => {
+    if (data) {
+      if (isNew) dispatch(createNewCustomer(data));
+      else dispatch(updateCustomer({ id, ...data }));
+      handleClose();
+    }
   };
 
   const handleRemove = () => {
@@ -50,52 +53,47 @@ const CustomerInfo = ({ open, setOpen, customerData }) => {
     });
   };
 
-  const handleChange = (prop) => (event) => {
-    setCustomerInfo({ ...customerInfo, [prop]: event.target.value });
-  };
-
   const handleEdit = () => {
     setEditable(true);
   };
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Информация о клиенте</DialogTitle>
+      <form onSubmit={handleSubmit(editable ? handleSave : handleEdit)} noValidate>
+        <DialogTitle id="form-dialog-title">Информация о клиенте</DialogTitle>
 
-      <DialogContent>
-        {Object.keys(labels).map((field) => (
-          <TextField
-            id={field}
-            key={field}
-            label={labels[field]}
-            value={customerInfo[field]}
-            onChange={handleChange(field)}
-            variant="outlined"
-            color="secondary"
-            margin="dense"
-            fullWidth
-            disabled={!editable}
-          />
-        ))}
-      </DialogContent>
+        <DialogContent>
+          {Object.keys(labels).map((field) => (
+            <TextField
+              id={field}
+              key={field}
+              variant="outlined"
+              color="secondary"
+              margin="dense"
+              fullWidth
+              disabled={!editable}
+              name={field}
+              inputRef={register(validation(field))}
+              helperText={errors[field] && errors[field].message}
+              error={!!errors[field]}
+              {...labels[field]}
+            />
 
-      <Box display="flex" flexDirection="row-reverse" justifyContent="space-between" m={1}>
-        {editable ? (
-          <Button onClick={handleSave} variant="contained" color="primary" className={classes.btn}>
-            Сохранить
-          </Button>
-        ) : (
-          <Button onClick={handleEdit} variant="contained" color="primary" className={classes.btn}>
-            Редактировать
-          </Button>
-        )}
+          ))}
+        </DialogContent>
 
-        {!isNew && editable && (
-          <Button onClick={handleRemove} variant="contained" color="primary" className={classes.btn}>
-            Удалить
+        <Box display="flex" flexDirection="row-reverse" justifyContent="space-between" m={1}>
+          <Button type="submit" variant="contained" color="primary" className={classes.btn}>
+            {editable ? 'Сохранить' : 'Редактировать'}
           </Button>
-        )}
-      </Box>
+
+          {!isNew && editable && (
+            <Button onClick={handleRemove} variant="contained" color="primary" className={classes.btn}>
+              Удалить
+            </Button>
+          )}
+        </Box>
+      </form>
     </Dialog>
   );
 };
