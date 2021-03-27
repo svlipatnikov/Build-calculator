@@ -3,6 +3,11 @@ const positiveIntegerRegex = /^[1-9]+$/;
 
 export default (title) => {
   switch (title) {
+    case 'address':
+      return {
+        pattern: { value: /^[\u0400-\u04FF .,/()0-9]+$/, message: 'Введены недопустимые символы' },
+      };
+
     case 'frame.number_of_floors':
       return {
         required: { value: true, message: 'Это поле обязательно' },

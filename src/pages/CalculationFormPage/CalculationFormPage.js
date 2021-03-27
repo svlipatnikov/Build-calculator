@@ -11,13 +11,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import sendRequest from 'api';
 import { setCurrentCustomerIsChangedAction } from 'redux/actions/currentCustomerAction';
 import { setCurrentCalculation } from 'redux/actions/currentCalculationAction';
-import customerNewValueCalc from '../../redux/selectors/customerNewCalcSelector';
-import { setValueNewCalc, clearValueNewCalc } from '../../redux/actions/customerNewCalcAction';
 import BoxForm from './BoxForm';
 import BoxFormSelect from './BoxFormSelect';
 import CustomAccordion from '../../components/CustomAccordion/CustomAccordion';
 import DoorAndWindow from './DoorAndWindow';
 import CalculationImbrication from './CalculationImbrication';
+import validation from './validation';
 
 const CalculationFormPage = () => {
   const classes = useStyles();
@@ -26,12 +25,7 @@ const CalculationFormPage = () => {
   const materials = useSelector(materialsForCalc);
   const { customerId } = useParams();
 
-  const { adress_object_construction } = useSelector(customerNewValueCalc);
   const methods = useForm();
-
-  const handleChangeValue = (prop) => (e) => {
-    dispatch(setValueNewCalc(prop, e.target.value));
-  };
 
   useEffect(() => {
     if (!materials.length) {
@@ -39,10 +33,6 @@ const CalculationFormPage = () => {
     }
     // eslint-disable-next-line
   }, []);
-
-  const handleClickClearValue = () => {
-    dispatch(clearValueNewCalc());
-  };
 
   const handleClickCustomers = () => {
     history.push(`/customers/${customerId}`);
@@ -64,7 +54,7 @@ const CalculationFormPage = () => {
         calculation: {
           customer: Number(`${customerId}`),
           state_calculation: 'Актуален',
-          adress_object_construction,
+          adress_object_construction: data.address,
           title: 'Расчет',
         },
       }).then((response) => {
@@ -72,7 +62,6 @@ const CalculationFormPage = () => {
           if (response.id) {
             dispatch(setCurrentCalculation(response));
             dispatch(setCurrentCustomerIsChangedAction());
-            handleClickClearValue();
             history.push(`/customers/${customerId}/calculation_result/${response.id}`);
           }
         }
@@ -91,34 +80,37 @@ const CalculationFormPage = () => {
             Каркас
           </Typography>
         </div>
-        <div className={classes.mainButton}>
-          <Box>
-            <TextField
-              className={classes.mainButtonInput}
-              style={{
-                width: '450px',
-                backgroundColor: '#ffffff',
-              }}
-              placeholder="Добавить адрес объекта строительства"
-              variant="outlined"
-              color="secondary"
-              size="small"
-              value={adress_object_construction}
-              onChange={handleChangeValue('adress_object_construction')}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ height: '38px', width: '150px' }}
-              onClick={handleClickClearValue}
-            >
-              Очистить расчет
-            </Button>
-          </Box>
-        </div>
-        <div className={classes.mainSourceData}>
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(submit)} noValidate>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(submit)} noValidate>
+            <div className={classes.mainButton}>
+              <Box>
+                <Box display="inline-flex" flexDirection="column">
+                  <TextField
+                    className={classes.mainButtonInput}
+                    style={{
+                      width: '450px',
+                      backgroundColor: '#ffffff',
+                    }}
+                    placeholder="Добавить адрес объекта строительства"
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    name="address"
+                    inputRef={methods.register(validation('address'))}
+                  />
+                  <Box className={classes.error}>{methods.errors.address && methods.errors.address.message}</Box>
+                </Box>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ height: '38px', width: '150px' }}
+                  type="reset"
+                >
+                  Очистить расчет
+                </Button>
+              </Box>
+            </div>
+            <div className={classes.mainSourceData}>
               <Box css={{ fontSize: 16, fontWeight: 700 }}>Исходные данные</Box>
               <BoxForm name="Количество этажей" title="frame.number_of_floors" measure="шт" />
               <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
@@ -161,9 +153,9 @@ const CalculationFormPage = () => {
                   Рассчитать
                 </Button>
               </Box>
-            </form>
-          </FormProvider>
-        </div>
+            </div>
+          </form>
+        </FormProvider>
       </Container>
     </main>
   );
@@ -192,5 +184,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 0,
     left: 0,
+  },
+  error: {
+    fontSize: 12,
+    color: 'red',
+    marginTop: 5,
   },
 }));
