@@ -17,7 +17,8 @@ const CalculationResultTable = ({ data }) => {
     const localTotal = {};
 
     Object.keys(data).forEach((category) => {
-      localTotal[category] = data[category].reduce((sum, categoryData) => sum + categoryData.full_price, 0);
+      const resultsSum = data[category].reduce((sum, categoryData) => sum + categoryData.full_price, 0);
+      localTotal[category] = +resultsSum.toFixed(2);
     });
 
     return localTotal;

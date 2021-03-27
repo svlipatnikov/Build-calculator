@@ -48,7 +48,8 @@ const CalculationResult = () => {
 
   const total = useMemo(() => {
     if (calculation.results) {
-      return calculation.results.reduce((sum, result) => sum + result.full_price, 0);
+      const resultsSum = calculation.results.reduce((sum, result) => sum + result.full_price, 0);
+      return resultsSum.toFixed(2);
     }
 
     return 0;
