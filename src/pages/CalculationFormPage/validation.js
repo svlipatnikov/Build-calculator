@@ -47,9 +47,9 @@ export default (title) => {
         valueAsNumber: true,
       };
 
-    case 'window.heightWindow':
-    case 'doorIn.heightDoorIn':
-    case 'doorOut.heightDoorOut':
+    case 'window.height':
+    case 'doorIn.height':
+    case 'doorOut.height':
       return {
         required: { value: true, message: 'Это поле обязательно' },
         min: { value: 0.1, message: 'Минимальная высота 0,1' },
@@ -58,9 +58,9 @@ export default (title) => {
         valueAsNumber: true,
       };
 
-    case 'window.wigthWindow':
-    case 'doorIn.wigthDoorIn':
-    case 'doorOut.wigthDoorOut':
+    case 'window.wigth':
+    case 'doorIn.wigth':
+    case 'doorOut.wigth':
       return {
         required: { value: true, message: 'Это поле обязательно' },
         min: { value: 0.1, message: 'Минимальная ширина 0,1' },
@@ -68,12 +68,15 @@ export default (title) => {
         valueAsNumber: true,
       };
 
-    case 'window.countWindow':
-    case 'doorIn.countDoorIn':
-    case 'doorOut.countDoorOut':
+    case 'window.count':
+    case 'doorIn.count':
+    case 'doorOut.count':
       return {
         required: { value: true, message: 'Это поле обязательно' },
-        pattern: { value: positiveIntegerRegex, message: 'Количество может быть только целым и положительным' },
+        pattern: {
+          value: positiveIntegerRegex,
+          message: 'Количество может быть только целым и положительным',
+        },
         valueAsNumber: true,
       };
 
