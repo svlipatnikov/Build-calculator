@@ -10,6 +10,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import sendRequest from 'api';
 import { setCurrentCustomerIsChangedAction } from 'redux/actions/currentCustomerAction';
+import { setCurrentCalculation } from 'redux/actions/currentCalculationAction';
 import customerNewValueCalc from '../../redux/selectors/customerNewCalcSelector';
 import { setValueNewCalc, clearValueNewCalc } from '../../redux/actions/customerNewCalcAction';
 import BoxForm from './BoxForm';
@@ -66,11 +67,16 @@ const CalculationFormPage = () => {
           adress_object_construction,
           title: 'Расчет',
         },
+      }).then((response) => {
+        if (response) {
+          if (response.id) {
+            dispatch(setCurrentCalculation(response));
+            dispatch(setCurrentCustomerIsChangedAction());
+            handleClickClearValue();
+            history.push(`/customers/${customerId}/calculation_result/${response.id}`);
+          }
+        }
       });
-
-      handleClickClearValue();
-      dispatch(setCurrentCustomerIsChangedAction());
-      handleClickCustomers();
     }
   };
 
@@ -104,7 +110,8 @@ const CalculationFormPage = () => {
               variant="contained"
               color="primary"
               style={{ height: '38px', width: '150px' }}
-              onClick={handleClickClearValue}>
+              onClick={handleClickClearValue}
+            >
               Очистить расчет
             </Button>
           </Box>
@@ -116,22 +123,14 @@ const CalculationFormPage = () => {
               <BoxForm name="Количество этажей" title="frame.number_of_floors" measure="шт" />
               <Box css={{ fontSize: 16, fontWeight: 700 }}>1 Этаж</Box>
               <BoxForm name="Высота этажа" title="frame.height_of_one_floor" measure="м" />
-              <BoxForm
-                name="Периметр внешних стен"
-                title="frame.perimeter_of_external_walls"
-                measure="м"
-              />
+              <BoxForm name="Периметр внешних стен" title="frame.perimeter_of_external_walls" measure="м" />
               <BoxForm name="Площадь основания" title="frame.base_area" measure="м2" />
               <BoxFormSelect
                 name="Толщина внешних стен"
                 title="frame.external_wall_thickness"
                 currency="externalWall"
               />
-              <BoxForm
-                name="Длина внутренних стен"
-                title="frame.internal_wall_length"
-                measure="м"
-              />
+              <BoxForm name="Длина внутренних стен" title="frame.internal_wall_length" measure="м" />
               <BoxFormSelect
                 name="Толщина внутренних стен"
                 title="frame.internal_wall_thickness"
@@ -145,16 +144,8 @@ const CalculationFormPage = () => {
                   title="frame.steam_waterproofing_external_walls"
                   currency="waterproofing"
                 />
-                <BoxFormSelect
-                  name="Ветрозащита"
-                  title="frame.windscreen_external_walls"
-                  currency="windscreen"
-                />
-                <BoxFormSelect
-                  name="Утеплитель"
-                  title="frame.insulation_external_walls"
-                  currency="insulation"
-                />
+                <BoxFormSelect name="Ветрозащита" title="frame.windscreen_external_walls" currency="windscreen" />
+                <BoxFormSelect name="Утеплитель" title="frame.insulation_external_walls" currency="insulation" />
                 <CustomAccordion title="Добавить расчет обшивки внутренних стен" className="mb-30">
                   <BoxFormSelect name="ОСБ" title="frame.OSB_for_interior_walls" currency="osb" />
                 </CustomAccordion>
