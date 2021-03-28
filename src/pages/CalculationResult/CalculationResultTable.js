@@ -24,6 +24,13 @@ const CalculationResultTable = ({ data }) => {
     return localTotal;
   }, [data]);
 
+  const materialTotal = useMemo(() => {
+    const localMaterialTotal = Object.values(total)
+      .reduce((fullTotal, categoryTotal) => fullTotal + categoryTotal, 0);
+
+    return +localMaterialTotal.toFixed(2);
+  }, [total]);
+
   return (
     <TableContainer className={classes.mb30}>
       <Table className={classes.table}>
@@ -61,7 +68,7 @@ const CalculationResultTable = ({ data }) => {
             <TableCell className={classes.td}><b>Итого стоимость материалов</b></TableCell>
             <TableCell className={classes.td} colSpan="3" />
             <TableCell align="center" className={classes.td}>
-              {Object.values(total).reduce((fullTotal, categoryTotal) => fullTotal + categoryTotal, 0)} руб.
+              {materialTotal} руб.
             </TableCell>
           </TableRow>
         </TableBody>

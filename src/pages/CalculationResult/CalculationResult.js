@@ -72,7 +72,7 @@ const CalculationResult = () => {
       <Box className={classes.calculationInfo}>
         <Typography variant="body1">Дата: {createdDate}</Typography>
         <Typography variant="body1" className={classes.address}>
-          Адрес объекта: <span className={classes.capitalize}>{calculation.adress_object_construction}</span>
+          Адрес объекта: <span>{calculation.adress_object_construction}</span>
         </Typography>
         <Typography variant="body1">Статус: {calculation.state_calculation}</Typography>
       </Box>
@@ -108,9 +108,6 @@ const useStyles = makeStyles(() => ({
   calculationInfo: {
     marginLeft: 10,
     marginBottom: 16,
-  },
-  capitalize: {
-    textTransform: 'capitalize',
   },
   title: {
     fontSize: 16,

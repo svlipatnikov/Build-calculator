@@ -18,8 +18,8 @@ const BoxFormSelect = ({ name, title, currency }) => {
       <Box css={{ fontSize: 16 }}>{name}</Box>
       <Box width={150}>
         <Box className={classes.selectWrapper}>
-          <select name={title} ref={register(propValidation)}>
-            <option value="" selected disabled hidden>&nbsp;</option>
+          <select name={title} ref={register(propValidation)} defaultValue="">
+            <option value="" hidden>&nbsp;</option>
             {currencies[currency].map((option) => (
               <option key={option.value} value={option.value}>
                 {option.value}
