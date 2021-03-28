@@ -66,7 +66,7 @@ const CalculationResult = () => {
       </Link>
 
       <Typography variant="h4" align="center">
-        Расчет
+        {`Расчет №${calcId}`}
       </Typography>
 
       <Box className={classes.calculationInfo}>
