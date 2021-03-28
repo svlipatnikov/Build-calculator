@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { setAuthFlag, setLoadingFlag, setError } from 'redux/actions/appStateAction';
+import { setAuthFlag, setLoadingFlag, setError, clearError } from 'redux/actions/appStateAction';
 import appStateReducer from '../appStateReducer';
 
 describe('appStateReducer', () => {
@@ -20,37 +20,60 @@ describe('appStateReducer', () => {
     expect(newState).toBeDefined();
   });
 
-  it('should return an new state Object', () => {
+  it('should return an Object', () => {
     expect(newState).toBeInstanceOf(Object);
   });
 
-  it('should return Object with isAuthenticated field', () => {
+  it('should return an Object with isAuthenticated field', () => {
     expect(newState.isAuthenticated).toBeDefined();
   });
 
-  it('should return Object with isLoading field', () => {
+  it('should return an Object with isLoading field', () => {
     expect(newState.isLoading).toBeDefined();
   });
 
-  it('should return Object with error object field', () => {
+  it('should return an Object with error object field', () => {
     expect(newState.error).toBeDefined();
     expect(newState.error).toBeInstanceOf(Object);
+  });
+
+  it('should retutn an error object with isError, isShown, statusCode, statusText field', () => {
+    expect(newState.error.isError).toBeDefined();
+    expect(newState.error.isShown).toBeDefined();
+    expect(newState.error.statusCode).toBeDefined();
+    expect(newState.error.statusText).toBeDefined();
   });
 });
 
 describe('setAuthFlag action', () => {
-  const action = setAuthFlag;
-
-  it('should set truthy isAuthenticated flag', () => {
-    const initState = { isAuthenticated: false };
-    const newState = appStateReducer(initState, action(true));
-    expect(newState.isAuthenticated).toBeTruthy;
+  it('should return truthy isAuthenticated flag when access_token is defined', () => {
+    const action = { type: '' };
+    localStorage.setItem('access_token', 'test data');
+    const initState = { isAuthenticated: !!localStorage.getItem('access_token') };
+    const newState = appStateReducer(initState, action);
+    expect(newState.isAuthenticated).toBeTruthy();
   });
 
-  it('should set truthy flasy isAuthenticated flag', () => {
+  it('should return falsy isAuthenticated flag when access_token is undefined', () => {
+    const action = { type: '' };
+    localStorage.removeItem('access_token');
+    const initState = { isAuthenticated: !!localStorage.getItem('access_token') };
+    const newState = appStateReducer(initState, action);
+    expect(newState.isAuthenticated).toBeFalsy();
+  });
+
+  it('should set truthy isAuthenticated flag', () => {
+    const action = setAuthFlag;
+    const initState = { isAuthenticated: false };
+    const newState = appStateReducer(initState, action(true));
+    expect(newState.isAuthenticated).toBeTruthy();
+  });
+
+  it('should set flasy isAuthenticated flag', () => {
+    const action = setAuthFlag;
     const initState = { isAuthenticated: true };
     const newState = appStateReducer(initState, action(false));
-    expect(newState.isAuthenticated).toBeFalsy;
+    expect(newState.isAuthenticated).toBeFalsy();
   });
 });
 
@@ -60,13 +83,13 @@ describe('setLoadingFlag action', () => {
   it('should set truthy isLoading flag', () => {
     const initState = { isLoading: false };
     const newState = appStateReducer(initState, action(true));
-    expect(newState.isLoading).toBeTruthy;
+    expect(newState.isLoading).toBeTruthy();
   });
 
-  it('should set truthy flasy isLoading flag', () => {
+  it('should set flasy isLoading flag', () => {
     const initState = { isLoading: true };
     const newState = appStateReducer(initState, action(false));
-    expect(newState.isLoading).toBeFalsy;
+    expect(newState.isLoading).toBeFalsy();
   });
 });
 
@@ -74,27 +97,19 @@ describe('setError action', () => {
   const action = setError;
   const initState = {};
 
-  it('should have isError, isShown, statusCode, statusText field', () => {
-    const newState = appStateReducer(initState, action(123, 'test', false));
-    expect(newState.error.isError).toBeDefined();
-    expect(newState.error.isShown).toBeDefined();
-    expect(newState.error.statusCode).toBeDefined();
-    expect(newState.error.statusText).toBeDefined();
-  });
-
-  it('should always return isError truthy state', () => {
+  it('should always return isError flag in truthy state', () => {
     const newState = appStateReducer(initState, action(456, 'test2', false));
-    expect(newState.error.isError).toBeTruthy;
+    expect(newState.error.isError).toBeTruthy();
   });
 
-  it('should return default isShown truthy state', () => {
+  it('should return isShown flag in truthy state by default', () => {
     const newState = appStateReducer(initState, action(789, 'test3'));
-    expect(newState.error.isShown).toBeTruthy;
+    expect(newState.error.isShown).toBeTruthy();
   });
 
-  it('should return redefined isShown to flasy state', () => {
+  it('should redefined isShown flag to flasy state', () => {
     const newState = appStateReducer(initState, action(789, 'test3', false));
-    expect(newState.error.isShown).toBeFalsy;
+    expect(newState.error.isShown).toBeFalsy();
   });
 
   it('should return expected statusCode value', () => {
@@ -105,5 +120,19 @@ describe('setError action', () => {
   it('should return expected statusText value', () => {
     const newState = appStateReducer(initState, action(4, 'test status text'));
     expect(newState.error.statusText).toBe('test status text');
+  });
+});
+
+describe('clearError action', () => {
+  const action = clearError;
+
+  it('should always set isError flag to flasy state', () => {
+    const initState = {
+      error: {
+        isError: true,
+      },
+    };
+    const newState = appStateReducer(initState, action());
+    expect(newState.error.isError).toBeFalsy();
   });
 });
