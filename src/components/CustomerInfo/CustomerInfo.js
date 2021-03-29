@@ -59,7 +59,7 @@ const CustomerInfo = ({ open, setOpen, customerData }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <form onSubmit={handleSubmit(editable ? handleSave : handleEdit)} noValidate>
+      <form onSubmit={handleSubmit(handleSave)} noValidate>
         <DialogTitle id="form-dialog-title">Информация о клиенте</DialogTitle>
 
         <DialogContent>
@@ -83,9 +83,15 @@ const CustomerInfo = ({ open, setOpen, customerData }) => {
         </DialogContent>
 
         <Box display="flex" flexDirection="row-reverse" justifyContent="space-between" m={1}>
-          <Button type="submit" variant="contained" color="primary" className={classes.btn}>
-            {editable ? 'Сохранить' : 'Редактировать'}
-          </Button>
+          {editable ? (
+            <Button type="submit" variant="contained" color="primary" className={classes.btn}>
+              Сохранить
+            </Button>
+          ) : (
+            <Button onClick={handleEdit} variant="contained" color="primary" className={classes.btn}>
+              Редактировать
+            </Button>
+          )}
 
           {!isNew && editable && (
             <Button onClick={handleRemove} variant="contained" color="primary" className={classes.btn}>
